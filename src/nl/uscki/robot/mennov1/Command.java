@@ -1,5 +1,7 @@
 package nl.uscki.robot.mennov1;
 
-public interface Command {
-	public int execute();
+public abstract class Command {
+	
+	public abstract int execute(String [] args);
+	public abstract String helpMsg();
 }
