@@ -1,7 +1,5 @@
 package bots;
 
 public interface Bot {
-
-	public String ask(String input);
-	
+	public abstract String ask(String input);
 }
