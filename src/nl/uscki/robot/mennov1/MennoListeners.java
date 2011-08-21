@@ -31,10 +31,10 @@ public class MennoListeners{
 				// Wha-ever dude
 			} else if(input.startsWith("count")) {
 				System.out.println("Er zijn op dit moment " + listenerBots.size() + " scripts geladen.");
-			}
-			
-			for(Bot listener : listenerBots.values()){
-				System.out.println(listener.ask(input));
+			} else {			
+				for(Bot listener : listenerBots.values()){
+					System.out.println(listener.ask(input));
+				}
 			}
 		}
 	}
