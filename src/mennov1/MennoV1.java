@@ -100,13 +100,18 @@ public class MennoV1 {
 				output = new String[listenerBots.size()];
 			int i=0;
 			for(Bot listener : listenerBots.values()){
-				output[i++] = listener.getClass().getSimpleName() +": "+(listener.ask(readLine, user));
-				if(output[i-1] != "")
-					emptyOutput = false;
+				
+				String response = listener.ask(readLine, user);
+				if(null != response){
+					output[i++] = listener.getClass().getSimpleName() +": "+response;
+					if(output[i-1] != "")
+						emptyOutput = false;
+					
+				}
 			}
 			// If all the bots didn't return output, create a nice message telling the user exactly that.
-			if(emptyOutput)
-				output[0] = "No output was returned by the bots for your input";
+			//if(emptyOutput)
+			//	output[0] = "No output was returned by the bots for your input";
 			
 			return output;
 		}
