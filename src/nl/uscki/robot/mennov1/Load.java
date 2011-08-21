@@ -5,28 +5,25 @@ import bots.*;
 public class Load extends Command {
 	
 	@Override
-	public int execute(String [] args) {
-		System.out.println("Woei, in load!");
+	public String execute(String [] args) {
 		String s=args[1];
 		
 		Class cls = null;
 		Bot obj = null;
 		try {
 			cls = Class.forName("bots."+s);
-			obj= (Bot)cls.newInstance();
+			obj = (Bot)cls.newInstance();
 			MennoV1.master.listenerBots.put(obj.getClass().getSimpleName(),obj);
-			System.out.println("Bot " + s+ " has been loaded");
+			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Invalid bot.");
+			return("Invalid bot.");
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		
-		 
-		
-		return 0;
+		return("Invalid bot.");
 	}
 
 	@Override

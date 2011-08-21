@@ -3,9 +3,8 @@ package nl.uscki.robot.mennov1;
 public class Unload extends Command {
 	
 	@Override
-	public int execute(String [] args) {
-		System.out.println("Woei, in unload!");
-		return 0; //
+	public String execute(String [] args) {
+		return("Woei, in unload!");
 	}
 
 	@Override
