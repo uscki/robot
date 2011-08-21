@@ -1,4 +1,4 @@
-package nl.uscki.robot.mennov1;
+package mennov1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,19 +6,22 @@ import java.io.InputStreamReader;
 
 import bots.Bot;
 
+/**
+ * 
+ * @author Jetze Baumfalk, Vincent Tunru
+ * @category Framework
+ * 
+ * A basic terminal that can be used to communicate with MennoV1.
+ */
 public class MennoV1Terminal {
 	
-	MennoV1 master;
 
 	MennoV1Terminal() {
-		if(MennoV1.master == null)
-			MennoV1.master = new MennoV1();
-		master = MennoV1.master;
 		run();
 	}
 	
 	public static void main(String [] args) {
-		MennoV1Terminal temp = new MennoV1Terminal();
+		new MennoV1Terminal();
 	}
 	
 	private void welcomeMessage() {
@@ -34,7 +37,10 @@ public class MennoV1Terminal {
 			try {
 				BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 				String readLine = buffy.readLine();
-				master.parseArguments(readLine);
+				String [] outputs = MennoV1.getInstance().parseArguments(readLine);
+				for(String s : outputs) {
+					System.out.println(s);
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("O noes, an error occured!");

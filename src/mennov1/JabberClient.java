@@ -1,44 +1,49 @@
-package nl.uscki.robot.mennov1;
-
-import jabber.SmackTest.MessageParrot;
+package mennov1;
 
 import java.io.IOException;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.PacketCollector;
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.filter.AndFilter;
+import org.jivesoftware.smack.filter.FromContainsFilter;
+import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 
-import bots.Bot;
+
+/**
+ * 
+ * @author Jetze Baumfalk, Benno Kruit
+ * @category Framework
+ *
+ * A basic implementation of a Jabber Client which can communicate with MennoV1.
+ */
 
 public class JabberClient {
 
-	private static String mypartner;
-	
-	static MennoV1 master;
+	private ChatManager chatmanager;
 	
 	private JabberClient() {
-
-		if(MennoV1.master == null)
-			MennoV1.master = new MennoV1();
-		master = MennoV1.master;
 		run();
 	}
 	
 	
 	public void run() {
-		mypartner = "j.t.baumfalk@gmail.com";
-
 		System.out.println("Starting IM client");
 
 		// gtalk requires this or your messages bounce back as errors
 		XMPPConnection connection = new XMPPConnection("gmail.com");
 
+		// try to connect to the gmail service.
 		try {
 			connection.connect();
 			System.out.println("Connected to " + connection.getHost());
@@ -47,43 +52,40 @@ public class JabberClient {
 			System.out.println("Failed to connect to " + connection.getHost());
 			System.exit(1);
 		}
+		
+		// try to log in.
 		try {
 			connection.login("mennov1@vinnl.nl", "appelflap");
 			System.out.println("Logged in as " + connection.getUser());
 
+			// set our presence as available.
 			Presence presence = new Presence(Presence.Type.available);
 			connection.sendPacket(presence);
 
-			// Get the user's roster
+			// Get the user's contact roster
 			Roster roster = connection.getRoster();
 
 			// Print the number of contacts
 			System.out.println("Number of contacts: " + roster.getEntryCount());
 
-			// Enumerate all contacts in the user's roster
-			for (RosterEntry entry : roster.getEntries())
-			{
+			// Enumerate all contacts in the user's contact roster
+			for (RosterEntry entry : roster.getEntries()) {
 				System.out.println(entry.getName() + ": " + (roster.getPresences(entry.getUser()).next().isAvailable()?"on":"off") + "line ["+entry.getUser()+"]");
 			}
 
+			 // Accept only messages from HQ
+			PacketFilter filter   = new AndFilter(new PacketTypeFilter(Message.class));
+		 
+		    // Register the listener.
+		    connection.addPacketListener(myListener, null);
+			
 		} catch (XMPPException ex) {
 			//ex.printStackTrace();
 			System.out.println("Failed to log in as " + connection.getUser());
 			System.exit(1);
 		}
 
-		ChatManager chatmanager = connection.getChatManager();
-		Chat chat = chatmanager.createChat(mypartner, new MessageParrot());
-
-		try {
-			// google bounces back the default message types, you must use chat
-			Message msg = new Message(mypartner, Message.Type.chat);
-			msg.setBody("Dag, mooie jongen!");
-			chat.sendMessage(msg);
-		} catch (XMPPException e) {
-			System.out.println("Failed to send message");
-			// handle this how?
-		}
+		chatmanager = connection.getChatManager();
 
 		System.out.println("Press enter to disconnect");
 
@@ -96,30 +98,39 @@ public class JabberClient {
 		connection.disconnect();  
 		System.out.println("Disconnected");
 	}
+	
+	
 	public static void main( String[] args ) {
 		JabberClient temp = new JabberClient();
 	}
+	
+	
+PacketListener myListener = new PacketListener() {
+	public void processPacket(Packet packet) {
+		if (packet instanceof Message) {
+			Message msg = (Message) packet;
+			Chat chat = chatmanager.createChat(msg.getFrom(), new MessageParrot());
+		}
+	}
+};
 	
 	public static class MessageParrot implements MessageListener {
 
 		// gtalk seems to refuse non-chat messages
 		// messages without bodies seem to be caused by things like typing
 		public void processMessage(Chat chat, Message message) {
-			Message msg = new Message(mypartner, Message.Type.chat);
-			
 			if(message.getType().equals(Message.Type.chat) && message.getBody() != null) {
 				String body = message.getBody();
-				String [] outputs = master.parseArguments(body);
-				System.out.println("Received: " + body);
+				String [] outputs = MennoV1.getInstance().parseArguments(body);
+				System.out.println(message.getFrom() + ": " +body);
 				try {
 					StringBuilder builder = new StringBuilder();
 					for(String s : outputs) {
 						builder.append(s);
 					}
 					String output = builder.toString();
-					msg.setBody(output);
 					System.out.println("Sent: " + output);
-					chat.sendMessage(msg);
+					chat.sendMessage(output);
 				} catch (XMPPException ex) {
 					//ex.printStackTrace();
 					System.out.println("Failed to send message");
