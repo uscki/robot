@@ -5,6 +5,7 @@ import java.util.HashMap;
 import commands.Command;
 import commands.Count;
 import commands.Load;
+import commands.Time;
 import commands.Unload;
 
 import bots.Bot;
@@ -50,6 +51,7 @@ public class MennoV1 {
 		commands.put(Load.class.getSimpleName(), new Load());
 		commands.put(Unload.class.getSimpleName(), new Unload());
 		commands.put(Count.class.getSimpleName(), new Count());
+		commands.put(Time.class.getSimpleName(), new Time());
 		commands.put("Help", new Command() {
 			
 			@Override

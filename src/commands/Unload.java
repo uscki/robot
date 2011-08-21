@@ -27,7 +27,7 @@ public class Unload extends Command {
 	@Override
 	public String helpMsg() {
 		// TODO Auto-generated method stub
-		return "unloads a certain modue";
+		return "unloads a certain module";
 	}
 
 }
