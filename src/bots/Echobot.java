@@ -9,7 +9,7 @@ package bots;
  */
 public class Echobot implements Bot{
 
-	public String ask(String input) {
+	public String ask(String input, String user) {
 		return input;
 	}
 }

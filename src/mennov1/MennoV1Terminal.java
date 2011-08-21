@@ -37,7 +37,7 @@ public class MennoV1Terminal {
 			try {
 				BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 				String readLine = buffy.readLine();
-				String [] outputs = MennoV1.getInstance().parseArguments(readLine);
+				String [] outputs = MennoV1.getInstance().parseArguments(readLine, System.getProperty("user.name"));
 				for(String s : outputs) {
 					System.out.println(s);
 				}

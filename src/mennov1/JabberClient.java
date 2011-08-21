@@ -121,7 +121,7 @@ PacketListener myListener = new PacketListener() {
 		public void processMessage(Chat chat, Message message) {
 			if(message.getType().equals(Message.Type.chat) && message.getBody() != null) {
 				String body = message.getBody();
-				String [] outputs = MennoV1.getInstance().parseArguments(body);
+				String [] outputs = MennoV1.getInstance().parseArguments(body, message.getFrom());
 				System.out.println(message.getFrom() + ": " +body);
 				try {
 					StringBuilder builder = new StringBuilder();

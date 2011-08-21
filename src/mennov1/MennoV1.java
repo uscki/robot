@@ -82,7 +82,7 @@ public class MennoV1 {
 	 * @param readLine 	The input given by the user
 	 * @return The output from either a command or all the bots currently running.
 	 */
-	public String [] parseArguments(String readLine) {
+	public String [] parseArguments(String readLine, String user) {
 		
 		String [] args = readLine.split(" "); 
 		String [] output = new String[1];
@@ -100,7 +100,7 @@ public class MennoV1 {
 				output = new String[listenerBots.size()];
 			int i=0;
 			for(Bot listener : listenerBots.values()){
-				output[i++] = listener.getClass().getSimpleName() +": "+(listener.ask(readLine));
+				output[i++] = listener.getClass().getSimpleName() +": "+(listener.ask(readLine, user));
 				if(output[i-1] != "")
 					emptyOutput = false;
 			}
