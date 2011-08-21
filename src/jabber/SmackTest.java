@@ -1,5 +1,4 @@
 package jabber;
-import WieIsHet;
 
 import java.io.IOException;
 import java.util.*;
@@ -9,7 +8,6 @@ import org.jivesoftware.smack.packet.*;
 public class SmackTest {
 
 	private static String mypartner;
-	private static WieIsHet wie_is_het;
 
 	public static class MessageParrot implements MessageListener {
 
@@ -24,7 +22,7 @@ public class SmackTest {
 				String body = message.getBody();
 				System.out.println("Received: " + body);
 				try {
-					String output = wie_is_het.dialog(body);
+					String output = "Je moeder is " + body;
 					msg.setBody(output);
 					System.out.println("Sent: " + output);
 					chat.sendMessage(msg);
@@ -40,10 +38,7 @@ public class SmackTest {
 
 
 	public static void main( String[] args ) {
-		
-		wie_is_het = new WieIsHet();
-		
-		mypartner = "bennokr@gmail.com";
+		mypartner = "j.t.baumfalk@gmail.com";
 
 		System.out.println("Starting IM client");
 
@@ -59,7 +54,7 @@ public class SmackTest {
 			System.exit(1);
 		}
 		try {
-			connection.login("bennokr.commands@gmail.com", "bboysrule");
+			connection.login("mennov1@vinnl.nl", "appelflap");
 			System.out.println("Logged in as " + connection.getUser());
 
 			Presence presence = new Presence(Presence.Type.available);
@@ -89,7 +84,7 @@ public class SmackTest {
 		try {
 			// google bounces back the default message types, you must use chat
 			Message msg = new Message(mypartner, Message.Type.chat);
-			msg.setBody(wie_is_het.start());
+			msg.setBody("Dag, mooie jongen!");
 			chat.sendMessage(msg);
 		} catch (XMPPException e) {
 			System.out.println("Failed to send message");

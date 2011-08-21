@@ -12,20 +12,27 @@ public class MennoV1 {
 	HashMap <String,Command> commands;
 	HashMap<String, Bot> listenerBots;
 	static MennoV1 master;
+	
+	
+	public MennoV1() {
+		init();
+	}
+	
 	private void init() {
 		commands = new HashMap<String, Command>();
 		commands.put(Load.class.getSimpleName(), new Load());
 		commands.put(Unload.class.getSimpleName(), new Unload());
 		commands.put(Count.class.getSimpleName(), new Count());
-		commands.put("help", new Command() {
+		commands.put("Help", new Command() {
 			
 			@Override
-			public int execute(String[] args) {
+			public String execute(String[] args) {
+				StringBuilder aap = new StringBuilder();
 				for(Command command : commands.values()) {
-					System.out.println(command.helpMsg());
+					aap.append(command.helpMsg());
 				}
 				
-				return 0;
+				return aap.toString();
 			}
 
 			@Override
@@ -39,17 +46,28 @@ public class MennoV1 {
 		listenerBots = new HashMap<String, Bot>();
 	}
 	
-	private void welcomeMessage() {
-		System.out.println("Welcome to MennoV1.");
-		System.out.println("Type help for a list of commands");
-		System.out.println("Type exit to quit everything!");
+	public String [] parseArguments(String readLine) {
+		String [] args = readLine.split(" ");
+		String [] output = null;
+		if(commands.containsKey(args[0]))
+		{
+			output = new String[1];
+			output[0] = commands.get(args[0]).execute(args);
+			return output;
+		}
 		
+		else {
+			output = new String[listenerBots.size()];
+			int i=0;
+			for(Bot listener : listenerBots.values()){
+				output[i++] = (listener.ask(readLine));
+			}
+			
+			return output;
+		}
 	}
 	
-	public void run() {
-		init();
-		welcomeMessage();
-		
+	/*public void run() {
 		BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 		
 		//hier de loop
@@ -57,7 +75,6 @@ public class MennoV1 {
 			try {
 				String readLine = buffy.readLine();
 				String [] args = readLine.split(" ");
-				
 				if(commands.containsKey(args[0]) )
 					commands.get(args[0]).execute(args);
 				else {
@@ -65,7 +82,6 @@ public class MennoV1 {
 						System.out.println(listener.ask(readLine));
 					}
 				}
-					
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("O noes, an error occured!");
@@ -75,11 +91,5 @@ public class MennoV1 {
 				//System.out.println("In the end, it doesn't even matter");
 			}
 		}
-	}
-	
-	public static void main(String [] args) {
-		master = new MennoV1();
-		System.out.println("Starting up the bot");
-		master.run();
-	}
+	}*/
 }

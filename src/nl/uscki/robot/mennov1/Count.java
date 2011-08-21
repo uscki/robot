@@ -3,9 +3,8 @@ package nl.uscki.robot.mennov1;
 public class Count extends Command {
 
 	@Override
-	public int execute(String[] args) {
-		System.out.println("There are currently " + MennoV1.master.listenerBots.size() + "bot(s) loaded.");
-		return 0;
+	public String execute(String[] args) {
+		return("There are currently " + MennoV1.master.listenerBots.size() + " bot(s) loaded.");
 	}
 
 	@Override
