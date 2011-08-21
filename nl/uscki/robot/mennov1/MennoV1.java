@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 
 public class MennoV1 {
 	
-	
 	public static void main(String [] args) {
 		System.out.println("Welcome to MennoV1.");
 		System.out.println("Type help for a list of commands");
@@ -29,7 +28,10 @@ public class MennoV1 {
 				System.out.println("Cleaning up the mess.");
 			}
 		}
-		
+	}
+	
+	private void exit() {
 		
 	}
+	
 }
