@@ -1,6 +1,4 @@
-package nl.uscki.robot.mennov1;
-
-import jabber.SmackTest.MessageParrot;
+package mennov1;
 
 import java.io.IOException;
 
@@ -14,19 +12,21 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
 
-import bots.Bot;
+
+/**
+ * 
+ * @author Jetze Baumfalk, Benno Kruit
+ * @category Framework
+ *
+ * A basic implementation of a Jabber Client which can communicate with MennoV1.
+ */
 
 public class JabberClient {
 
 	private static String mypartner;
 	
-	static MennoV1 master;
 	
 	private JabberClient() {
-
-		if(MennoV1.master == null)
-			MennoV1.master = new MennoV1();
-		master = MennoV1.master;
 		run();
 	}
 	
@@ -109,7 +109,7 @@ public class JabberClient {
 			
 			if(message.getType().equals(Message.Type.chat) && message.getBody() != null) {
 				String body = message.getBody();
-				String [] outputs = master.parseArguments(body);
+				String [] outputs = MennoV1.getInstance().parseArguments(body);
 				System.out.println("Received: " + body);
 				try {
 					StringBuilder builder = new StringBuilder();
