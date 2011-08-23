@@ -13,15 +13,15 @@ import bots.Bot;
  * 
  * A basic terminal that can be used to communicate with MennoV1.
  */
-public class MennoV1Terminal {
+public class TerminalClient {
 	
 
-	MennoV1Terminal() {
+	TerminalClient() {
 		run();
 	}
 	
 	public static void main(String [] args) {
-		new MennoV1Terminal();
+		new TerminalClient();
 	}
 	
 	private void welcomeMessage() {

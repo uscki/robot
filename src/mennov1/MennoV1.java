@@ -18,7 +18,7 @@ import bots.Bot;
  * 
  * This class is the core class of the Robot Framework.
  * It can execute commands and load/unload bots. Commands can be given to this class
- * by using either JabberClient or MennoV1Terminal.
+ * by using any of the Menno V1-clients.
  *
  */
 public class MennoV1 {
