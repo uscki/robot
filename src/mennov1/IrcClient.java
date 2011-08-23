@@ -30,5 +30,18 @@ public class IrcClient extends PircBot {
 			sendMessage(channel, s);
 		}
 	}
+	
+	protected void onPrivateMessage(String sender, String login,
+			String hostname, String message) {
+		System.out.println("Received private message from " + sender + ": " + message);
+		String[] outputs = MennoV1.getInstance().parseArguments(message, sender);
+		for(String s : outputs) {
+			if(null == s){
+				continue;
+			}
+			System.out.println("Sent message: " + s);
+			sendMessage(sender, s);
+		}
+	}
 
 }
