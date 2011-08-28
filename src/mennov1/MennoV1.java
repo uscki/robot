@@ -58,7 +58,9 @@ public class MennoV1 {
 			public String execute(String[] args) {
 				StringBuilder aap = new StringBuilder();
 				for(Command command : commands.values()) {
-					aap.append(command.getClass().getSimpleName()+": "+command.helpMsg());
+					if(command.getClass().getSimpleName().length()>0)
+						aap.append(command.getClass().getSimpleName()+": ");
+					aap.append(command.helpMsg()+"\r\n");
 				}
 				
 				return aap.toString();
@@ -67,7 +69,7 @@ public class MennoV1 {
 			@Override
 			public String helpMsg() {
 				// TODO Auto-generated method stub
-				return "help : displays this message";
+				return "Help : displays this message";
 			}
 		}
 		);
@@ -87,10 +89,11 @@ public class MennoV1 {
 		String [] args = readLine.split(" "); 
 		String [] output = new String[1];
 		
+		String capitalized = args[0].substring(0, 1).toUpperCase() + args[0].substring(1).toLowerCase();
 		// is it a command?
-		if(commands.containsKey(args[0]))
+		if(commands.containsKey(capitalized))
 		{
-			output[0] = commands.get(args[0]).execute(args);
+			output[0] = commands.get(capitalized).execute(args);
 			return output;
 		}
 		//Feed the input to all the bots
