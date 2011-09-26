@@ -33,7 +33,7 @@ public class Load extends Command {
 			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) { // The bot didn't exist
 			return("Invalid bot.");
-		} catch(NoClassDefFoundError e) {
+		} catch(NoClassDefFoundError e) {	// Error while instantiatin' class.
 			return("Invalid bot.");
 		}
 		catch (InstantiationException e) { // Someone tried to load 'Bot'
