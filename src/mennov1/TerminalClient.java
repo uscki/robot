@@ -20,7 +20,8 @@ public class TerminalClient implements Runnable{
 	}
 	
 	public static void main(String [] args) {
-		new TerminalClient();
+		TerminalClient client = new TerminalClient();
+		client.runClient();
 	}
 	
 	private void welcomeMessage() {

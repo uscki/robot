@@ -101,6 +101,7 @@ public class JabberClient implements Runnable{
 	
 	public static void main( String[] args ) {
 		JabberClient temp = new JabberClient();
+		temp.runClient();
 	}
 	
 	
@@ -125,11 +126,12 @@ PacketListener myListener = new PacketListener() {
 				try {
 					StringBuilder builder = new StringBuilder();
 					for(String s : outputs) {
-						builder.append(s);
+						if(null == s){
+							continue;
+						}
+						System.out.println("Sent: " + s);
+						chat.sendMessage(s);
 					}
-					String output = builder.toString();
-					System.out.println("Sent: " + output);
-					chat.sendMessage(output);
 				} catch (XMPPException ex) {
 					//ex.printStackTrace();
 					System.out.println("Failed to send message");

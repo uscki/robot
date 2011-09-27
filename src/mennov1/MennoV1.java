@@ -58,8 +58,8 @@ public class MennoV1 {
 			public String execute(String[] args) {
 				StringBuilder aap = new StringBuilder();
 				for(Command command : commands.values()) {
-					if(command.getClass().getSimpleName().length()>0)
-						aap.append(command.getClass().getSimpleName()+": ");
+//					if(command.getClass().getSimpleName().length()>0)
+//						aap.append(command.getClass().getSimpleName()+": ");
 					aap.append(command.helpMsg()+"\r\n");
 				}
 				
@@ -106,7 +106,9 @@ public class MennoV1 {
 				
 				String response = listener.ask(readLine, user);
 				if(null != response){
-					output[i++] = listener.getClass().getSimpleName() +": "+response;
+					output[i++] = 
+//							listener.getClass().getSimpleName() +": "+
+							response;
 					if(output[i-1] != "")
 						emptyOutput = false;
 					
