@@ -32,7 +32,7 @@ public class Twitterbot implements Bot {
 	public String ask(String input, String user) {
 
 		try {
-			Status status = twitter.updateStatus("\""+input+"\" by " + user);
+			Status status = twitter.updateStatus("\""+input+"\"");
 			System.out.println("Successfully updated the status to [" + status.getText() + "].");
 		} catch (TwitterException e) {
 			
