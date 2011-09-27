@@ -1,8 +1,10 @@
 package mennov1;
 
+import java.io.IOException;
+
 import org.jibble.pircbot.*;
 
-public class IrcClient extends PircBot {
+public class IrcClient extends PircBot implements Runnable {
 
 	/**
 	 * @param args
@@ -42,6 +44,26 @@ public class IrcClient extends PircBot {
 			System.out.println("Sent message: " + s);
 			sendMessage(sender, s);
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		IrcClient bot = new IrcClient();
+		
+		try {
+			bot.connect("irc.enterthegame.com");
+		} catch (NickAlreadyInUseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IrcException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bot.joinChannel("#incognito");
 	}
 
 }

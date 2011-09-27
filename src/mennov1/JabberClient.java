@@ -28,16 +28,15 @@ import org.jivesoftware.smack.packet.Presence;
  * A basic implementation of a Jabber Client which can communicate with MennoV1.
  */
 
-public class JabberClient {
+public class JabberClient implements Runnable{
 
 	private ChatManager chatmanager;
 	
-	private JabberClient() {
-		run();
+	public JabberClient() {
 	}
 	
 	
-	public void run() {
+	public void runClient() {
 		System.out.println("Starting IM client");
 
 		// gtalk requires this or your messages bounce back as errors
@@ -139,6 +138,12 @@ PacketListener myListener = new PacketListener() {
 				System.out.println("I got a message I didn\'t understand");
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		runClient();
 	}
 
 }

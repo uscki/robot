@@ -13,11 +13,10 @@ import bots.Bot;
  * 
  * A basic terminal that can be used to communicate with MennoV1.
  */
-public class TerminalClient {
+public class TerminalClient implements Runnable{
 	
 
 	TerminalClient() {
-		run();
 	}
 	
 	public static void main(String [] args) {
@@ -31,7 +30,7 @@ public class TerminalClient {
 		
 	}
 	
-	public void run() {
+	public void runClient() {
 		welcomeMessage();
 		while(true) {
 			try {
@@ -53,5 +52,11 @@ public class TerminalClient {
 				//System.out.println("In the end, it doesn't even matter");
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		runClient();
 	}
 }
