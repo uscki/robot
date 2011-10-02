@@ -1,7 +1,12 @@
 package commands;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+
 import mennov1.MennoV1;
-import bots.*;
+import bots.Bot;
 
 /**
  * 
@@ -15,19 +20,25 @@ public class Load extends Command {
 	public String execute(String [] args) {
 		
 		String s = null;
-		try
-		{
-			s=args[1];
-		}
-		catch(ArrayIndexOutOfBoundsException e) {
+		if(args.length <= 1)
 			return "You need to supply the bot that needs to be loaded";
-		}
+		s=args[1];
+		
 		
 		//O no, a very ugly hack to load random bots.
 		Class cls = null;
 		Bot obj = null;
 		try {
-			cls = Class.forName("bots."+s);
+			
+			if(args.length == 2)
+				cls = Class.forName("bots."+s);
+			else { //dynamisch iets laden
+					File file = new File(args[2]); 
+					URL url = file.toURI().toURL(); 
+				    URL[] urls = new URL[]{url};
+				    ClassLoader cl = new URLClassLoader(urls);
+				    cls = cl.loadClass(s);
+			}
 			obj = (Bot)cls.newInstance();
 			MennoV1.getInstance().listenerBots.put(obj.getClass().getSimpleName(),obj);
 			return ("Bot " + s+ " has been loaded");
@@ -40,6 +51,9 @@ public class Load extends Command {
 			return "Invalid bot.";
 		} catch (IllegalAccessException e) { // Not sure yet.
 			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return("Invalid bot.");
@@ -48,7 +62,7 @@ public class Load extends Command {
 	@Override
 	public String helpMsg() {
 		// TODO Auto-generated method stub
-		return " %modulename%: loads a certain modules";
+		return " %modulename%: loads a certain modules\t [%location%]: the location of the module (.class file)";
 	}
 
 }
