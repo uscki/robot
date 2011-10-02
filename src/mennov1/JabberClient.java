@@ -49,7 +49,6 @@ public class JabberClient implements Runnable{
 		} catch (XMPPException ex) {
 			//ex.printStackTrace();
 			System.out.println("Failed to connect to " + connection.getHost());
-			System.exit(1);
 		}
 		
 		// try to log in.

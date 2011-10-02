@@ -9,10 +9,20 @@ public class IrcClient extends PircBot implements Runnable {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args){
 		IrcClient bot = new IrcClient();
-		
-		bot.connect("irc.enterthegame.com");
+		try {
+			bot.connect("irc.enterthegame.com");
+		} catch (NickAlreadyInUseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IrcException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		bot.joinChannel("#incognito");
 	}
 	

@@ -33,11 +33,14 @@ public class Load extends Command {
 			if(args.length == 2)
 				cls = Class.forName("bots."+s);
 			else { //dynamisch iets laden
-					File file = new File(args[2]); 
-					URL url = file.toURI().toURL(); 
-				    URL[] urls = new URL[]{url};
-				    ClassLoader cl = new URLClassLoader(urls);
-				    cls = cl.loadClass(s);
+				// bron: http://www.exampledepot.com/egs/java.lang/LoadClass.html)
+				// werkt zowel voor absolute als relatieve paths
+				// TODO: checken voor unix-based systemen.
+				File file = new File(args[2]); 
+				URL url = file.toURI().toURL(); 
+			    URL[] urls = new URL[]{url};
+			    ClassLoader cl = new URLClassLoader(urls);
+			    cls = cl.loadClass(s);
 			}
 			obj = (Bot)cls.newInstance();
 			MennoV1.getInstance().listenerBots.put(obj.getClass().getSimpleName(),obj);
