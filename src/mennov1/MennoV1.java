@@ -2,6 +2,8 @@ package mennov1;
 
 import java.util.HashMap;
 
+import lib.SewerSender;
+
 import commands.Command;
 import commands.Count;
 import commands.Load;
@@ -86,6 +88,7 @@ public class MennoV1 {
 	 */
 	public String [] parseArguments(String readLine, String user) {
 		
+		SewerSender.logMessage("Received message from " + user + ": " + readLine);
 		String [] args = readLine.split(" "); 
 		String [] output = new String[1];
 		
@@ -109,6 +112,7 @@ public class MennoV1 {
 					output[i++] = 
 //							listener.getClass().getSimpleName() +": "+
 							response;
+					SewerSender.logMessage("Sent message: " + response);
 					if(output[i-1] != "")
 						emptyOutput = false;
 					
