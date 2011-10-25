@@ -1,4 +1,12 @@
-Readme Incognito Robot
+
+Inhoud
+
+ - Werken met Eclipse
+ - De huidige structuur van de robot
+ - Zelf bots schrijven
+ - Processing aan de praat krijgen
+ 
+ == Werken met Eclipse ==
 
 Jars toevoegen
 1. RMB op lib/*.jar -> Build Path -> Add To BuildPath
@@ -23,5 +31,20 @@ Vanaf dat moment krijgt Hogerlager alle berichten die je (in dit geval) in de te
 Zeg je nu "Zullen we hoger lager spelen?", dan reageert de bot hierop. 
 De interface van bots zoals Hogerlager is te vinden in Bot.java. 
 
-Processing aan de praat krijgen: een handleiding.
+== Zelf een bot schrijven ==
+
+Een bot is een klasse in de package bot, die de interface Bot implementeert.
+De vereiste methoden zijn:
+
+ - ask
+   Deze methode wordt aangeroepen wanneer de gebruiker praat met Menno (via IRC, de terminal, whatever...). Wat jij,
+   als botschrijver, moet doen, is iets leuks met de input die je krijgt (de string die de gebruiker heeft gegeven,
+   en de naam waarmee de gebruiker bij die interface bekend is). Als je er iets mee wil doen en dat aan de gebruiker
+   wil laten weten, return je een string. Deze wordt dan doorgegeven aan de gebruiker. Als je niets wil doen, of gewoon
+   niets te melden hebt aan de gebruiker, return dan null.
+
+Dat was het!
+   
+== Processing aan de praat krijgen ==
+
 MAAK VAN TEST EEN SOURCEFOLDER!!!1!
