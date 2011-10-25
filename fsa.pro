@@ -15,11 +15,11 @@ step(User, CurrentState, Input, Output, NextState) :-
 	(CurrentState :~ (_, User:Transitions)),
 		% Given Input, there's a transition to NextState saying TransOut
 	member(  (InputParse ~> NextState : TransParse), Transitions),
-	phrase(InputParse, InputList, []),
-	phrase(TransParse, TransOut, NextOut),
+	phrase(InputParse, InputList, []), % herkent
+	phrase(TransParse, TransOut, NextOut), % genereert
 		% There's a state NextState saying NextOut
 	(NextState :~ (NextParse, User:_)),
-	phrase(NextParse, NextOut, []),
+	phrase(NextParse, NextOut, []), % genereert
 		% Concatenation of the difference-list
 	words_concat(TransOut, Output).
 

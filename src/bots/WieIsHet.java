@@ -53,7 +53,7 @@ public class WieIsHet implements Bot {
 			Hashtable out = new Query(q).oneSolution();
 			if (out == null) {
 				System.err.println("Prolog: No solutions to "+ q);
-				return null;
+				return "Huh ik snap het niet";
 			}
 			state = out.get("Nextstate").toString();
 			return out.get("Output").toString().substring(1,out.get("Output").toString().length()-1);

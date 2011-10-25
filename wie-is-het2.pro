@@ -14,11 +14,11 @@ question(QNr, Sub) -->
 	{ question(QNr, Verb, Predicate) },
 	[Verb], [Sub], Predicate, ['?'].
 
-question_unknown(QNr) -->
+question_unknown(User, QNr) -->
 	{ .(_,_)=P }, 
 	[V], [_], P, ['?'],
-	{	(\+question(_, V, P), add_question(V,P, QNr), !);
-		(question(QNr, V, P), temp(_, chosen(PNr)), \+fact(PNr, QNr, _), !) }.
+	{	(not( question(_, V, P) ), add(QNr, question(QNr, V, P)), !);
+		(question(QNr, V, P), temp(User, chosen(PNr)), \+fact(PNr, QNr, _), !) }.
 
 question_final(PNr) -->
 	[is, het, Naam, '?'],
@@ -28,19 +28,19 @@ question_final(PNr) -->
 gesteldeVraag(PNr, QNr) :~
 	(	{	person(PNr, Name) }, question(QNr, Name) ),
 	_:[
-		stop ~> main : [],
-		[In] ~> gesteldeVraag(PNr2, QNr2) : ( {add_fact(PNr,QNr, In)}, ['Ok!'],
-			{	find_random((person(PNr2), question(QNr2, _, _), \+fact(PNr2, QNr2, _)), (PNr2, QNr2)) } )
+		[stop] ~> main : [],
+		[In] ~> gesteldeVraag(PNr2, QNr2) : ( {add(fact(PNr,QNr, In))}, ['Ok!'],
+			{	find_random((person(PNr2, _), question(QNr2, _, _), \+fact(PNr2, QNr2, _)), (PNr2, QNr2)) } )
 	].
 
 % Wortel-predikaat
 main :~
 	['Zullen we een spelletje spelen? Neem maar iemand in gedachte.'],
-	_:[
+	User:[
 		ja ~> mijnBeurt(1) : ( ['Ik begin','.'],
 			{	retractall(temp(_,_)),
 				find_random(person(Choice, _), Choice), 
-				add(_, temp(_, chosen(Choice))) } ),
+				addtemp(User, chosen(Choice)) } ),
 		nee ~> gesteldeVraag(_, _) : ['Dan heb ik wat vragen voor je. Zeg maar stop als je genoeg hebt gehad.'],
 		['save'] ~> main : ({save}, ['Alles is opgeslagen.'])
 	].
@@ -49,26 +49,26 @@ main :~
 mijnBeurt(QNr) :~
 	(question(QNr, Sub),
 	{ (((temp(_, fact(1,Man)),((Man=ja,Sub=hij);(Man=nee,Sub=ze)), !);Sub='het'), !) } ),
-	_: [
+	User: [
 		[In] ~> opGeef : ( 
-			{ addtemp(_, fact(QNr, In)), people_from_tempfacts([]), chosen(PNrc), person(PNrc,Pc) },
+			{ addtemp(User, fact(QNr, In)), people_from_tempfacts(User, []), chosen(PNrc), person(PNrc,Pc) },
 			['Ik geef het op. Ik had',Pc,'.'] ), % Niemand voldoet
 		[In] ~> persoonGok(PNrg) : % Precies 1 iemand voldoet
-			{ addtemp(_, fact(QNr, In)), people_from_tempfacts([PNrg]) }, 
+			{ addtemp(User, fact(QNr, In)), people_from_tempfacts(User, [PNrg]) }, 
 		[In] ~> jouwBeurt :
-			({addtemp(_, fact(QNr, In)) }),
+			({addtemp(User, fact(QNr, In)) }),
 		['stop'] ~> main : []
 	].
 
 jouwBeurt :~
 	['Jij bent','.'],
 	User: [
-		question_final(PNr) ~> main : ({ chosen(PNr) }, ['Ja! Jij wint!']),
-		question_final(PNr) ~> main : ({ not(chosen(PNr)) }, ['Nee, helaas','.']),
-		question_unknown(QNr) ~> weetIkNiet(QNr) :
+		question_final(PNr) ~> main : ({ temp(User, chosen(PNr)) }, ['Ja! Jij wint!']),
+		question_final(PNr) ~> main : ({ not(temp(User, chosen(PNr))) }, ['Nee, helaas','.']),
+		question_unknown(User, QNr) ~> weetIkNiet(QNr) :
 			({ temp(User, chosen(PNr)), person(PNr,P) }, ['Geen idee! Ik had',P,'.']),
 		question(QNr, _) ~> mijnBeurt(Best) : 
-			({ temp(User, chosen(PNr)), fact(QNr, PNr, Answer) }, [Answer, '.'], { best_question(Best) }),
+			({ temp(User, chosen(PNr)), fact(QNr, PNr, Answer) }, [Answer, '.'], { best_question(User, Best) }),
 		['stop'] ~> main : []
 	].
 
@@ -82,29 +82,29 @@ persoonGok(PNr) :~
 
 opGeef :~
 	['Wie had jij?'],
-	_: [
-		add_from_temp ~> main : [],
+	User: [
+		add_from_temp(User) ~> main : [],
 		['stop'] ~> main : []
 	].
 
 weetIkNiet(QNr) :~
-	( {	chosen(PNr), person(PNr, Sub) }, question(QNr, Sub) ), 
-	_: [
-		[In] ~> opGeef : {add_fact(PNr, QNr, In)},
-		['stop'] ~> main : []
+	( {	temp(User, chosen(PNr)), person(PNr, Subject) }, question(QNr, Subject) ), 
+	User: [
+		[In] ~> opGeef : {temp(User, chosen(PNr)), add(fact(PNr, QNr, In))},
+		['ok===='] ~> main : []
 	].
 
 %% Strategie %%
-best_question(QNr) :-
-	findall(Qn, (question(Qn, _, _), \+temp(_, fact(Qn, _))), QL),
+best_question(User, QNr) :-
+	findall(Qn, (question(Qn, _, _), \+temp(User, fact(Qn, _))), QL),
 	length(QL, N), random(0, N, LNr),
 	nth0(LNr, QL, QNr).
 
-people_from_tempfacts(PersonNrList) :- % Vindt alle personen die voldoen aan alle eisen
+people_from_tempfacts(User, PersonNrList) :- % Vindt alle personen die voldoen aan alle eisen
 	findall(PersonNr, (
 		person(PersonNr, _),
-		findall(QNr, (temp(_, fact(QNr, A)),fact(PersonNr,QNr,A)), QList ),
-		findall(QNr2, (temp(_, fact(QNr2,_))), QList )
+		findall(QNr, (temp(User, fact(QNr, A)),fact(PersonNr,QNr,A)), QList ),
+		findall(QNr2, (temp(User, fact(QNr2,_))), QList )
 	), PersonNrList).
 
 
@@ -125,18 +125,19 @@ save :-
 	told.
 
 % Toevoegen aan geheugen
+add(Pred) :-
+	not(Pred) -> assertz(Pred).
 add(Nr, Pred) :-
 	not( Pred ),
-	findall(Nr, Pred, L),
-	length([L|[_]], Nr), % One extra
+	functor(Pred, A, B), functor(Pred2, A, B), Pred2 =.. [A, Nr|_],
+	findall(Nr, Pred2, L),
+	length([_|L], Nr), % One extra
 	assertz( Pred ).
 addtemp(User, Pred) :-
 	assertz( temp(User, Pred) ).
 
 % Tijdelijk geheugen
-add_from_temp(Name, []) :-
-	add_person(Name, PersonNr),
-	findall(_, (temp(_, fact(N,A)),add_fact(PersonNr,N,A)), _).
-add_from_temp(Name) :-
-	person(PersonNr, Name),
-	findall(_, (temp(_, fact(N,A)),add_fact(PersonNr,N,A)), _).
+add_from_temp(User, Name, []) :-
+	words_concat(Name, Opgeslagen),
+	( (add(PersonNr, person(PersonNr, Opgeslagen)),!) ; person(PersonNr, Opgeslagen)),
+	findall(_, (temp(User, fact(N,A)), add(fact(PersonNr, N, A)) ), _).
