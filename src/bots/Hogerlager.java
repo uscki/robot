@@ -2,6 +2,11 @@ package bots;
 
 import java.util.Hashtable;
 
+/**
+ * Hoger lage spelen tegen Menno!
+ * 
+ * @author vincent
+ */
 public class Hogerlager implements Bot {
 
 	protected Hashtable<String, Integer> getallen;
@@ -10,6 +15,13 @@ public class Hogerlager implements Bot {
 		getallen = new Hashtable<String, Integer>();
 	}
 
+	/**
+	 * @param input Input van de gebruiker. Als de gebruiker iets zegt met "hoger lager spelen" erin,
+	 *              beginnen we een nieuw potje. De gebruiker kan dan raden met "Is het ", gevolgd door
+	 *              het nummer dat hij raadt, om achter het juiste nummer te komen.
+	 * @param user ID van de gebruiker
+	 * @return Als de gebruiker hoger lager speelt, aanwijzingen over het juiste cijfer.
+	 */
 	public String ask(String input, String user) {
 		if(input.contains("hoger lager spelen")){
 			getallen.put(user, (int) (10 * Math.random()) + 1);
