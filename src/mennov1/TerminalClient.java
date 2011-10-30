@@ -16,7 +16,7 @@ import bots.Bot;
 public class TerminalClient implements Runnable{
 	
 
-	TerminalClient() {
+	public TerminalClient() {
 	}
 	
 	public static void main(String [] args) {

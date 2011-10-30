@@ -14,7 +14,15 @@ Jars toevoegen
 JPL native library
 1. RMB op Referenced Libraries/jpl.jar -> Properties -> Native Library
 2. (Mac?) Voeg een pad in gelijkend aan /opt/local/lib/swipl-5.10.4/lib/i386-darwin10.7.0
-2. (Voor Windows:) voeg C:\Program Files\pl\bin toe aan je PATH, reboot
+2. (Voor Windows:) voeg <Program Files>\pl\bin toe aan je PATH, reboot
+
+Quicktime
+Mac: Run -> Run Configurations -> Arguments -> VM Arguments veld: -d32
+Win: QTJNative.zip toevoegen aan project build path (niet alleen JRE System Library) en Native Library op <Program Files>\Quicktime\QTSystem
+
+OpenCV
+1. Native Library op Processing Lib (ubaa.net)
+Win: OpenCV in Windows PATH
 
 == De huidige structuur van de robot ==
 
