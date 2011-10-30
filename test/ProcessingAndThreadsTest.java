@@ -12,17 +12,19 @@ public class ProcessingAndThreadsTest extends PApplet {
 		
 		// Initialize threads
 		Thread [] clients = new Thread[3];
-		 clients[0] = new Thread(new IrcClient());
-		 clients[1] = new Thread(new JabberClient());
-		 clients[2] = new Thread(new TerminalClient());
-		 for(Thread client : clients) {
-			 client.start();
-		 }
+		clients[0] = new Thread(new IrcClient());
+		clients[1] = new Thread(new JabberClient());
+		clients[2] = new Thread(new TerminalClient());
+		for(Thread client : clients) {
+			client.start();
+		}
+		
+		// MennoV1.getInstance().setProcessing(this);
+		
 		
 	}
 
 	public void draw() {
 		background(100);
-		ellipse(56, 46, 55, 55);
 	}
 }

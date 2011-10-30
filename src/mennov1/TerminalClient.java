@@ -37,7 +37,7 @@ public class TerminalClient implements Runnable{
 			try {
 				BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 				String readLine = buffy.readLine();
-				String [] outputs = MennoV1.getInstance().parseArguments(readLine, System.getProperty("user.name"));
+				String [] outputs = BotHandler.getInstance().parseArguments(readLine, System.getProperty("user.name"));
 				for(String s : outputs) {
 					if(null == s){
 						continue;

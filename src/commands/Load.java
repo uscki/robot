@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import mennov1.MennoV1;
+import mennov1.BotHandler;
 import bots.Bot;
 
 /**
@@ -43,7 +43,7 @@ public class Load extends Command {
 			    cls = cl.loadClass(s);
 			}
 			obj = (Bot)cls.newInstance();
-			MennoV1.getInstance().listenerBots.put(obj.getClass().getSimpleName(),obj);
+			BotHandler.getInstance().listenerBots.put(obj.getClass().getSimpleName(),obj);
 			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) { // The bot didn't exist
 			return("Invalid bot.");

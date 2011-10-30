@@ -1,6 +1,10 @@
-package mennov1;
 
-public class MasterClient {
+
+import mennov1.IrcClient;
+import mennov1.JabberClient;
+import mennov1.TerminalClient;
+
+public class ClientsTest {
 	public static void main(String [] args) {
 		 Thread [] clients = new Thread[3];
 		 clients[0] = new Thread(new IrcClient());

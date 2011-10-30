@@ -1,6 +1,6 @@
 package commands;
 
-import mennov1.MennoV1;
+import mennov1.BotHandler;
 
 /**
  * 
@@ -13,7 +13,7 @@ public class Count extends Command {
 
 	@Override
 	public String execute(String[] args) {
-		return("There are currently " + MennoV1.getInstance().listenerBots.size() + " bot(s) loaded.");
+		return("There are currently " + BotHandler.getInstance().listenerBots.size() + " bot(s) loaded.");
 	}
 
 	@Override

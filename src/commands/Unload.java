@@ -1,6 +1,6 @@
 package commands;
 
-import mennov1.MennoV1;
+import mennov1.BotHandler;
 
 /**
  * 
@@ -14,7 +14,7 @@ public class Unload extends Command {
 	public String execute(String [] args) {
 		try
 		{
-			if(MennoV1.getInstance().listenerBots.remove(args[1]) == null)
+			if(BotHandler.getInstance().listenerBots.remove(args[1]) == null)
 				return "The bot didn't exist, so it couldn't be unloaded either.";
 			else
 				return "The bot " + args[1] + " was unloaded";
