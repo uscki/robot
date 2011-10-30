@@ -2,13 +2,13 @@ import hypermedia.video.OpenCV;
 
 import java.awt.Rectangle;
 
-import processing.core.PApplet;
+import processing.core.*;
 import processing.serial.Serial;
-import processing.video.Capture;
+import processing.video.*;
 
 /*
  * 
- * OpenCV moet runnen met native library = waar je de processing lib heb geinstalleerd
+ * OpenCV moet runnen met native library = waar je de processing lib hebt geinstalleerd
  * RMB op Referenced Libraries/OpenCV.jar -> Properties -> Native Library
  * Mac: <Applications>/Processing.app/Contents/Resources/Java/modes/java/libraries/OpenCV/library
  * 
@@ -27,10 +27,7 @@ int time;
 
 public void setup() {
 	
-	System.out.println("Wat is deze, vrind");
-	System.out.println("java.library.path="+System.getProperty("java.library.path"));
-	
-    size( 320, 240 );
+	size(640, 480);
 
     // Dit moet voor opencv staan (magic)
     String[] devices = Capture.list();
@@ -64,6 +61,9 @@ public void draw() {
     for( int i=0; i<faces.length; i++ ) {
         rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
     }
+    
+    //ga uit van faces[0]
+    //arduinocode
     if (faces.length > 0) {
       if ( (faces[0].x + (faces[0].width/2)) > 180 ) {
         angle += 1; 
@@ -74,6 +74,7 @@ public void draw() {
       //myPort.write(angle);
     }
     
+    //schrijven naar bestandje
     if (time == 5) {
       //saveFrame("beeld.jpg");
       time = 0;
