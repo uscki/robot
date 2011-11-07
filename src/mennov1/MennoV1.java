@@ -1,18 +1,18 @@
 package mennov1;
 
-
 import lib.Looker;
 import processing.core.*;
 
 public class MennoV1 extends PApplet {
 
+	Looker l;
 	
 	public void setup() {
 		println("Started MennoV1");
 		size(320, 240);
 			
 		// Initialize libraries
-		new Looker(this);
+		l = new Looker(this);
 		
 		// Initialize threads
 		Thread [] clients = new Thread[3];
@@ -27,7 +27,11 @@ public class MennoV1 extends PApplet {
 	}
 
 	public void draw() {
-		background(100);
-		Looker.getInstance().look();
+		l.look();
+		l.geenFill();
+		l.tekenLijn(255, 0, 0);
+		for( int i=0; i<l.getFaces().length; i++ ) {
+	    	l.tekenRechthoek( l.getFaces()[i].x, l.getFaces()[i].y, l.getFaces()[i].width, l.getFaces()[i].height ); 
+		}
 	}
 }
