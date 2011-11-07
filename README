@@ -13,6 +13,7 @@ Jars toevoegen
 
 JPL native library
 1. RMB op Referenced Libraries/jpl.jar -> Properties -> Native Library
+2. (Linux) Voeg een pad in gelijkend aan /usr/lib/swi-prolog/lib/i386
 2. (Mac?) Voeg een pad in gelijkend aan /opt/local/lib/swipl-5.10.4/lib/i386-darwin10.7.0
 2. (Voor Windows:) voeg <Program Files>\pl\bin toe aan je PATH, reboot
 
@@ -56,3 +57,6 @@ Dat was het!
 == Processing aan de praat krijgen ==
 
 MAAK VAN TEST EEN SOURCEFOLDER!!!1!
+
+Om dit te doen: RMB op de projectmap, Properties. Klik links op Java Build Path, vervolgens kun je onder het tabblad
+Source folders de map test toevoegen.
