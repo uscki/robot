@@ -1,6 +1,5 @@
 package bots;
 
-import processing.core.PImage;
 import lib.Looker;
 
 public class Snorbot implements Bot {
@@ -24,7 +23,7 @@ public class Snorbot implements Bot {
 		    	h = h/4;
 		    	l.tekenPlaatje(l.getImages(0),x, y, w, h );
 		    	l.uploadImage("snorbot");			
-				return "http://www.groepfotoboek.nl/robot/saved/uploadedfile/snor.jpg";
+				return "http://www.groepfotoboek.nl/robot/saved/uploadedfile/snorbot.jpg";
 			} else {
 				return "Ik zie niemand...";
 			}		
