@@ -6,7 +6,7 @@ import processing.video.*;
 import hypermedia.video.OpenCV;
 
 import java.awt.Rectangle;
-
+import gifAnimation.*; 
 import org.seltar.Bytes2Web.ImageToWeb;
 
 public class Looker {
@@ -18,6 +18,7 @@ public class Looker {
 	OpenCV opencv;
 	Capture cam;
 	PImage[] images;
+	GifMaker gif;
 	
 	public Looker(MennoV1 parent) {
 		master = this;
@@ -98,6 +99,18 @@ public class Looker {
 		String url = "http://www.groepfotoboek.nl/robot/upload.php";
 	    ImageToWeb img_to_web = new ImageToWeb(p);
 	    img_to_web.post("uploadedfile",url,imagename,true);
+	}
+	
+	//Delay in milliseconds
+	//saved nu naar bin/filename.gif
+	public void maakGif(String filename, int frames, int delay) {
+		gif = new GifMaker(p,filename);
+		gif.setRepeat(0);
+		for(int i = 0; i < frames; i++){
+			gif.setDelay(delay);
+			gif.addFrame();
+		}
+		gif.finish();
 	}
 	
 }
