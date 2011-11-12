@@ -75,6 +75,9 @@ public class TaiPanbot implements Bot {
 				try{
 					s1 = Integer.parseInt(scores[1]);
 					s2 = Integer.parseInt(scores[2]);
+					if((score_team1 + score_team2) % 100 != 0){
+						return "Tel opnieuw!";
+					}
 					score_team1 += s1;
 					score_team2 += s2;
 					l.writeToTeX("&"+s1+"&"+s2+" \\\\\n");
@@ -86,7 +89,24 @@ public class TaiPanbot implements Bot {
 					return null;
 				}
 			}
+			if(score_team1 > 999 && score_team2 > 999){
+				String s = "Gelijkspel: "+ stand() + "!";
+				return s;
+			}
+			if(score_team1 > 999){
+				String s = "Team 1 wint met "+ stand(); 
+				return s;
+			}
+			if(score_team2 > 999){
+				String s = "Team 2 wint met "+ stand(); 
+				return s;
+			}
 			return "Scores bijgewerkt.";
+		}
+		
+		//Tussenstand
+		if (started && input.contains("tussenstand")){
+			return "De stand is" + stand();
 		}
 		
 		//Genereer de scores in LaTeX
@@ -111,6 +131,11 @@ public class TaiPanbot implements Bot {
 			return("*Link naar de scores*");
 		}
 		return null;
+	}
+	
+	private String stand(){
+		String stand = " "+score_team1+" v.s. "+score_team2;
+		return stand;
 	}
 	
 }

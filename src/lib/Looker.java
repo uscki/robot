@@ -52,9 +52,9 @@ public class Looker {
 	}
 	
 	public Boolean seesFace() {
-		p.println("Ik zie ");
+		p.print("Ik zie ");
 		Boolean sees = (faces.length > 0);
-		p.println((sees? "wel" : "niet") + " een gezicht");
+		p.println((sees? "" : "g") + "een gezicht");
 		return sees;
 	}
 	
@@ -75,7 +75,11 @@ public class Looker {
 		return images[i];
 	}
 	
-	public void geenFill(){
+	public void fill(int r,int g,int b){
+		p.fill(r,g,b);
+	}
+	
+	public void noFill(){
 		p.noFill();
 	}
 	
@@ -111,6 +115,58 @@ public class Looker {
 			gif.addFrame();
 		}
 		gif.finish();
+	}
+	
+	public void tint(int r,int g,int b,int a){
+		p.tint(r,g,b,a);
+	}
+	public void noTint(){
+		p.noTint();
+	}
+	
+	//Returns average RGB of the current screen
+	public int[] pixels(){
+		float red = 0;
+		float green = 0;
+		float blue = 0;
+		p.loadPixels();
+		for(int i = 0; i < p.pixels.length; i++){
+			red += (p.pixels[i] >> 16) & 0xFF;
+			green += (p.pixels[i] >> 8) & 0xFF;
+			blue += p.pixels[i] & 0xFF;
+		}
+		red /= p.pixels.length;
+		green /= p.pixels.length;
+		blue /= p.pixels.length;
+		int[] colors = {(int)red,(int)green,(int)blue};
+		return colors;
+	}
+	
+	//or in a certain area
+	public int[] pixels(int x,int y,int w,int h){
+		float red = 0;
+		float green = 0;
+		float blue = 0;
+		if(w > p.width){
+			w = p.width;
+		}
+		if(h > p.height){
+			h = p.height;
+		}
+		int temp = p.width + x + 1;
+		p.loadPixels();
+		for (int i = y; i < y+h ; i++){
+			for(int j = i*p.width + x + 1 ; j < i*p.width + x + 1 + w ; j++){
+				red += (p.pixels[j] >> 16) & 0xFF;
+				green += (p.pixels[j] >> 8) & 0xFF;
+				blue += p.pixels[j] & 0xFF;
+			}
+		}
+		red /= w*h;
+		green /= w*h;
+		blue /= w*h;
+		int[] colors = {(int)red,(int)green,(int)blue};
+		return colors;
 	}
 	
 }
