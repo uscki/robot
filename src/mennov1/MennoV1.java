@@ -28,7 +28,7 @@ public class MennoV1 extends PApplet {
 
 	public void draw() {
 		l.look();
-		l.geenFill();
+		l.noFill();
 		l.tekenLijn(255, 0, 0);
 		for( int i=0; i<l.getFaces().length; i++ ) {
 	    	l.tekenRechthoek( l.getFaces()[i].x, l.getFaces()[i].y, l.getFaces()[i].width, l.getFaces()[i].height ); 
