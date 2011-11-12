@@ -21,9 +21,17 @@ Quicktime
 Mac: Run -> Run Configurations -> Arguments -> VM Arguments veld: -d32
 Win: QTJNative.zip toevoegen aan project build path (niet alleen JRE System Library) en Native Library op <Program Files>\Quicktime\QTSystem
 
+Winvdig installeren als je webcam niet wordt gevonden: http://www.eden.net.nz/7/20071008/WinVDIG_101.exe
+
+Processing
+Installeer processing
+
 OpenCV
-1. Native Library op Processing Lib (ubaa.net)
-Win: OpenCV in Windows PATH
+Download en installeer OpenCV 1.0 (klik linksboven op home > opencv win > 1.0) van http://ubaa.net/shared/processing/opencv/ en volg de handleiding.
+unzip opencv_01 en zet OpenCV in processing > modes > java > libraries 
+RMB op openCV.jar: native library zetten naar processing > modes > java > libraries > OpenCV > lib > opencv.dll
+
+
 
 == De huidige structuur van de robot ==
 
@@ -60,3 +68,8 @@ MAAK VAN TEST EEN SOURCEFOLDER!!!1!
 
 Om dit te doen: RMB op de projectmap, Properties. Klik links op Java Build Path, vervolgens kun je onder het tabblad
 Source folders de map test toevoegen.
+
+== Git ==
+git push
+
+git pull
