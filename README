@@ -70,6 +70,20 @@ Om dit te doen: RMB op de projectmap, Properties. Klik links op Java Build Path,
 Source folders de map test toevoegen.
 
 == Git ==
-git push
+hier komt kort een "hoe git te gebruiken" handleiding. meeste vanaf gitref.org
+ga in git bash naar de hoofdmap van het project met cd.
+git add [FILENAME]
+	als je een bestand wilt committen, moet je deze eerst adden.
+
+git status
+	dit commando geeft een overzicht van de files die verschillen tussen jouw systeem en de master, m.a.w. aanpassingen die je nog niet gecommit hebt. Daarnaast kan je hier ook zien welke bestanden je geadd hebt.
 
 git pull
+	hiermee haal je de nieuwste bestanden van de repository (de opgeslagen versie op github.com) binnen, en wordt deze gemerged met jouw files. mergen is samenvoegen met behoudt van zoveel mogelijk verschillen. magie?
+
+git push
+	hiermee push je jouw commit naar de repository
+	
+git commit -m "INFORMATIE OVER COMMIT"
+
+
