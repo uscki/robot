@@ -57,7 +57,7 @@ public class BotHandler {
 				for(Command command : commands.values()) {
 //					if(command.getClass().getSimpleName().length()>0)
 //						aap.append(command.getClass().getSimpleName()+": ");
-					aap.append(command.helpMsg()+"\r\n");
+					aap.append(command.getClass().getSimpleName() + " " + command.helpMsg()+"\r\n");
 				}
 				
 				return aap.toString();

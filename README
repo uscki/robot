@@ -75,15 +75,21 @@ ga in git bash naar de hoofdmap van het project met cd.
 git add [FILENAME]
 	als je een bestand wilt committen, moet je deze eerst adden.
 
-git status
+git status 
 	dit commando geeft een overzicht van de files die verschillen tussen jouw systeem en de master, m.a.w. aanpassingen die je nog niet gecommit hebt. Daarnaast kan je hier ook zien welke bestanden je geadd hebt.
+git status -s
+	dito, maar dan short
 
 git pull
 	hiermee haal je de nieuwste bestanden van de repository (de opgeslagen versie op github.com) binnen, en wordt deze gemerged met jouw files. mergen is samenvoegen met behoudt van zoveel mogelijk verschillen. magie?
+	doe dit altijd voordat je pusht.
+
+git commit -m "INFORMATIE OVER COMMIT"
+	hiermee maak je van al je adds een pakketje, die je in een keer kan pushen. ook voeg je informatie over de aanpassingen toe.
 
 git push
 	hiermee push je jouw commit naar de repository
 	
-git commit -m "INFORMATIE OVER COMMIT"
+
 
 
