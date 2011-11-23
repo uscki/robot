@@ -23,9 +23,6 @@ Win: QTJNative.zip toevoegen aan project build path (niet alleen JRE System Libr
 
 Winvdig installeren als je webcam niet wordt gevonden: http://www.eden.net.nz/7/20071008/WinVDIG_101.exe
 
-Processing
-Installeer processing
-
 OpenCV
 Download en installeer OpenCV 1.0 (klik linksboven op home > opencv win > 1.0) van http://ubaa.net/shared/processing/opencv/ en volg de handleiding.
 unzip opencv_01 en zet OpenCV in processing > modes > java > libraries 
