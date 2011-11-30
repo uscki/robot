@@ -23,9 +23,10 @@ public class Snorbot implements Bot {
 			    	w = w/2;
 			    	h = h/4;
 			    	int[] colors = l.pixels(r.x,r.y,r.width,h/2);
-			    	l.tint(colors[0],colors[1],colors[2],200);
-			    	l.tekenPlaatje(l.getImages(0),x, y, w, h );
-			    	l.noTint();
+			    	
+			    	l.getPApplet().tint(colors[0],colors[1],colors[2],200);
+			    	l.getPApplet().image(l.getImages(0),x, y, w, h );
+			    	l.getPApplet().noTint();
 				}
 		    	l.uploadImage("snorbot");	
 				return "http://www.groepfotoboek.nl/robot/saved/uploadedfile/snorbot.jpg";

@@ -27,7 +27,7 @@ public class Looker {
 		p.println("Started looker...");
 		String[] devices = Capture.list();
 	    p.println(devices);
-	    cam = new Capture(p, 320, 240  ); //, devices[0]);
+	    cam = new Capture(p, 320, 240); //, devices[0]); // Om te testen op andere webcam dit veranderen
 	    
 	    
 	    opencv = new OpenCV(p);
@@ -40,6 +40,9 @@ public class Looker {
 		if(master == null)
 			return null; // throw error?
 		return master;
+	}
+	public MennoV1 getPApplet() {
+		return p;
 	}
 	
 	//alleen beetje gek voor 1 plaatje
@@ -63,6 +66,20 @@ public class Looker {
 	    p.image(cam, 0, 0);
 	    opencv.copy(cam);
 	    
+	    // Draai het plaatje
+	    PImage img = p.createImage(p.IWIDTH, p.IHEIGHT, p.RGB);
+	    img.loadPixels();
+	    for (int i = 0; i < p.IWIDTH; i++) {
+	      for (int j = 0; j < p.IHEIGHT; j++) {
+	        int loc1 = (cam.width - j - 1) + i*cam.width;
+	       // int loc2 = (img.width - i - 1) + j*img.width;
+	        int loc2 = (i) + j*img.width;
+	        
+	        img.pixels[img.pixels.length - loc2 - 1] = cam.pixels[loc1];
+	      }
+	    }
+	    img.updatePixels();
+	    
 	    // detect anything ressembling a FRONTALFACE
 	    faces = opencv.detect();
 	    
@@ -73,30 +90,6 @@ public class Looker {
 	}
 	public PImage getImages(int i) {
 		return images[i];
-	}
-	
-	public void fill(int r,int g,int b){
-		p.fill(r,g,b);
-	}
-	
-	public void noFill(){
-		p.noFill();
-	}
-	
-	public void tekenLijn(int x, int y, int z){
-		p.stroke(x,y,z);
-	}
-	
-	public void tekenRechthoek(int x, int y, int w, int h){
-		p.rect(x,y,w,h);
-	}
-	
-	public void tekenPlaatje(PImage i, int x, int y, int w, int h){
-		if(w == 0 && h == 0) {
-			p.image(i,x,y);
-		} else {
-			p.image(i,x,y,w,h);
-		}
 	}
 	
 	public void uploadImage(String imagename){
@@ -115,13 +108,6 @@ public class Looker {
 			gif.addFrame();
 		}
 		gif.finish();
-	}
-	
-	public void tint(int r,int g,int b,int a){
-		p.tint(r,g,b,a);
-	}
-	public void noTint(){
-		p.noTint();
 	}
 	
 	//Returns average RGB of the current screen

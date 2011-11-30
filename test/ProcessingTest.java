@@ -4,6 +4,10 @@ public class ProcessingTest extends PApplet {
 //	An array of stripes
 	Stripe[] stripes = new Stripe[50];
 
+	public static void main(String args[]) {
+	    PApplet.main(new String[] { "--present", "ProcessingTest" });
+	 }
+	
 	public void setup() {
 		size(200,200);
 		
