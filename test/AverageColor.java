@@ -1,31 +1,29 @@
 import hypermedia.video.OpenCV;
-import java.awt.Rectangle;
-import processing.core.*;
-import processing.video.*;
+import processing.core.PApplet;
 
 
 public class AverageColor extends PApplet {
 
 	OpenCV opencv;
-	Capture cam;
+//	GSCapture cam;
 	float red;
 	float green;
 	float blue;
 	
 	public void setup(){
 		size(320,240); 
-	    String[] devices = Capture.list();
-	    println(devices);
-	    cam = new Capture(this, 320, 240  );
+//	    String[] devices = GSCapture.list();
+//	    println(devices);
+//	    cam = new GSCapture(this, 320, 240  );
 		opencv = new OpenCV(this);
 	    opencv.allocate(320,240);
 	    println("Calculating average color...");
 	}
 	
 	public void draw(){
-		cam.read();
-		image(cam, 0, 0);
-	    opencv.copy(cam);
+//		cam.read();
+//		image(cam, 0, 0);
+//	    opencv.copy(cam);
 	    red = 0;
 		green = 0;
 		blue = 0;

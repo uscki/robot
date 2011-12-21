@@ -16,10 +16,10 @@ public class Mover {
 		master = this;
 		p = parent;
 
-		p.println("Started mover...");
+//		p.println("Started mover...");
 		String portName = Serial.list()[0];
-		p.println(Serial.list());
-		myPort = new Serial(p, portName, 9600);		
+//		p.println(Serial.list());
+//		myPort = new Serial(p, portName, 9600);		
 		angle = 60;
 		pitch = 20;
 		myPort.clear();
@@ -42,7 +42,7 @@ public class Mover {
 		pitch += face_pitch;
 
 		myPort.clear();
-		p.println("Mover draait naar (hoek:" + angle + ", hoogte:" + pitch + ")");
+//		p.println("Mover draait naar (hoek:" + angle + ", hoogte:" + pitch + ")");
 		myPort.write(angle + 20);
 		myPort.write(pitch + 20);
 	}

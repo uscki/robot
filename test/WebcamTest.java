@@ -3,7 +3,6 @@ import hypermedia.video.OpenCV;
 import java.awt.Rectangle;
 
 import processing.core.PApplet;
-import processing.video.Capture;
 
 /*
  * 
@@ -19,17 +18,17 @@ public class WebcamTest extends PApplet {
 
 
 OpenCV opencv;
-Capture cam;
-int angle;        // Data received from the serial port
+//GSCapture cam;
+//int angle;        // Data received from the serial port
 int time;
 
 public void setup() {
     size( 320, 240 );
 
     // Dit moet voor opencv staan (magic)
-    String[] devices = Capture.list();
-    println(devices);
-    cam = new Capture(this, 320, 240  ); //, devices[0]);
+//    String[] devices = GSCapture.list();
+//    println(devices);
+//    cam = new GSCapture(this, 320, 240  ); //, devices[0]);
 
     
     opencv = new OpenCV(this);
@@ -38,10 +37,10 @@ public void setup() {
 }
 
 public void draw() {
-    cam.read();
-    image(cam, 0, 0);
-    opencv.copy(cam);
-    
+//    cam.read();
+//    image(cam, 0, 0);
+//    opencv.copy(cam);
+//    
     // detect anything ressembling a FRONTALFACE
     Rectangle[] faces = opencv.detect();
     

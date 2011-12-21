@@ -2,9 +2,8 @@ import hypermedia.video.OpenCV;
 
 import java.awt.Rectangle;
 
-import processing.core.*;
-import processing.serial.Serial;
-import processing.video.*;
+import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * 
@@ -17,16 +16,16 @@ import processing.video.*;
 public class SnorBot extends PApplet {
 	
 	OpenCV opencv;
-	Capture cam;
+//	GSCapture cam;
 	PImage snor;
 	
 	public void setup(){
 		size(350,250); //venster eigenlijk niet nodig?
-	    String[] devices = Capture.list();
-	    println(devices);
-	    cam = new Capture(this, 320, 240  ); //, devices[0]);
-		//load plaatje in
-		snor = loadImage("snor.png");
+//	    String[] devices = GSCapture.list();
+//	    println(devices);
+//	    cam = new GSCapture(this, 320, 240  ); //, devices[0]);
+//		//load plaatje in
+//		snor = loadImage("snor.png");
 		
 		opencv = new OpenCV(this);
 	    opencv.allocate(320,240);
@@ -36,9 +35,9 @@ public class SnorBot extends PApplet {
 	}
 	
 	public void draw() {
-		cam.read();
-	    image(cam, 0, 0);
-	    opencv.copy(cam);
+//		cam.read();
+//	    image(cam, 0, 0);
+//	    opencv.copy(cam);
 	    
 	    Rectangle[] faces = opencv.detect();
 	    

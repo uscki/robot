@@ -1,25 +1,28 @@
 package mennov1;
 
-import java.awt.Rectangle;
+import javax.swing.JFrame;
 
 import lib.Looker;
 import lib.Mover;
-import processing.core.*;
 
 import org.seltar.Bytes2Web.ImageToWeb;
 
-public class MennoV1 extends PApplet {
+import processing.core.PApplet;
+
+public class MennoV1{
 
 	static MennoV1 master;
-	Looker l;
-	Mover m;
+	private Looker l;
+	private Mover m;
 	int face_move_interval;
 	
 	public static final int IWIDTH = 240;
 	public static final int IHEIGHT = 320;
 	
 	public static void main(String args[]) {
-		PApplet.main(new String[] { "mennov1.MennoV1" });
+		//PApplet.main(new String[] { "mennov1.MennoV1" });
+		MennoV1 menno = new MennoV1();
+		menno.setup();
 	}
 
 	// Het is een singleton pattern
@@ -30,32 +33,33 @@ public class MennoV1 extends PApplet {
 	}
 
 	public void setup() {
-		println("Started MennoV1");
-		size(IHEIGHT, IWIDTH);
 
 		// Initialize libraries
-		l = new Looker(this);
-		m = new Mover(this);
+		JFrame frame = new JFrame("Webcam output");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		l = new Looker(frame);
+		//m = new Mover(this);
 
 		// Initialize threads
-		Thread [] clients = new Thread[3];
-		clients[0] = new Thread(new IrcClient());
-		clients[1] = new Thread(new JabberClient());
-		clients[2] = new Thread(new TerminalClient());
-		for(Thread client : clients) {
-			client.start();
-		}
+		//Thread [] clients = new Thread[3];
+		//clients[0] = new Thread(new IrcClient());
+		//clients[1] = new Thread(new JabberClient());
+		//clients[2] = new Thread(new TerminalClient());
+		//for(Thread client : clients) {
+//			client.start();
+		//}
 
 		face_move_interval = 0;
 	}
 
 	public void draw() {
 		l.look();
-		noFill();
-		stroke(255, 0, 0);
+//		noFill();
+//		stroke(255, 0, 0);
 		if (l.getFaces().length>0) {
 			for( int i=0; i<l.getFaces().length; i++ ) {
-				rect( l.getFaces()[i].x, l.getFaces()[i].y, l.getFaces()[i].width, l.getFaces()[i].height ); 
+//				rect( l.getFaces()[i].x, l.getFaces()[i].y, l.getFaces()[i].width, l.getFaces()[i].height ); 
 			}
 
 			face_move_interval = m.moveToInterval(
@@ -64,7 +68,7 @@ public class MennoV1 extends PApplet {
 					face_move_interval, 5);
 		}
 		String url = "https://www.uscki.nl/~kruit/zebra/modules/Webcam/upload.php";
-		ImageToWeb img_to_web = new ImageToWeb(this);
-		img_to_web.post("uploadedfile",url,"webcam",true);
+//		ImageToWeb img_to_web = new ImageToWeb(this);
+//		img_to_web.post("uploadedfile",url,"webcam",true);
 	}
 }
