@@ -23,13 +23,17 @@
 */
 
 package processing.serial;
-import processing.core.*;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
 
-import gnu.io.*;
-
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Method;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.util.Vector;
 
 /**
  * Class for sending and receiving data using the serial communication protocol.
@@ -37,7 +41,7 @@ import java.lang.reflect.*;
  */
 public class Serial implements SerialPortEventListener {
 
-  PApplet parent;
+//  PApplet parent;
   Method serialEventMethod;
 
   // properties can be passed in for default values
@@ -93,26 +97,26 @@ public class Serial implements SerialPortEventListener {
   }
 
 
-  public Serial(PApplet parent) {
-    this(parent, dname, drate, dparity, ddatabits, dstopbits);
-  }
+//  public Serial(PApplet parent) {
+//    this(parent, dname, drate, dparity, ddatabits, dstopbits);
+//  }
+//
+//  public Serial(PApplet parent, int irate) {
+//    this(parent, dname, irate, dparity, ddatabits, dstopbits);
+//  }
+//
+//  public Serial(PApplet parent, String iname, int irate) {
+//    this(parent, iname, irate, dparity, ddatabits, dstopbits);
+//  }
+//
+//  public Serial(PApplet parent, String iname) {
+//    this(parent, iname, drate, dparity, ddatabits, dstopbits);
+//  }
 
-  public Serial(PApplet parent, int irate) {
-    this(parent, dname, irate, dparity, ddatabits, dstopbits);
-  }
-
-  public Serial(PApplet parent, String iname, int irate) {
-    this(parent, iname, irate, dparity, ddatabits, dstopbits);
-  }
-
-  public Serial(PApplet parent, String iname) {
-    this(parent, iname, drate, dparity, ddatabits, dstopbits);
-  }
-
-  public Serial(PApplet parent, String iname, int irate,
+  public Serial(/*Applet parent,*/ String iname, int irate,
                  char iparity, int idatabits, float istopbits) {
     //if (port != null) port.close();
-    this.parent = parent;
+//    this.parent = parent;
     //parent.attach(this);
 
     this.rate = irate;
@@ -156,15 +160,15 @@ public class Serial implements SerialPortEventListener {
       output = null;
     }
 
-    parent.registerDispose(this);
+//    parent.registerDispose(this);
 
     // reflection to check whether host applet has a call for
     // public void serialEvent(processing.serial.Serial)
     // which would be called each time an event comes in
     try {
-      serialEventMethod =
-        parent.getClass().getMethod("serialEvent",
-                                    new Class[] { Serial.class });
+//      serialEventMethod =
+//        parent.getClass().getMethod("serialEvent",
+//                                    new Class[] { Serial.class });
     } catch (Exception e) {
       // no such method, or an error.. which is fine, just ignore
     }
@@ -219,38 +223,38 @@ public class Serial implements SerialPortEventListener {
 
 
   synchronized public void serialEvent(SerialPortEvent serialEvent) {
-    if (serialEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-      try {
-        while (input.available() > 0) {
-          synchronized (buffer) {
-            if (bufferLast == buffer.length) {
-              byte temp[] = new byte[bufferLast << 1];
-              System.arraycopy(buffer, 0, temp, 0, bufferLast);
-              buffer = temp;
-            }
-            buffer[bufferLast++] = (byte) input.read();
-            if (serialEventMethod != null) {
-              if ((bufferUntil &&
-                   (buffer[bufferLast-1] == bufferUntilByte)) ||
-                  (!bufferUntil &&
-                   ((bufferLast - bufferIndex) >= bufferSize))) {
-                try {
-                  serialEventMethod.invoke(parent, new Object[] { this });
-                } catch (Exception e) {
-                  String msg = "error, disabling serialEvent() for " + port;
-                  System.err.println(msg);
-                  e.printStackTrace();
-                  serialEventMethod = null;
-                }
-              }
-            }
-          }
-        }
-
-      } catch (IOException e) {
-        errorMessage("serialEvent", e);
-      }
-    }
+//    if (serialEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+//      try {
+//        while (input.available() > 0) {
+//          synchronized (buffer) {
+//            if (bufferLast == buffer.length) {
+//              byte temp[] = new byte[bufferLast << 1];
+//              System.arraycopy(buffer, 0, temp, 0, bufferLast);
+//              buffer = temp;
+//            }
+//            buffer[bufferLast++] = (byte) input.read();
+//            if (serialEventMethod != null) {
+//              if ((bufferUntil &&
+//                   (buffer[bufferLast-1] == bufferUntilByte)) ||
+//                  (!bufferUntil &&
+//                   ((bufferLast - bufferIndex) >= bufferSize))) {
+//                try {
+//                  serialEventMethod.invoke(parent, new Object[] { this });
+//                } catch (Exception e) {
+//                  String msg = "error, disabling serialEvent() for " + port;
+//                  System.err.println(msg);
+//                  e.printStackTrace();
+//                  serialEventMethod = null;
+//                }
+//              }
+//            }
+//          }
+//        }
+//
+//      } catch (IOException e) {
+//        errorMessage("serialEvent", e);
+//      }
+//    }
   }
 
 
