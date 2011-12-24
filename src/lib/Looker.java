@@ -1,129 +1,115 @@
 package lib;
 
+import static com.googlecode.javacv.cpp.opencv_core.IPL_DEPTH_8U;
+import static com.googlecode.javacv.cpp.opencv_core.cvGetSeqElem;
+import static com.googlecode.javacv.cpp.opencv_core.cvLoad;
+import static com.googlecode.javacv.cpp.opencv_imgproc.CV_BGR2GRAY;
+import static com.googlecode.javacv.cpp.opencv_imgproc.cvCvtColor;
+import static com.googlecode.javacv.cpp.opencv_objdetect.cvHaarDetectObjects;
 import gifAnimation.GifMaker;
-import hypermedia.video.OpenCV;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import mennov1.MennoV1.OnResizeListener;
 
-import mennov1.MennoV1;
+import com.googlecode.javacv.cpp.opencv_core.CvMemStorage;
+import com.googlecode.javacv.cpp.opencv_core.CvRect;
+import com.googlecode.javacv.cpp.opencv_core.CvSeq;
+import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import com.googlecode.javacv.cpp.opencv_objdetect.CvHaarClassifierCascade;
 
-import org.gstreamer.Caps;
-import org.gstreamer.Element;
-import org.gstreamer.ElementFactory;
-import org.gstreamer.Gst;
-import org.gstreamer.Pipeline;
-import org.gstreamer.State;
-import org.gstreamer.swing.VideoComponent;
-import org.seltar.Bytes2Web.ImageToWeb;
-
-import processing.core.PImage;
 
 public class Looker {
 
-	private static MennoV1 p; // The parent PApplet that we will render ourselves onto
 	private static Looker master;
+	private Webcam webcam;
 
-	private Rectangle[] faces;
-	OpenCV opencv;
-	PImage[] images;
-	GifMaker gif;
-	private static Pipeline pipe; 
-	public Looker(final JFrame frame) {
-		master = this;
-		Gst.init("SwingVideoTest", new String[0]); 
-		pipe = new Pipeline("pipeline"); 
-		// This is from VideoTest example and gives test image 
-		// final Element videosrc = 
-		ElementFactory.make("videotestsrc", "source"); 
-		// This gives black window with VideoComponent 
-		final Element videosrc = ElementFactory.make("v4l2src", "source"); 
-		final Element videofilter = ElementFactory.make("capsfilter", "flt"); 
-		videofilter.setCaps(Caps.fromString("video/x-raw-yuv, width=640, height=480")); 
-		SwingUtilities.invokeLater(new Runnable() { 
-			public void run() { 
-				VideoComponent videoComponent = new VideoComponent(); 
-				// This gives only black window 
-				Element videosink = videoComponent.getElement(); 
-				// This gives 2nd window with stream from webcam 
-				// Element videosink = 
-				ElementFactory.make("xvimagesink", "sink"); 
-				pipe.addMany(videosrc, videofilter, videosink); 
-				Element.linkMany(videosrc, videofilter, videosink);  
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-				frame.add(videoComponent, BorderLayout.CENTER); 
-				videoComponent.setPreferredSize(new Dimension(640, 480)); 
-				frame.pack(); 
-				frame.setVisible(true); 
-				// Start the pipeline processing 
-				pipe.setState(State.PLAYING); 
-			} 
-		}); 
+	private ArrayList<CvRect> faces = new ArrayList<CvRect>();
+	private GifMaker gif;
 
-		//opencv = new OpenCV(p);
-		//opencv.allocate(320,240);
-		//opencv.cascade( OpenCV.CASCADE_FRONTALFACE_ALT );    // load the FRONTALFACE description file
+
+	public Looker() throws NoInputAvailableException {
+		try {
+			webcam = new Webcam();
+		} catch (OSNotDetectedException e) {
+			throw new NoInputAvailableException("Could not detect OS");
+		}
 	}
 
 	// Het is een singleton pattern
-	public static Looker getInstance() {
-		if(master == null)
-			return null; // throw error?
+	public static Looker getInstance() throws NoInputAvailableException {
+		if(master == null) master = new Looker();
 		return master;
 	}
-	public MennoV1 getPApplet() {
-		return p;
+
+	public Component getComponent(){	
+		if(webcam == null) throw new IllegalStateException();
+		return webcam.getVideoComponent();
+	}
+	
+	public void setOnResizeListener(OnResizeListener listener){
+		webcam.setOnResizeListener(listener);
 	}
 
 	//alleen beetje gek voor 1 plaatje
 	public void plaatjes(String[] filenames){
-		images = new PImage[filenames.length];
+		//		images = new PImage[filenames.length];
 
-		for(int n = 0; n <images.length; n++){
-			//images[n] = p.loadImage(filenames[n]);
-		}
+		//		for(int n = 0; n <images.length; n++){
+		//images[n] = p.loadImage(filenames[n]);
+		//		}
 	}
 
 	public Boolean seesFace() {
 		System.out.print("Ik zie ");
-		Boolean sees = (faces.length > 0);
+		Boolean sees = (faces.size() > 0);
 		System.out.println((sees? "" : "g") + "een gezicht");
 		return sees;
 	}
 
-	public void look() {
-		/*		cam.read();
-		p.image(cam, 0, 0);
-		opencv.copy(cam);
+	public void detectFaces() {
+		if(webcam != null){
 
-		// Draai het plaatje
-		PImage img = p.createImage(p.IWIDTH, p.IHEIGHT, p.RGB);
-		img.loadPixels();
-		for (int i = 0; i < p.IWIDTH; i++) {
-			for (int j = 0; j < p.IHEIGHT; j++) {
-				int loc1 = (cam.width - j - 1) + i*cam.width;
-				// int loc2 = (img.width - i - 1) + j*img.width;
-				int loc2 = (i) + j*img.width;
+			BufferedImage bi = webcam.getScreenshot();
+			if(bi != null){
+				IplImage originalImage = IplImage.createFrom(bi);
 
-				img.pixels[img.pixels.length - loc2 - 1] = cam.pixels[loc1];
+				IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
+				cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
+
+				CvMemStorage storage = CvMemStorage.create();
+
+				CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad("/home/richard/SoftDev/opencv/data/haarcascades/haarcascade_frontalface_alt.xml"));
+				CvSeq facesTmp = cvHaarDetectObjects(grayImage, cascade, storage, 1.1, 1, 0);
+
+				faces = new ArrayList<CvRect>();
+				for (int i = 0; i < facesTmp.total(); i++) {
+					CvRect r = new CvRect(cvGetSeqElem(facesTmp, i));
+					faces.add(r);
+				}
+				System.out.println("faces: " + facesTmp.total());
 			}
 		}
-		img.updatePixels();
-
-		// detect anything ressembling a FRONTALFACE
-		faces = opencv.detect();
-		 */
 	}
 
-	public Rectangle[] getFaces() {	
+	public void drawFaces(Graphics g){
+		g.setColor(Color.RED);
+		//g.fillRect(0, 0, 320, 240);
+		g.setColor(Color.GREEN);
+		g.drawImage(webcam.getScreenshot(), 0, 0, null);
+		for(CvRect r : faces){
+			
+			g.drawRect(r.x(), r.y(), r.width(), r.height());
+		}
+		
+	}
+
+	public ArrayList<CvRect> getFaces() {	
 		return faces;
-	}
-	public PImage getImages(int i) {
-		return images[i];
 	}
 
 	public void uploadImage(String imagename){
@@ -189,4 +175,10 @@ public class Looker {
 		return colors;*/ return null;
 	}
 
+	public class NoInputAvailableException extends Exception{
+		private static final long serialVersionUID = 1L;
+		public NoInputAvailableException(String msg){
+			super(msg);
+		}
+	}
 }
