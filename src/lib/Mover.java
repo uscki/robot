@@ -1,8 +1,7 @@
 package lib;
 
-import mennov1.*;
-import processing.core.*;
-import processing.serial.*;
+import mennov1.MennoV1;
+import processing.serial.Serial;
 
 public class Mover {
 	private static MennoV1 p; // The parent PApplet that we will render ourselves onto
