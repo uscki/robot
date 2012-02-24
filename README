@@ -89,4 +89,27 @@ git push
 	
 
 
+Event Action Model
 
+De robot bestaat nu uit 3 lagen:
+1- Event-genererende onderdelen: Clients
+2- Event-routende onderdelen: Bothandler
+3- Event-accepterende onderdelen: Bots
+
+1- De Clients generenen events, bvb: de IRC-client genereert textInputEvent
+3- De bots krijgen events, en kunnen daar dan allemaal spannende dingen mee doen.
+
+2- De Bothandler krijgt de events van 1, en zorgt dat deze bij de juiste 3 aankomen. Om dit te doen moet hij weten welke bot welke events van welke gebruiker wil ontvangen. Om dit te bewerkstelliggen moet elke bot een hashmap bijhouden met als keys de verschillende events, en als value een datastructuur (hashmap? list? linked list?) die Users bijhoudt waarvoor die bot event van dit type wil ontvangen.
+
+Er is een abstracte bot-klasse met de methode addEventUser(EnumEventType t, String user) die deze hasmap aanpast. Hasmap aanmaken/doorgeven aan Bothandler op moment van inladen.
+
+Bothandler heeft als object een tweedimensionale hashmap met datastructuur x erin (hashmap van hashmaps van datastructuur x). Bij het inladen van een bot wordt er gekeken welke events die bot mogelijk zou kunnen ontvangen (voor het opstarten van webcam ed?), en er wordt een laad-methode aangeroepen (onLoad) welke de hashmap initialiseerd en teruggeeft.
+
+Het doel van dit model is inter-process communication te implementeren, dwz dat een bot als respons op een textInputEvent ook andere events kan genereren, bijvoorbeeld antwoord-events maar ook move-events.
+
+Om dit alles simpel te houden voor de leken is er een methode nodig die deze hashtable van datastructuur X automatisch aanmaakt, een methode onLoad (in tegestelling tot de constructor zal onLoad de hashmap returnen, tevens blijft de constructor dan vrij voor andere taken).
+Om dit eenvoudig te bewerkstelligen stellen wij, Richard en Rick, voor om een abstracte bot-klasse te schrijven. Deze klasse zit net onder de bot-interface en alle bots breiden deze klasse uit. In deze klasse wordt de methode onLoad gedefinieerd.
+Het blijft aan de gebruiker om per event-type per user in te stellen of deze bot events van dit type van deze gebruiker wil ontvangen. Wij menen dat we dit van coders kunnen verwachten omdat het nieuwe message-systeem cruciaal wordt aan de robot, en het sowieso nodig is om hier begrip van te hebben voor elke bot boven het niveau Echobot.
+Het ontvangen van een event-type voor alle users willen we representeren door de Datastructuur X voor dat eventtype null te laten.
+
+Ben ik nog iets vergeten?
