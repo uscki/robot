@@ -44,7 +44,7 @@ public class BotHandler {
 	 */
 	private BotHandler() {
 		// load the commands
-		commands = new HashMap<Class, Command>();
+		commands = new HashMap<String, Command>();
 		commands.put(Load.class.getSimpleName(), new Load());
 		commands.put(Unload.class.getSimpleName(), new Unload());
 		commands.put(Count.class.getSimpleName(), new Count());
