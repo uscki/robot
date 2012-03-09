@@ -44,7 +44,7 @@ public class BotHandler {
 	 */
 	private BotHandler() {
 		// load the commands
-		commands = new HashMap<String, Command>();
+		commands = new HashMap<Class, Command>();
 		commands.put(Load.class.getSimpleName(), new Load());
 		commands.put(Unload.class.getSimpleName(), new Unload());
 		commands.put(Count.class.getSimpleName(), new Count());
@@ -83,6 +83,19 @@ public class BotHandler {
 	 */
 	public String [] parseArguments(String readLine, String user) {
 		
+		
+
+		/*
+			HashMap<strings,ArrayList<Bots>);
+			JeVerliestEvent
+			for(Bot bot : luisternaarjeverliesteventlijst) {
+				Response response = bot.handleEvent(event.content)
+				Response res = bot
+				System.out.printLn(res.message);
+				
+			}
+		*/
+
 		SewerSender.logMessage("Received message from " + user + ": " + readLine);
 		String [] args = readLine.split(" "); 
 		String [] output = new String[1];
