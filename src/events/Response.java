@@ -1,7 +1,16 @@
+package events;
+
+import java.util.ArrayList;
+
 public class Response { 
 	private ArrayList<Event> events;
 	public String response;
 
+	
+	public Response(String response) {
+		this.response = response;
+		events = new ArrayList<Event>();
+	}
 	public Response() {
 		response = "";
 		events = new ArrayList<Event>();
@@ -17,6 +26,9 @@ public class Response {
 	}
 
 	public Event [] getEvents() {
-		return events.ToArray();
+		Event[] events2 = new Event[events.size()]; 
+		
+		events.toArray(events2);
+		return events2;
 	}
 }

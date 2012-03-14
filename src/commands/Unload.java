@@ -1,6 +1,9 @@
 package commands;
 
+import java.util.HashMap;
+
 import mennov1.BotHandler;
+import bots.Bot;
 
 /**
  * 
@@ -14,10 +17,11 @@ public class Unload extends Command {
 	public String execute(String [] args) {
 		try
 		{
-			if(BotHandler.getInstance().listenerBots.remove(args[1]) == null)
-				return "The bot didn't exist, so it couldn't be unloaded either.";
-			else
-				return "The bot " + args[1] + " was unloaded";
+
+			for(HashMap<String,Bot> botList : BotHandler.getInstance().subscriberList.values()) {
+				botList.remove(args[1]);
+			}
+			return "The bot " + args[1] + " was unloaded";
 		}
 		catch(ArrayIndexOutOfBoundsException e) {
 			return "You need to supply the bot that needs to be unloaded";

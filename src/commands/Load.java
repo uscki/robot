@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashMap;
 
 import mennov1.BotHandler;
 import bots.Bot;
@@ -29,7 +30,7 @@ public class Load extends Command {
 		Class cls = null;
 		Bot obj = null;
 		try {
-			
+			BotHandler bot = BotHandler.getInstance();
 			if(args.length == 2)
 				cls = Class.forName("bots."+s);
 			else { //dynamisch iets laden
@@ -43,7 +44,21 @@ public class Load extends Command {
 			    cls = cl.loadClass(s);
 			}
 			obj = (Bot)cls.newInstance();
-			BotHandler.getInstance().listenerBots.put(obj.getClass().getSimpleName(),obj);
+			String botName = obj.getClass().getSimpleName();
+
+			for(Class clsInterface : obj.getClass().getInterfaces()) {
+				if(clsInterface.getSimpleName().equals("Bot"))
+					continue;
+				String interfaceName = clsInterface.getSimpleName().substring(0,clsInterface.getSimpleName().length()-9);
+				if(bot.subscriberList.containsKey(interfaceName))
+					bot.subscriberList.get(interfaceName).put(botName,obj);
+				else {
+					HashMap <String,Bot> temp = new HashMap<String,Bot>();
+					temp.put(botName,obj);
+					bot.subscriberList.put(interfaceName,temp);
+				}
+			}
+
 			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) { // The bot didn't exist
 			return("Invalid bot.");

@@ -1,8 +1,10 @@
 package mennov1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import lib.SewerSender;
+import bots.Bot;
 
 import commands.Command;
 import commands.Count;
@@ -10,7 +12,9 @@ import commands.Load;
 import commands.Time;
 import commands.Unload;
 
-import bots.Bot;
+import events.Event;
+import events.Response;
+import events.TextEvent;
 
 
 /**
@@ -27,7 +31,7 @@ public class BotHandler {
 	
 	HashMap <String,Command> commands; // contains the commands (such like Help, Load, Time etc.)
 	 // contains the list of currently loaded bots. Bots are either preloaded or can be loaded via the 'Load' command
-	public HashMap<String, Bot> listenerBots;
+	public HashMap<String,HashMap<String,Bot>> subscriberList; //<interfacename,<botname,botobject>>
 	
 	// for usage in other classes, cannot be accessed directly
 	private static BotHandler master;
@@ -71,9 +75,8 @@ public class BotHandler {
 		}
 		);
 		
-		listenerBots = new HashMap<String, Bot>();
+		subscriberList = new HashMap<String, HashMap<String,Bot>>();
 	}
-
 	
 	/**
 	 * Parses the input given by the user and return
@@ -81,56 +84,42 @@ public class BotHandler {
 	 * @param readLine 	The input given by the user
 	 * @return The output from either a command or all the bots currently running.
 	 */
-	public String [] parseArguments(String readLine, String user) {
-		
-		
-
-		/*
-			HashMap<strings,ArrayList<Bots>);
-			JeVerliestEvent
-			for(Bot bot : luisternaarjeverliesteventlijst) {
-				Response response = bot.handleEvent(event.content)
-				Response res = bot
-				System.out.printLn(res.message);
-				
-			}
-		*/
-
+	public ArrayList<String>  parseArguments(String readLine, String user) {
+		Event textEvent = new TextEvent(readLine,user);
+		ArrayList <String> textResponseList = new ArrayList <String>();
 		SewerSender.logMessage("Received message from " + user + ": " + readLine);
+		
+		// is it a command
 		String [] args = readLine.split(" "); 
 		String [] output = new String[1];
 		
 		String capitalized = args[0].substring(0, 1).toUpperCase() + args[0].substring(1).toLowerCase();
-		// is it a command?
 		if(commands.containsKey(capitalized))
 		{
-			output[0] = commands.get(capitalized).execute(args);
-			return output;
+			textResponseList.add(commands.get(capitalized).execute(args));
+			return textResponseList;
 		}
+		
 		//Feed the input to all the bots
 		else {
-			boolean emptyOutput = true;
-			if(listenerBots.size() > 0)
-				output = new String[listenerBots.size()];
-			int i=0;
-			for(Bot listener : listenerBots.values()){
-				
-				String response = listener.ask(readLine, user);
-				if(null != response){
-					output[i++] = 
-//							listener.getClass().getSimpleName() +": "+
-							response;
-					SewerSender.logMessage("Sent message: " + response);
-					if(output[i-1] != "")
-						emptyOutput = false;
-					
-				}
+			for(Bot listener : subscriberList.get("TextEvent").values()) {
+				Response response = listener.handleEvents(textEvent);
+				handleResponse(response,textResponseList);
 			}
-			// If all the bots didn't return output, create a nice message telling the user exactly that.
-			//if(emptyOutput)
-			//	output[0] = "No output was returned by the bots for your input";
-			
-			return output;
+
+			return textResponseList;
+		}		
+	}
+
+	//TODO: iets met bomen ofzo, jatoch
+	//(probleem: veel responses, wat moet dan de output zijn, bijv alleen de responses op de eerste respons?)
+	public void handleResponse(Response res,ArrayList<String> textResponseList) {
+		textResponseList.add(res.response);
+		for(Event ev : res.getEvents()) {
+			for(Bot listener : subscriberList.get(ev.getClass().getSimpleName()).values()) {
+				Response res2 = listener.handleEvents(ev);
+				handleResponse(res2,textResponseList);
+			}
 		}
 	}
 }

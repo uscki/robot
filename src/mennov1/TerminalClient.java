@@ -3,8 +3,7 @@ package mennov1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import bots.Bot;
+import java.util.ArrayList;
 
 /**
  * 
@@ -37,11 +36,8 @@ public class TerminalClient implements Runnable{
 			try {
 				BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 				String readLine = buffy.readLine();
-				String [] outputs = BotHandler.getInstance().parseArguments(readLine, System.getProperty("user.name"));
+				ArrayList <String> outputs = BotHandler.getInstance().parseArguments(readLine, System.getProperty("user.name"));
 				for(String s : outputs) {
-					if(null == s){
-						continue;
-					}
 					System.out.println(s);
 				}
 			} catch (IOException e) {

@@ -1,5 +1,8 @@
 package bots;
 
+import events.Event;
+import events.Response;
+
 /**
  * 
  * @author Vincent Tunru
@@ -8,5 +11,6 @@ package bots;
  * Bot interface, bots used by MennoV1 need to implement this.
  */
 public interface Bot {
-	public abstract String ask(String input, String user);
+
+	public Response handleEvents(Event event);
 }
