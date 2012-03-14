@@ -1,6 +1,7 @@
 package mennov1;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jibble.pircbot.*;
 
@@ -33,7 +34,7 @@ public class IrcClient extends PircBot implements Runnable {
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
 		System.out.println("Received message from " + sender + " in " + channel + ": " + message);
-		String[] outputs = BotHandler.getInstance().parseArguments(message, sender);
+		ArrayList <String> outputs = BotHandler.getInstance().parseArguments(message, sender);
 		for(String s : outputs) {
 			if(null == s){
 				continue;
@@ -46,7 +47,7 @@ public class IrcClient extends PircBot implements Runnable {
 	protected void onPrivateMessage(String sender, String login,
 			String hostname, String message) {
 		System.out.println("Received private message from " + sender + ": " + message);
-		String[] outputs = BotHandler.getInstance().parseArguments(message, sender);
+		ArrayList <String> outputs = BotHandler.getInstance().parseArguments(message, sender);
 		for(String s : outputs) {
 			if(null == s){
 				continue;

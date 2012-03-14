@@ -1,6 +1,7 @@
 package mennov1;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
@@ -120,7 +121,7 @@ PacketListener myListener = new PacketListener() {
 		public void processMessage(Chat chat, Message message) {
 			if(message.getType().equals(Message.Type.chat) && message.getBody() != null) {
 				String body = message.getBody();
-				String [] outputs = BotHandler.getInstance().parseArguments(body, message.getFrom());
+				ArrayList <String> outputs = BotHandler.getInstance().parseArguments(body, message.getFrom());
 				System.out.println(message.getFrom() + ": " +body);
 				try {
 					StringBuilder builder = new StringBuilder();
