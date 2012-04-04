@@ -31,7 +31,7 @@ public class BotHandler {
 	
 	HashMap <String,Command> commands; // contains the commands (such like Help, Load, Time etc.)
 	 // contains the list of currently loaded bots. Bots are either preloaded or can be loaded via the 'Load' command
-	public HashMap<String,HashMap<String,Bot>> subscriberList; //<interfacename,<botname,botobject>>
+	public HashMap<String,Bot> botList; //<interfacename,<botname,botobject>>
 	
 	// for usage in other classes, cannot be accessed directly
 	private static BotHandler master;
@@ -75,7 +75,7 @@ public class BotHandler {
 		}
 		);
 		
-		subscriberList = new HashMap<String, HashMap<String,Bot>>();
+		botList = new HashMap<String,Bot>();
 	}
 	
 	/**
@@ -102,8 +102,8 @@ public class BotHandler {
 		
 		//Feed the input to all the bots
 		else {
-			for(Bot listener : subscriberList.get("TextEvent").values()) {
-				Response response = listener.handleEvents(textEvent);
+			for(Bot bot : botList.values()) {
+				Response response = bot.handleEvents(textEvent);
 				handleResponse(response,textResponseList);
 			}
 
@@ -114,11 +114,13 @@ public class BotHandler {
 	//TODO: iets met bomen ofzo, jatoch
 	//(probleem: veel responses, wat moet dan de output zijn, bijv alleen de responses op de eerste respons?)
 	public void handleResponse(Response res,ArrayList<String> textResponseList) {
-		textResponseList.add(res.response);
-		for(Event ev : res.getEvents()) {
-			for(Bot listener : subscriberList.get(ev.getClass().getSimpleName()).values()) {
-				Response res2 = listener.handleEvents(ev);
-				handleResponse(res2,textResponseList);
+		if(!res.response.equals("")){
+			textResponseList.add(res.response);
+			for(Event ev : res.getEvents()) {
+				for(Bot bot : botList.values()) {
+					Response res2 = bot.handleEvents(ev);
+					handleResponse(res2,textResponseList);
+				}
 			}
 		}
 	}

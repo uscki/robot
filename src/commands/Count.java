@@ -14,7 +14,7 @@ public class Count extends Command {
 	@Override
 	public String execute(String[] args) {
 		//TODO: FOUT
-		return("There are currently " + /*BotHandler.getInstance().listenerBots.size()*/ 5 + " bot(s) loaded.");
+		return("There are currently " + BotHandler.getInstance().botList.size() + " bot(s) loaded.");
 	}
 
 	@Override

@@ -46,10 +46,12 @@ public class SnorBot extends PApplet {
 	    	int w = faces[0].width;
 	    	int h = faces[0].height;
 	    	int x = faces[0].x + (w/4);
-	    	int y = faces[0].y + (h/2) + (h/8);
+	    	int y = faces[0].y + (h/2) + (h/10);
 	    	w = w/2;
 	    	h = h/4;
+	    	tint(150,150,0,150);
 	    	image(snor,x, y, w, h ); 
+	    	noTint();
 	    }
 		PImage upload = get();
 		image(upload,0,0);

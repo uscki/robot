@@ -61,7 +61,7 @@ public class SewerSender {
 		
 		URL u;
 		try {
-			u = new URL("https://studiereis.uscki.nl/log");
+			u = new URL("https://groepfotoboek.nl/robot");
 		} catch (MalformedURLException e) {
 			// Fail silently
 			return;
