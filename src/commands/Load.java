@@ -7,7 +7,7 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 
 import mennov1.BotHandler;
-import bots.Bot;
+import bots.IBot;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class Load extends Command {
 		
 		//O no, a very ugly hack to load random bots.
 		Class cls = null;
-		Bot obj = null;
+		IBot obj = null;
 		try {
 			BotHandler botHandler = BotHandler.getInstance();
 			if(args.length == 2)
@@ -43,7 +43,7 @@ public class Load extends Command {
 			    ClassLoader cl = new URLClassLoader(urls);
 			    cls = cl.loadClass(s);
 			}
-			obj = (Bot)cls.newInstance();
+			obj = (IBot)cls.newInstance();
 			String botName = obj.getClass().getSimpleName();
 
 			if(!botHandler.botList.containsKey(botName)){

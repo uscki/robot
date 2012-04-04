@@ -5,7 +5,7 @@ import events.JeVerliestEvent;
 import events.Response;
 import events.TextEvent;
 
-public class JeVerliestBot implements Bot {
+public class JeVerliestBot implements IBot {
 	public Response handleEvents(Event event) {
 		if(event instanceof TextEvent) {
 			if(event.info.equals("loser")) {

@@ -11,7 +11,7 @@ import events.TextEvent;
  *
  * A very simple example bot who is basically a parrot.
  */
-public class Echobot implements Bot {
+public class Echobot implements IBot {
 
 	public Response handleEvents(Event event) {
 		if(event instanceof TextEvent) {

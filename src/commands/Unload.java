@@ -3,7 +3,7 @@ package commands;
 import java.util.HashMap;
 
 import mennov1.BotHandler;
-import bots.Bot;
+import bots.IBot;
 
 /**
  * 
