@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import lib.SewerSender;
-import bots.Bot;
+import bots.IBot;
 
 import commands.Command;
 import commands.Count;
@@ -31,7 +31,7 @@ public class BotHandler {
 	
 	HashMap <String,Command> commands; // contains the commands (such like Help, Load, Time etc.)
 	 // contains the list of currently loaded bots. Bots are either preloaded or can be loaded via the 'Load' command
-	public HashMap<String,Bot> botList; //<interfacename,<botname,botobject>>
+	public HashMap<String,IBot> botList; //<interfacename,<botname,botobject>>
 	
 	// for usage in other classes, cannot be accessed directly
 	private static BotHandler master;
@@ -75,7 +75,7 @@ public class BotHandler {
 		}
 		);
 		
-		botList = new HashMap<String,Bot>();
+		botList = new HashMap<String,IBot>();
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public class BotHandler {
 		
 		//Feed the input to all the bots
 		else {
-			for(Bot bot : botList.values()) {
+			for(IBot bot : botList.values()) {
 				Response response = bot.handleEvents(textEvent);
 				handleResponse(response,textResponseList);
 			}
@@ -117,7 +117,7 @@ public class BotHandler {
 		if(!res.response.equals("")){
 			textResponseList.add(res.response);
 			for(Event ev : res.getEvents()) {
-				for(Bot bot : botList.values()) {
+				for(IBot bot : botList.values()) {
 					Response res2 = bot.handleEvents(ev);
 					handleResponse(res2,textResponseList);
 				}

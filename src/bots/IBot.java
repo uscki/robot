@@ -10,7 +10,7 @@ import events.Response;
  * 
  * Bot interface, bots used by MennoV1 need to implement this.
  */
-public interface Bot {
+public interface IBot {
 
 	public Response handleEvents(Event event);
 }
