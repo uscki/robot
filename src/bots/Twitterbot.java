@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import events.Event;
+import events.Response;
+import events.TextEvent;
+
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -12,7 +16,7 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class Twitterbot implements Bot {
+public class Twitterbot implements IBot {
 	
 	private Twitter twitter;
 	public Twitterbot()
@@ -29,16 +33,18 @@ public class Twitterbot implements Bot {
 	}
 	
 	@Override
-	public String ask(String input, String user) {
+	public Response handleEvents(Event event) {
 
 		try {
-			Status status = twitter.updateStatus("\""+input+"\"");
-			System.out.println("Successfully updated the status to [" + status.getText() + "].");
+			if(event instanceof TextEvent) {
+				Status status = twitter.updateStatus("\""+event.info+"\"");
+				System.out.println("Successfully updated the status to [" + status.getText() + "].");
+			}
 		} catch (TwitterException e) {
 			
 		}
 		
-		return null;
+		return new Response();
 	}
 
 }
