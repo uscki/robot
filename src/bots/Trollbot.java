@@ -1,16 +1,34 @@
 package bots;
 
-public class Trollbot implements Bot {
+import java.awt.List;
+import java.util.ArrayList;
 
-	public String ask(String input, String user) {
-		if(input.contains("hard") ||
-		   input.contains("nat") ||
-		   input.contains("stijf") ||
-		   input.contains("lang")){
-			return "Dat zei mijn vrouw ook vannacht!";
+import events.Event;
+import events.Response;
+import events.TextEvent;
+import events.TextEventInterface;
+
+public class Trollbot implements IBot{
+	
+	String[] trollWoorden = {"hard", "nat", "stijf", "lang"};
+	
+	@Override
+	public Response handleEvents(Event event) {
+		if(event instanceof TextEvent && CheckOpTrollbaarheid(event.info)){
+			Response response = new Response();
+			response.setResponse("Dat zei mijn vrouw ook vannacht!");
+			return response;
 		}
-		
 		return null;
+	}
+
+	private boolean CheckOpTrollbaarheid(String zin) {
+		for(String s : trollWoorden){
+			if(zin.contains(s)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

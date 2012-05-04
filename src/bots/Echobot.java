@@ -3,7 +3,6 @@ package bots;
 import events.Event;
 import events.Response;
 import events.TextEvent;
-import events.TextEventInterface;
 
 /**
  * 
@@ -12,7 +11,7 @@ import events.TextEventInterface;
  *
  * A very simple example bot who is basically a parrot.
  */
-public class Echobot implements Bot, TextEventInterface {
+public class Echobot implements IBot {
 
 	public Response handleEvents(Event event) {
 		if(event instanceof TextEvent) {

@@ -4,9 +4,8 @@ import events.Event;
 import events.JeVerliestEvent;
 import events.Response;
 import events.TextEvent;
-import events.TextEventInterface;
 
-public class JeVerliestBot implements Bot,TextEventInterface {
+public class JeVerliestBot implements IBot {
 	public Response handleEvents(Event event) {
 		if(event instanceof TextEvent) {
 			if(event.info.equals("loser")) {
@@ -21,6 +20,6 @@ public class JeVerliestBot implements Bot,TextEventInterface {
 			return new Response();	
 		}
 		//should never happen
-		else return null;
+		else return new Response();
 	}
 }

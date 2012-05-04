@@ -12,7 +12,7 @@ public class MennoV1 extends PApplet {
 
 	static MennoV1 master;
 	Looker l;
-	Mover m;
+	//Mover m;
 	int face_move_interval;
 	
 	public static final int IWIDTH = 240;
@@ -35,7 +35,7 @@ public class MennoV1 extends PApplet {
 
 		// Initialize libraries
 		l = new Looker(this);
-		m = new Mover(this);
+		//m = new Mover(this);
 
 		// Initialize threads
 		Thread [] clients = new Thread[3];
@@ -57,11 +57,11 @@ public class MennoV1 extends PApplet {
 			for( int i=0; i<l.getFaces().length; i++ ) {
 				rect( l.getFaces()[i].x, l.getFaces()[i].y, l.getFaces()[i].width, l.getFaces()[i].height ); 
 			}
-
+			/*
 			face_move_interval = m.moveToInterval(
 					l.getFaces()[0].x+(l.getFaces()[0].width/2),
 					l.getFaces()[0].y+(l.getFaces()[0].height/2),
-					face_move_interval, 5);
+					face_move_interval, 5);*/
 		}
 		String url = "https://www.uscki.nl/~kruit/zebra/modules/Webcam/upload.php";
 		ImageToWeb img_to_web = new ImageToWeb(this);

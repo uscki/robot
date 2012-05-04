@@ -3,7 +3,7 @@ package commands;
 import java.util.HashMap;
 
 import mennov1.BotHandler;
-import bots.Bot;
+import bots.IBot;
 
 /**
  * 
@@ -18,8 +18,8 @@ public class Unload extends Command {
 		try
 		{
 
-			for(HashMap<String,Bot> botList : BotHandler.getInstance().subscriberList.values()) {
-				botList.remove(args[1]);
+			if(BotHandler.getInstance().botList.containsKey(args[1])) {
+				BotHandler.getInstance().botList.remove(args[1]);
 			}
 			return "The bot " + args[1] + " was unloaded";
 		}
