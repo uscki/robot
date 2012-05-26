@@ -25,7 +25,6 @@ public class FaceDetection {
 	 */
 
     public static List<Rectangle> findFaces(BufferedImage bi, int minScale, int maxScale){//, File output) {
-    	//TODO gezichten filteren, er zitten nog dubbele tussen
         try {
             InputStream is  = FaceDetection.class.getResourceAsStream("/lib/haar/HCSB.txt");
             Gray8DetectHaarMultiScale detectHaar = new Gray8DetectHaarMultiScale(is, minScale, maxScale);
