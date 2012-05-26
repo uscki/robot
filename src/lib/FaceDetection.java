@@ -16,6 +16,8 @@ public class FaceDetection {
 	
 	/**
 	 * 
+	 * Naar http://www.richardnichols.net/2011/01/java-facial-recognition-haar-cascade-with-jjil-guide/
+	 * Belangrijk: zet JJILCore.jar en JJIL-J2SE.jar in Build Path!
 	 * Voorbeeldaanroep:
 	 * BufferedImage bi = ImageIO.read(Main.class.getResourceAsStream("test.jpg"));
      * findFaces(bi, 1, 40, new File("c:/users/sjoerd/desktop/result.jpg")); // change as needed
