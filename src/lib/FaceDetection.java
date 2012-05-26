@@ -1,5 +1,6 @@
 package lib;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
@@ -23,26 +24,55 @@ public class FaceDetection {
      * findFaces(bi, 1, 40, new File("c:/users/sjoerd/desktop/result.jpg")); // change as needed
 	 */
 
-    public static List<Rect> findFaces(BufferedImage bi, int minScale, int maxScale){//, File output) {
+    public static List<Rectangle> findFaces(BufferedImage bi, int minScale, int maxScale){//, File output) {
     	//TODO gezichten filteren, er zitten nog dubbele tussen
         try {
             InputStream is  = FaceDetection.class.getResourceAsStream("/lib/haar/HCSB.txt");
-            if (is==null){System.out.println("Shit has hit the fan");}
             Gray8DetectHaarMultiScale detectHaar = new Gray8DetectHaarMultiScale(is, minScale, maxScale);
             RgbImage im = RgbImageJ2se.toRgbImage(bi);
             RgbAvgGray toGray = new RgbAvgGray();
             toGray.push(im);
             List<Rect> results = detectHaar.pushAndReturn(toGray.getFront());
-            //System.out.println("Found "+results.size()+" faces");
+            List<Rectangle> faces = rectToRectangle(results); 
+            faces = filterFaces(faces);
+            System.out.println("Found "+faces.size()+" faces");
             Image i = detectHaar.getFront();
             Gray8Rgb g2rgb = new Gray8Rgb();
             g2rgb.push(i);
             //RgbImageJ2se conv = new RgbImageJ2se();
             //conv.toFile((RgbImage)g2rgb.getFront(), output.getCanonicalPath());
-            return results;
+            return faces;
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
+        
+    }
+    
+    public static List<Rectangle> filterFaces(List<Rectangle> list){
+    	
+    	List<Rectangle> target = new ArrayList<Rectangle>();
+    	
+    check:	
+    	for (Rectangle listR : list){
+	    	for (Rectangle targetR : target){
+				if (targetR.contains(listR)){
+					break check;
+				}
+			}
+	    	target.add(listR);
+    	}
+    	
+    	return target;
+    }
+    
+    public static List<Rectangle> rectToRectangle(List<Rect> results) {
+    	
+    	List<Rectangle> faces = new ArrayList<Rectangle>();
+    	for(Rect r : results){
+    		faces.add(new Rectangle(r.getLeft(),r.getTop(),r.getWidth(),r.getHeight()));
+    	}
+    	
+    	return faces;
     }
 
 }

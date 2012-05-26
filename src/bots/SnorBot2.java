@@ -1,9 +1,9 @@
 package bots;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import jjil.core.Rect;
 import lib.FaceDetection;
 import lib.Image;
 
@@ -31,17 +31,17 @@ public class SnorBot2 implements IBot {
 				//TODO hier willen we een link naar image van webcam
 				BufferedImage img = Image.loadImageFromWeb("http://www.messagefrommasters.com/Osho/images/Osho-on-adolf-hitler(1).jpg");
 				
-				List<Rect> faceList = FaceDetection.findFaces(img, 1, 40);
+				List<Rectangle> faceList = FaceDetection.findFaces(img, 1, 40);
 				
 				BufferedImage snor = Image.loadImage("snor.png");
 				
-				for(Rect face : faceList){
+				for(Rectangle face : faceList){
 					
-					int x = face.getLeft() + (int)(0.25 * face.getWidth());
-					int y = face.getTop() + (int)(0.65 * face.getHeight());
+					int x = face.x + (int)(0.25 * face.width);
+					int y = face.y + (int)(0.65 * face.height);
 					
-					double sx = (face.getWidth() * 0.5) / snor.getWidth();
-					double sy = (face.getHeight() * 0.25) / snor.getHeight();
+					double sx = (face.width * 0.5) / snor.getWidth();
+					double sy = (face.height * 0.25) / snor.getHeight();
 					
 					snor = Image.scale(snor, sx, sy);
 					
