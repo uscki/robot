@@ -7,6 +7,7 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 
 import mennov1.BotHandler;
+import mennov1.EventBus;
 import bots.IBot;
 
 /**
@@ -48,7 +49,9 @@ public class Load extends Command {
 
 			if(!botHandler.botList.containsKey(botName)){
 				botHandler.botList.put(botName,obj);
-			}	
+			}
+			// Add the bot to out event bus
+			EventBus.getInstance().addListener(obj);
 
 			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) { // The bot didn't exist

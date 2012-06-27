@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import events.Event;
 import events.Response;
 import events.TextEvent;
-import events.TextEventInterface;
 
 public class Trollbot implements IBot{
 	

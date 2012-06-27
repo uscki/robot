@@ -11,6 +11,9 @@ import org.seltar.Bytes2Web.ImageToWeb;
 
 public class Looker {
 	
+	// moet echt helemaal anders
+	
+	/*
 	private static MennoV1 p; // The parent PApplet that we will render ourselves onto
 	private static Looker master;
 	
@@ -154,5 +157,5 @@ public class Looker {
 		int[] colors = {(int)red,(int)green,(int)blue};
 		return colors;
 	}
-	
+	*/
 }

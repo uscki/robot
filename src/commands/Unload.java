@@ -3,6 +3,7 @@ package commands;
 import java.util.HashMap;
 
 import mennov1.BotHandler;
+import mennov1.EventBus;
 import bots.IBot;
 
 /**
@@ -21,6 +22,7 @@ public class Unload extends Command {
 			if(BotHandler.getInstance().botList.containsKey(args[1])) {
 				BotHandler.getInstance().botList.remove(args[1]);
 			}
+			// Remove the bot to out event bus
 			return "The bot " + args[1] + " was unloaded";
 		}
 		catch(ArrayIndexOutOfBoundsException e) {

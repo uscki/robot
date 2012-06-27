@@ -1,80 +1,42 @@
 package mennov1;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.jibble.pircbot.*;
 
-public class IrcClient extends PircBot implements Runnable {
+import events.ReceiveChatEvent;
+import events.SendChatEvent;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args){
-		IrcClient bot = new IrcClient();
-		try {
-			bot.connect("irc.enterthegame.com");
-		} catch (NickAlreadyInUseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IrcException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+public class IrcClient extends PircBot implements Listener<SendChatEvent> {
+
+	private static IrcClient master;
+	
+	public static IrcClient getInstance() {
+		if (null == master) {
+			master = new IrcClient();
 		}
-		bot.joinChannel("#incognito");
+		return master;
 	}
 	
-	public IrcClient() {
+	private IrcClient() {
 		this.setName("MennoV1");
-	}
-
-	public void onMessage(String channel, String sender,
-			String login, String hostname, String message) {
-		System.out.println("Received message from " + sender + " in " + channel + ": " + message);
-		ArrayList <String> outputs = BotHandler.getInstance().parseArguments(message, sender);
-		for(String s : outputs) {
-			if(null == s){
-				continue;
-			}
-			System.out.println("Sent message: " + s);
-			sendMessage(channel, s);
+		try {
+			this.connect("irc.enterthegame.com");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		this.joinChannel("#incognito");
 	}
 	
-	protected void onPrivateMessage(String sender, String login,
-			String hostname, String message) {
-		System.out.println("Received private message from " + sender + ": " + message);
-		ArrayList <String> outputs = BotHandler.getInstance().parseArguments(message, sender);
-		for(String s : outputs) {
-			if(null == s){
-				continue;
-			}
-			System.out.println("Sent message: " + s);
-			sendMessage(sender, s);
-		}
+	public void onMessage(String channel, String sender, String login, String hostname, String message) {
+		EventBus.getInstance().event(new ReceiveChatEvent(this, this, channel, message));
 	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		IrcClient bot = new IrcClient();
-		
-		try {
-			bot.connect("irc.enterthegame.com");
-		} catch (NickAlreadyInUseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IrcException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+	protected void onPrivateMessage(String sender, String login, String hostname, String message) {
+		EventBus.getInstance().event(new ReceiveChatEvent(this, this, sender, message));
+	}
+	
+	public void event(SendChatEvent e) {
+		if (this == e.client) {
+			sendMessage(e.receiver, e.message);
 		}
-		bot.joinChannel("#incognito");
 	}
 
 }

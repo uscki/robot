@@ -1,7 +1,7 @@
 package bots;
 
+import mennov1.Listener;
 import events.Event;
-import events.Response;
 
 /**
  * 
@@ -10,7 +10,6 @@ import events.Response;
  * 
  * Bot interface, bots used by MennoV1 need to implement this.
  */
-public interface IBot {
-
-	public Response handleEvents(Event event);
+public interface IBot<SubEvent extends Event> extends Listener<SubEvent> {
+	public void event(SubEvent e);
 }

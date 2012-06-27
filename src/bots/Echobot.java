@@ -1,8 +1,8 @@
 package bots;
 
-import events.Event;
-import events.Response;
-import events.TextEvent;
+import mennov1.EventBus;
+import events.ReceiveChatEvent;
+import events.SendChatEvent;
 
 /**
  * 
@@ -11,18 +11,10 @@ import events.TextEvent;
  *
  * A very simple example bot who is basically a parrot.
  */
-public class Echobot implements IBot {
+public class Echobot implements IBot<ReceiveChatEvent> {
 
-	public Response handleEvents(Event event) {
-		if(event instanceof TextEvent) {
-			Response res = new Response();
-			res.response = event.info;
-			
-
-			return res;
-		}
-		
-		else 
-			return new Response();
+	public void event(ReceiveChatEvent e) {
+		// Answer something cool
+		EventBus.getInstance().event(new SendChatEvent(this, e.client, e.sender, "got " + e.message));
 	}
 }

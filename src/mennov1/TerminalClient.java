@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import events.ReceiveChatEvent;
+import events.SendChatEvent;
+
 /**
  * 
  * @author Jetze Baumfalk, Vincent Tunru
@@ -12,37 +15,32 @@ import java.util.ArrayList;
  * 
  * A basic terminal that can be used to communicate with MennoV1.
  */
-public class TerminalClient implements Runnable{
+public class TerminalClient implements Runnable, Listener<SendChatEvent> {
 	
+	private static TerminalClient master;
+	String name;
 
-	public TerminalClient() {
+	public static TerminalClient getInstance() {
+		if (null == master) {
+			master = new TerminalClient();
+			Thread t = new Thread(new TerminalClient());
+			t.start();
+		}
+		return master;
 	}
 	
-	public static void main(String [] args) {
-		TerminalClient client = new TerminalClient();
-		client.runClient();
-	}
-	
-	private void welcomeMessage() {
-		System.out.println("Welcome to MennoV1.");
-		System.out.println("Type help for a list of commands");
-		System.out.println("Type exit to quit everything!");
-		
-	}
-	
-	public void runClient() {
-		welcomeMessage();
+	@Override
+	public void run() {
+		name = "Termy";
+		System.out.println("Menno V1 Terminalclient: your name is termy");
 		while(true) {
 			try {
 				BufferedReader buffy = new BufferedReader(new InputStreamReader(System.in));
 				String readLine = buffy.readLine();
-				ArrayList <String> outputs = BotHandler.getInstance().parseArguments(readLine, System.getProperty("user.name"));
-				for(String s : outputs) {
-					System.out.println(s);
-				}
+
+				EventBus.getInstance().event(new ReceiveChatEvent(master, master, name, readLine));
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("O noes, an error occured!");
 				e.printStackTrace();
 			}
 			finally {
@@ -52,8 +50,7 @@ public class TerminalClient implements Runnable{
 	}
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		runClient();
+	public void event(SendChatEvent e) {
+		System.out.println(e.receiver + ": " + e.message);		
 	}
 }

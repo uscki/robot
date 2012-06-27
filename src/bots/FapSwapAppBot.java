@@ -16,10 +16,10 @@ import events.FapEvent;
 import events.Response;
 import events.TextEvent;
 
-public class FapSwapAppBot implements IBot {
+public class FapSwapAppBot implements IBot<Event> {
 
 	@Override
-	public Response handleEvents(Event event) {
+	public void event(Event event) {
 		if(event instanceof TextEvent){
 			Response response = new Response();
 			if(startsWithLowerCase(event.info,"fapswap "))

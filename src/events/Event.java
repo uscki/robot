@@ -1,9 +1,15 @@
 package events;
 
-public abstract class Event {
+import java.util.Calendar;
+import java.util.EventObject;
+
+public abstract class Event extends EventObject {
+	public Event(Object source) {
+		super(source);
+		timestamp = Calendar.getInstance().getTimeInMillis();
+	}
+
 	public String info;
-	public String who;
 
 	public long timestamp;
-	//TODO: nice methods for timestamp and such
 }

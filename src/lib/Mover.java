@@ -8,18 +8,20 @@ public class Mover {
 	private static MennoV1 p; // The parent PApplet that we will render ourselves onto
 	private static Mover master;
 	Serial myPort;  // Create object from Serial class
-
+	
 	int angle;
 	int pitch;
+	
+	public static Mover getInstance() {
+		if(master == null)
+			master =  new Mover(); // throw error?
+		return master;
+	}
 
-	public Mover(MennoV1 parent) {
-		master = this;
-		p = parent;
-
-		p.println("Started mover...");
+	public Mover() {
 		String portName = Serial.list()[0];
-		p.println(Serial.list());
-		myPort = new Serial(p, portName, 9600);		
+		System.out.println("Serial things: \n" + Serial.list());
+		myPort = new Serial(null, portName, 9600);		
 		angle = 60;
 		pitch = 20;
 		myPort.clear();
@@ -27,30 +29,23 @@ public class Mover {
 		myPort.write(pitch + 20);
 	}
 
-	// Het is een singleton pattern
-	public static Mover getInstance() {
-		if(master == null)
-			return null; // throw error?
-		return master;
-	}
-
-	public void moveTo(int x, int y) {
-		int face_angle = (x - p.IWIDTH/2)/8;
+	public void moveTo(int x, int y, int width, int height) {
+		int face_angle = (x - width/2)/8;
 		angle += face_angle;
 		
-		int face_pitch = (y - p.IHEIGHT/2)/8;
+		int face_pitch = (y - height/2)/8;
 		pitch += face_pitch;
 
 		myPort.clear();
-		p.println("Mover draait naar (hoek:" + angle + ", hoogte:" + pitch + ")");
+		System.out.println("Mover draait naar (hoek:" + angle + ", hoogte:" + pitch + ")");
 		myPort.write(angle + 20);
 		myPort.write(pitch + 20);
 	}
 
-	public int moveToInterval(int x, int y, int time, int interval) {
+	public int moveToInterval(int x, int y, int width, int height, int time, int interval) {
 		if (interval != 0) {
 			if (0 == interval-time) {
-				moveTo(x, y);
+				moveTo(x, y, width, height);
 				return 0;
 			}
 			return time+1;
