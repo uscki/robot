@@ -1,4 +1,6 @@
 package mennov1;
+import java.util.EventObject;
+
 import org.jibble.pircbot.*;
 
 import events.ReceiveChatEvent;
@@ -23,6 +25,7 @@ public class IrcClient extends PircBot implements Listener<SendChatEvent> {
 			e.printStackTrace();
 		}
 		this.joinChannel("#incognito");
+		System.out.println("Logged in to irc");
 	}
 	
 	public void onMessage(String channel, String sender, String login, String hostname, String message) {
@@ -39,4 +42,8 @@ public class IrcClient extends PircBot implements Listener<SendChatEvent> {
 		}
 	}
 
+	@Override
+	public Boolean wants(EventObject e) {
+		return (e instanceof SendChatEvent);
+	}
 }

@@ -19,9 +19,8 @@ public class Unload extends Command {
 		try
 		{
 
-			if(BotHandler.getInstance().botList.containsKey(args[1])) {
-				BotHandler.getInstance().botList.remove(args[1]);
-			}
+			EventBus.getInstance().removeAllListeners(args[1]);
+			
 			// Remove the bot to out event bus
 			return "The bot " + args[1] + " was unloaded";
 		}

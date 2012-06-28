@@ -12,7 +12,8 @@ public class PictureEvent extends Event {
 	
 	private BufferedImage image;
 	
-	public PictureEvent(BufferedImage img) {
+	public PictureEvent(Object source, BufferedImage img) {
+		super(source);
 		this.image = img;
 	}	
 	

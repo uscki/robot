@@ -1,6 +1,8 @@
 package mennov1;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class EventBus {
@@ -11,7 +13,7 @@ public class EventBus {
 	 * @author Benno Kruit
 	 */
 	private static EventBus master;
-	private HashSet<Listener> eventListeners;
+	private ConcurrentHashMap<Listener, Boolean> eventListeners;
 
 	public static EventBus getInstance() {
 		if (null == master) {
@@ -21,27 +23,34 @@ public class EventBus {
 	}
 	
 	private EventBus() {
-		eventListeners = new HashSet<Listener>();
+		eventListeners = new ConcurrentHashMap<Listener, Boolean>();
 	}
 	public void addListener(Listener l){
-		if (!eventListeners.contains(l)) {
-			eventListeners.add(l);
+		if (!eventListeners.containsKey(l)) {
+			eventListeners.put(l, false);
 		}
 	}
 	public void removeListener(Listener l){
-		if (eventListeners.contains(l)) {
+		if (eventListeners.containsKey(l)) {
 			eventListeners.remove(l);
+		}
+	}
+	public void removeAllListeners(String name){
+		for(Listener l : eventListeners.keySet()) {
+			if (name.equals(l.getClass().getSimpleName())) {
+				eventListeners.remove(l);
+			}
 		}
 	}
 	
 	public void event(EventObject e) {
-		for(Listener l : eventListeners) {
-			// Listen up, this is special stuff and maybe it's bad but it works
-			try {
-				// We try to cast this event into whatever the listener might want
-				l.event(e);
-			} catch (Exception ex) {
-				// If it doesn't want our event, no problem!
+		for(Listener l : eventListeners.keySet()) {
+			if (l.wants(e)) {
+				try {
+					l.event(e);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 package mennov1;
 
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
 
@@ -12,11 +11,8 @@ import commands.Load;
 import commands.Time;
 import commands.Unload;
 
-import events.Event;
 import events.ReceiveChatEvent;
-import events.Response;
 import events.SendChatEvent;
-import events.TextEvent;
 
 
 /**
@@ -56,39 +52,38 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put(Count.class.getSimpleName(), new Count());
 		commands.put(Time.class.getSimpleName(), new Time());
 		commands.put("Help", new Command() {
-
 			@Override
 			public String execute(String[] args) {
 				StringBuilder aap = new StringBuilder();
 				for(Command command : commands.values()) {
-					//					if(command.getClass().getSimpleName().length()>0)
-					//						aap.append(command.getClass().getSimpleName()+": ");
 					aap.append(command.getClass().getSimpleName() + " " + command.helpMsg()+"\r\n");
 				}
-
 				return aap.toString();
 			}
 
 			@Override
 			public String helpMsg() {
-				// TODO Auto-generated method stub
 				return "Help : displays this message";
 			}
-		}
-				);
-
-		botList = new HashMap<String,IBot>();
+		});
 	}
 
 	public void event(ReceiveChatEvent e) {
 		// is it a command
 		String [] args = e.message.split(" "); 
 		String [] output = new String[1];
-
-		String capitalized = args[0].substring(0, 1).toUpperCase() + args[0].substring(1).toLowerCase();
-		if(commands.containsKey(capitalized))
-		{
-			EventBus.getInstance().event(new SendChatEvent(master, e.client, e.sender, commands.get(capitalized).execute(args)));
+		
+		if (args[0].length() > 0) {
+			String capitalized = args[0].substring(0, 1).toUpperCase() + args[0].substring(1).toLowerCase();
+			if(commands.containsKey(capitalized))
+			{
+				EventBus.getInstance().event(new SendChatEvent(master, e.client, e.sender, commands.get(capitalized).execute(args)));
+			}
 		}
+	}
+
+	@Override
+	public Boolean wants(EventObject e) {
+		return (e instanceof ReceiveChatEvent);
 	}
 }

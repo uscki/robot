@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
  *
  */
 
-public class Image {
+public class ImageLib {
 	
 	/**
 	 * 

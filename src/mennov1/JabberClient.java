@@ -1,4 +1,6 @@
 package mennov1;
+import java.util.EventObject;
+
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -43,6 +45,7 @@ public class JabberClient implements Listener<SendChatEvent> {
 
 		// try to log in.
 		try {
+			System.out.println("Jabber: Logged in to gmail.com");
 			connection.login("mennov1@vinnl.nl", "appelflap");
 			// set our presence as available.
 			connection.sendPacket(new Presence(Presence.Type.available));
@@ -89,4 +92,8 @@ public class JabberClient implements Listener<SendChatEvent> {
 		}
 	}
 
+	@Override
+	public Boolean wants(EventObject e) {
+		return (e instanceof SendChatEvent);
+	}
 }

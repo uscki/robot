@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import lib.FaceDetection;
-import lib.Image;
+import lib.ImageLib;
 
 import events.Event;
 import events.Response;
@@ -29,11 +29,11 @@ public class SnorBot2 implements IBot {
 			{
 				//draw mustache
 				//TODO hier willen we een link naar image van webcam
-				BufferedImage img = Image.loadImageFromWeb("http://www.messagefrommasters.com/Osho/images/Osho-on-adolf-hitler(1).jpg");
+				BufferedImage img = ImageLib.loadImageFromWeb("http://www.messagefrommasters.com/Osho/images/Osho-on-adolf-hitler(1).jpg");
 				
 				List<Rectangle> faceList = FaceDetection.findFaces(img, 1, 40);
 				
-				BufferedImage snor = Image.loadImage("snor.png");
+				BufferedImage snor = ImageLib.loadImage("snor.png");
 				
 				for(Rectangle face : faceList){
 					
@@ -43,15 +43,15 @@ public class SnorBot2 implements IBot {
 					double sx = (face.width * 0.5) / snor.getWidth();
 					double sy = (face.height * 0.25) / snor.getHeight();
 					
-					snor = Image.scale(snor, sx, sy);
+					snor = ImageLib.scale(snor, sx, sy);
 					
-					Image.drawImage(img,snor,x,y);
+					ImageLib.drawImage(img,snor,x,y);
 				}
 				
 				if(img == null){
 					System.out.println("oops");
 				} else {
-					Image.saveImage(img,"webcamtest.jpg");
+					ImageLib.saveImage(img,"webcamtest.jpg");
 				}
 				
 				//add PictureEvent

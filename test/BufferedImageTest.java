@@ -10,17 +10,17 @@ import jjil.core.Rect;
 
 import lib.FaceDetection;
 
-import lib.Image;
+import lib.ImageLib;
 
 public class BufferedImageTest {
 	public static void main(String[] args){
 		
-		BufferedImage img = Image.loadImageFromWeb("http://4.bp.blogspot.com/-pNqA0Cx6g-8/TWHANiJEiXI/AAAAAAAAAFc/M8C0nzw6xzM/s1600/mona-lisa.jpg");
+		BufferedImage img = ImageLib.loadImageFromWeb("http://4.bp.blogspot.com/-pNqA0Cx6g-8/TWHANiJEiXI/AAAAAAAAAFc/M8C0nzw6xzM/s1600/mona-lisa.jpg");
 		//BufferedImage img = Image.loadImage("test.jpg");
 		
 		List<Rectangle> faceList = FaceDetection.findFaces(img, 1, 40);
 		
-		BufferedImage snor = Image.loadImage("snor.png");
+		BufferedImage snor = ImageLib.loadImage("snor.png");
 		
 		//snor = Image.scale(snor, 0.65, 0.65);
 		//System.out.println(faceList.toString());
@@ -33,15 +33,15 @@ public class BufferedImageTest {
 			double sx = (face.width * 0.5) / snor.getWidth();
 			double sy = (face.height * 0.25) / snor.getHeight();
 					
-			snor = Image.scale(snor, sx, sy);
+			snor = ImageLib.scale(snor, sx, sy);
 			
-			Image.drawImage(img,snor,x,y);
+			ImageLib.drawImage(img,snor,x,y);
 		}
 		
 		if(img == null){
 			System.out.println("oops");
 		} else {
-			Image.saveImage(img,"webcamtest.jpg");
+			ImageLib.saveImage(img,"webcamtest.jpg");
 		}
 	}
 }

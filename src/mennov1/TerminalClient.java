@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.EventObject;
 
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
@@ -23,7 +24,7 @@ public class TerminalClient implements Runnable, Listener<SendChatEvent> {
 	public static TerminalClient getInstance() {
 		if (null == master) {
 			master = new TerminalClient();
-			Thread t = new Thread(new TerminalClient());
+			Thread t = new Thread(master);
 			t.start();
 		}
 		return master;
@@ -52,5 +53,10 @@ public class TerminalClient implements Runnable, Listener<SendChatEvent> {
 	@Override
 	public void event(SendChatEvent e) {
 		System.out.println(e.receiver + ": " + e.message);		
+	}
+
+	@Override
+	public Boolean wants(EventObject e) {
+		return (e instanceof SendChatEvent);
 	}
 }

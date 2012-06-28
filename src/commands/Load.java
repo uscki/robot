@@ -45,11 +45,7 @@ public class Load extends Command {
 			    cls = cl.loadClass(s);
 			}
 			obj = (IBot)cls.newInstance();
-			String botName = obj.getClass().getSimpleName();
-
-			if(!botHandler.botList.containsKey(botName)){
-				botHandler.botList.put(botName,obj);
-			}
+			
 			// Add the bot to out event bus
 			EventBus.getInstance().addListener(obj);
 

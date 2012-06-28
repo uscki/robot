@@ -19,7 +19,9 @@ public class MennoV1 {
 		bus.addListener(BotHandler.getInstance());
 		bus.addListener(JabberClient.getInstance());
 		bus.addListener(IrcClient.getInstance());
+		bus.addListener(new ImageFileClient("test.jpeg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
+		
 		
 		try {
 			System.in.read();

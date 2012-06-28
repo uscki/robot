@@ -1,15 +1,20 @@
 package bots;
 
-import lib.Looker;
+import java.util.EventObject;
+import events.PictureEvent;
 
-public class FaceFollower implements Bot {
+public class FaceFollower implements IBot<PictureEvent> {
 
 	@Override
-	public String ask(String input, String user) {
-		Looker tempLook = Looker.getInstance();
-		
-		
-		return null;
+	public Boolean wants(EventObject e) {
+		return (e instanceof PictureEvent) && null != e;
 	}
+
+	@Override
+	public void event(PictureEvent e) {
+		System.out.println("PictureEvent: " + e);
+	}
+
+
 
 }
