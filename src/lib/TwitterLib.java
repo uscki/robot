@@ -10,8 +10,18 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterLib {
 	
+	private static TwitterLib master;
 	private Twitter twitter;
-	public TwitterLib()
+	
+	
+	public static TwitterLib getInstance() {
+		if (null == master) {
+			master = new TwitterLib();
+		}
+		return master;
+	}
+	
+	private TwitterLib()
 	{
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)

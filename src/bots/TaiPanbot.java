@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import java.util.Hashtable;
 
-public class TaiPanbot implements Bot {
+public class TaiPanbot  extends AnswerBot {
 	
 	protected Hashtable<String, Boolean> started;
 	protected Hashtable<String, String[]> teams; //0&1 zijn n team, net als 2&3

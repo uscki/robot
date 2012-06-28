@@ -1,22 +1,22 @@
 package bots;
 
-import events.Event;
-import events.Response;
-import events.TextEvent;
+import java.util.EventObject;
+
+import events.ReceiveChatEvent;
 import lib.TwitterLib;
+import mennov1.Listener;
 
-public class Twitterbot implements IBot {
-	
-	private TwitterLib twitter = new TwitterLib();
-	
+public class Twitterbot implements Listener<ReceiveChatEvent> {
 	@Override
-	public Response handleEvents(Event event) {
+	public Boolean wants(EventObject e) {
+		return (e instanceof ReceiveChatEvent);
+	}
 
-		if(event instanceof TextEvent) {
-			twitter.tweet(event.info);
+	@Override
+	public void event(ReceiveChatEvent e) {
+		if(e.message.startsWith("shout ")) {
+			TwitterLib.getInstance().tweet(e.message.substring(6));
 		}
-		
-		return new Response();
 	}
 
 }

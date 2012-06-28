@@ -125,5 +125,10 @@ public class ImageLib {
 			}
 		return img;
 	}
+
+	public static void maakGif(String string, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

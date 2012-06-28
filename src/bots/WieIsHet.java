@@ -6,7 +6,7 @@ import jpl.Atom;
 import jpl.Query;
 import jpl.Term;
 
-public class WieIsHet implements Bot {
+public class WieIsHet extends AnswerBot {
 
 	protected Hashtable<String, Conversation> gesprekken;
 	

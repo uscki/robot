@@ -1,22 +1,13 @@
 package bots;
 
-import java.awt.List;
-import java.util.ArrayList;
-
-import events.Event;
-import events.Response;
-import events.TextEvent;
-
-public class Trollbot implements IBot{
+public class Trollbot extends AnswerBot{
 	
 	String[] trollWoorden = {"hard", "nat", "stijf", "lang"};
 	
 	@Override
-	public Response handleEvents(Event event) {
-		if(event instanceof TextEvent && CheckOpTrollbaarheid(event.info)){
-			Response response = new Response();
-			response.setResponse("Dat zei mijn vrouw ook vannacht!");
-			return response;
+	public String ask(String in, String who) {
+		if(CheckOpTrollbaarheid(in)){
+			return "Dat zei mijn vrouw ook vannacht!";
 		}
 		return null;
 	}

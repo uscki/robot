@@ -7,7 +7,7 @@ import java.util.Hashtable;
  * 
  * @author vincent
  */
-public class Hogerlager implements Bot {
+public class Hogerlager extends AnswerBot {
 
 	protected Hashtable<String, Integer> getallen;
 	

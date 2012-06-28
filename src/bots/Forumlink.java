@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Forumlink implements Bot {
+public class Forumlink extends AnswerBot {
 
 	@Override
 	public String ask(String input, String user) {

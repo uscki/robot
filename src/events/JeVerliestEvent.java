@@ -5,7 +5,8 @@ public class JeVerliestEvent extends Event {
 	public String verliezer;
 	public int score;
 
-	public JeVerliestEvent(String winnaar, String verliezer, int score) {
+	public JeVerliestEvent(Object source, String winnaar, String verliezer, int score) {
+		super(source);
 		this.winnaar = winnaar;
 		this.verliezer = verliezer;
 		this.score = score;

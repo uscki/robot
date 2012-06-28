@@ -1,12 +1,12 @@
 package bots;
 
-import lib.Looker;
+import lib.ImageLib;
 
-public class Gifbot implements Bot {
+public class Gifbot extends AnswerBot {
 	
 	public String ask(String input, String user) {
 		if (input.contains("gif")) {
-			Looker.getInstance().maakGif("gifbot.gif",10,3);
+			ImageLib.maakGif("gifbot.gif",10,3);
 			return "Gif gemaakt";
 		}
 		return null;

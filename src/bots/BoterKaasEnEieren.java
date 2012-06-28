@@ -10,7 +10,7 @@ package bots;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class BoterKaasEnEieren implements Bot {
+public class BoterKaasEnEieren extends AnswerBot {
 	public enum Cel {
 		X, O, EMPTY
 	}

@@ -1,12 +1,11 @@
 package bots;
 
 import java.awt.Rectangle;
-import lib.Looker;
 
-public class Snorbot implements Bot {
+public class Snorbot extends AnswerBot {
 	
 	public String ask(String input, String user) {
-		
+		/*
 		if(input.contains("snor")){
 			Looker l = Looker.getInstance();
 			if (l.seesFace()) {
@@ -33,7 +32,7 @@ public class Snorbot implements Bot {
 			} else {
 				return "Ik zie niemand...";
 			}		
-		}
+		}*/
 		return null;
 	}
 }
