@@ -3,6 +3,8 @@ package mennov1;
 
 import java.io.IOException;
 
+import lib.SewerSender;
+
 /**
  * 
  * @category Framework
@@ -22,6 +24,8 @@ public class MennoV1 {
 		bus.addListener(new ImageFileClient("test.jpeg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
 		
+		// Send a sign of life to robot.uscki.nl
+		System.out.println(SewerSender.sentLifeSign()? "Sent life sign" : "Life sign failed");
 		
 		try {
 			System.in.read();

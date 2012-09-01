@@ -51,11 +51,41 @@ public class SewerSender {
 	}
 	
 	/**
+	 * Send a sign of life
+	 * 
+	 */
+	public static Boolean sentLifeSign() {
+		ranzigeSSLCertHack();
+		Boolean out = false;
+		
+		try {
+			URL u = new URL("https://robot.uscki.nl/log/life.php");
+			HttpsURLConnection connection = (HttpsURLConnection) u.openConnection();
+			InputStream is = connection.getInputStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			String line;
+			StringBuffer response = new StringBuffer(); 
+			while((line = rd.readLine()) != null) {
+		    	  response.append(line);
+		    	  response.append('\r');
+			}
+			rd.close();
+			out = response.toString().contains("Success");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return out;
+	}
+	
+	/**
 	 * Post een JSON-bericht naar de robotserver
 	 * @param json
 	 */
-	protected static void sendJson(String json){
+	protected static Boolean sendJson(String json){
 		String data;
+		Boolean out = false;
 		
     	ranzigeSSLCertHack();
 		
@@ -96,12 +126,13 @@ public class SewerSender {
 			}
 			rd.close();
 
-			System.out.println(response.toString());
+			out = response.toString().contains("Success");
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+		return out;
 	}
 	
     //Zeer ranzige hack omdat de SSL in dit geval overbodig is
