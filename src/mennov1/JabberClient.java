@@ -67,6 +67,19 @@ public class JabberClient implements Listener<SendChatEvent> {
 									msg.getBody()));
 						}
 					}
+					if (packet instanceof Presence) {
+						Presence wantsToSubscribe = ((Presence) packet); 
+						// Someone wants to be friends with us
+						if (wantsToSubscribe.getType().equals(Presence.Type.subscribe)) {
+							Presence subscribed = new Presence(Presence.Type.subscribed);
+							subscribed.setTo(wantsToSubscribe.getFrom());
+							connection.sendPacket(subscribed);
+							
+							Presence subscribe = new Presence(Presence.Type.subscribe);
+							subscribe.setTo(wantsToSubscribe.getFrom());
+							connection.sendPacket(subscribe);
+						}
+					}
 				}
 			};
 			connection.addPacketListener(myListener, null);
