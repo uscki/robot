@@ -21,7 +21,7 @@ public class MennoV1 {
 		bus.addListener(BotHandler.getInstance());
 		bus.addListener(JabberClient.getInstance());
 		bus.addListener(IrcClient.getInstance());
-		bus.addListener(new ImageFileClient("test.jpeg", 1000L));
+		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
 		
 		// Send a sign of life to robot.uscki.nl
