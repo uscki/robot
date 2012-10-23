@@ -9,16 +9,16 @@ import mennov1.EventBus;
  * Returns the current number of bots that are loaded in MennoV1.
  *
  */
-public class Count extends Command {
+public class List extends Command {
 
 	@Override
 	public String execute(String[] args) {
-		return("There are currently " + EventBus.getInstance().countBots() + " bot(s) loaded.");
+		return("Currenty loaded bots " + EventBus.getInstance().listBots() + ".");
 	}
 
 	@Override
 	public String helpMsg() {
-		return "gives the current number of bots loaded";
+		return "gives a list of loaded bots";
 	}
 
 }

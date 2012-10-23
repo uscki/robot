@@ -4,6 +4,8 @@ import java.util.EventObject;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 
+import bots.IBot;
+
 
 public class EventBus {
 
@@ -35,12 +37,35 @@ public class EventBus {
 			eventListeners.remove(l);
 		}
 	}
-	public void removeAllListeners(String name){
+	public Boolean removeAllBots(String name){
+		Boolean removed = false;
 		for(Listener l : eventListeners.keySet()) {
 			if (name.equals(l.getClass().getSimpleName())) {
-				eventListeners.remove(l);
+				if (l instanceof IBot) {
+					eventListeners.remove(l);
+					removed = true;
+				}
 			}
 		}
+		return removed;
+	}
+	public int countBots() {
+		int counter= 0;
+		for(Listener l : eventListeners.keySet()) {
+			if (l instanceof IBot) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+	public String listBots() {
+		String list = "";
+		for(Listener l : eventListeners.keySet()) {
+			if (l instanceof IBot) {
+				list += l.getClass().getSimpleName() + ", ";
+			}
+		}
+		return list;
 	}
 	
 	public void event(EventObject e) {
