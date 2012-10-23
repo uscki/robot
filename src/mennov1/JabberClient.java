@@ -10,8 +10,6 @@ import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
 
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
@@ -86,8 +84,11 @@ public class JabberClient implements Listener<SendChatEvent> {
 		} catch (XMPPException ex) {
 			//ex.printStackTrace();
 			System.out.println("Failed to log in as " + connection.getUser());
-			disconnect();
 			EventBus.getInstance().removeListener(this);
+			try {
+				disconnect();
+				master = null;
+			} catch (Exception e) {}
 		}
 
 		chatmanager = connection.getChatManager();
