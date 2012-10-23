@@ -19,10 +19,12 @@ public class Unload extends Command {
 		try
 		{
 
-			EventBus.getInstance().removeAllListeners(args[1]);
-			
-			// Remove the bot to out event bus
-			return "The bot " + args[1] + " was unloaded";
+			if (EventBus.getInstance().removeAllBots(args[1])) {
+				// Remove the bot to out event bus
+				return "The bot " + args[1] + " was unloaded";
+			} else {
+				return "Nothing could be unloaded";
+			}
 		}
 		catch(ArrayIndexOutOfBoundsException e) {
 			return "You need to supply the bot that needs to be unloaded";

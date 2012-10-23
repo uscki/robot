@@ -3,10 +3,9 @@ package mennov1;
 import java.util.EventObject;
 import java.util.HashMap;
 
-import bots.IBot;
-
 import commands.Command;
 import commands.Count;
+import commands.List;
 import commands.Load;
 import commands.Time;
 import commands.Unload;
@@ -29,7 +28,6 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 
 	HashMap <String,Command> commands; // contains the commands (such like Help, Load, Time etc.)
 	// contains the list of currently loaded bots. Bots are either preloaded or can be loaded via the 'Load' command
-	public HashMap<String,IBot> botList; //<interfacename,<botname,botobject>>
 
 	// for usage in other classes, cannot be accessed directly
 	private static BotHandler master;
@@ -51,6 +49,7 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put(Unload.class.getSimpleName(), new Unload());
 		commands.put(Count.class.getSimpleName(), new Count());
 		commands.put(Time.class.getSimpleName(), new Time());
+		commands.put(List.class.getSimpleName(), new List());
 		commands.put("Help", new Command() {
 			@Override
 			public String execute(String[] args) {
@@ -71,7 +70,6 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 	public void event(ReceiveChatEvent e) {
 		// is it a command
 		String [] args = e.message.split(" "); 
-		String [] output = new String[1];
 		
 		if (args[0].length() > 0) {
 			String capitalized = args[0].substring(0, 1).toUpperCase() + args[0].substring(1).toLowerCase();
