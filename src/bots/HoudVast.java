@@ -13,39 +13,51 @@ import java.util.ArrayList;
 public class HoudVast
 {
     
-    private List<String> items;
+    String items;
+    Boolean itemsWasLeeg;
     
     HoudVast(){
-        items = new ArrayList<String>();
+        items = "";
+        itemsWasLeeg = true;
     }
     
     //@override
     public String ask(String in, String who)
     {
-        System.out.println("bericht ontvangen: " + in + " Van: " + who);
+        
         String msg = "/me ";
         if(in.toLowerCase().contains("geeft bucket "))
         {
+            String item;
             String[] words = in.split(" ");
             if(words.length > 3)
             {
-                String item = words[3];
-                for(int i = 4; i < words.length && i < 8; i++)
+                item = words[3];
+                for(int i = 4; i < words.length && i < 20; i++)
                 {
                     item += " ";
                     item += words[i];
                 }
-                items.add(item);
             }
             else return "Sorry, wat geef je me?";
-            //voeg alles toe aan msg
-            msg += "heeft ";
-            for(int i = 0; i < items.size(); i++)
+            
+            if(itemsWasLeeg)
             {
-                msg += items.get(i);
-                if(!(i == items.size()-1)){msg += ", ";}
+                msg += "heeft ";
+                msg += item;
+                items = item;
+                itemsWasLeeg = false;
+            }
+            else 
+            {
+                msg += "geeft ";
+                msg += (who + " ");
+                msg += (items + " ");
+                msg += "in ruil voor ";
+                msg += item;
+                items = item;
             }
         }
-        return msg;
+        return (msg + ".");
     }
 }
