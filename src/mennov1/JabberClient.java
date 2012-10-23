@@ -81,7 +81,7 @@ public class JabberClient implements Listener<SendChatEvent> {
 				}
 			};
 			connection.addPacketListener(myListener, null);
-		} catch (XMPPException ex) {
+		} catch (Exception ex) {
 			//ex.printStackTrace();
 			System.out.println("Failed to log in as " + connection.getUser());
 			EventBus.getInstance().removeListener(this);
