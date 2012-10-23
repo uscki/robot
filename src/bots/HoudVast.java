@@ -57,7 +57,8 @@ public class HoudVast extends AnswerBot
                 msg += item;
                 items = item;
             }
-        }
-        return (msg + ".");
+
+            return (msg + ".");
+        } else{return void;}
     }
 }
