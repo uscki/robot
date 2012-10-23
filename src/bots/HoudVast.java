@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  */
 
-public class HoudVast
+public class HoudVast extends AnswerBot
 {
     
     String items;
