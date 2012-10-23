@@ -21,7 +21,7 @@ public class HoudVast extends AnswerBot
         itemsWasLeeg = true;
     }
     
-    //@override
+    @override
     public String ask(String in, String who)
     {
         
@@ -57,7 +57,8 @@ public class HoudVast extends AnswerBot
                 msg += item;
                 items = item;
             }
-        }
-        return (msg + ".");
+
+            return (msg + ".");
+        } else{return void;}
     }
 }
