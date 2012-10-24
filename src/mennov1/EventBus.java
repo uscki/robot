@@ -79,4 +79,14 @@ public class EventBus {
 			}
 		}
 	}
+
+	public String listClients() {
+		String list = "";
+		for(Listener l : eventListeners.keySet()) {
+			if (!(l instanceof IBot)) {
+				list += l.getClass().getSimpleName() + ", ";
+			}
+		}
+		return list;
+	}
 }

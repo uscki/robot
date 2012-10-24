@@ -3,6 +3,7 @@ package mennov1;
 import java.util.EventObject;
 import java.util.HashMap;
 
+import commands.Clients;
 import commands.Command;
 import commands.Count;
 import commands.List;
@@ -50,6 +51,7 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put(Count.class.getSimpleName(), new Count());
 		commands.put(Time.class.getSimpleName(), new Time());
 		commands.put(List.class.getSimpleName(), new List());
+		commands.put(Clients.class.getSimpleName(), new Clients());
 		commands.put("Help", new Command() {
 			@Override
 			public String execute(String[] args) {
