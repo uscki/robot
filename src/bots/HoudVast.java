@@ -25,7 +25,9 @@ public class HoudVast extends AnswerBot
     
     @Override
     public String ask(String in, String who)
-    {
+    {   
+        return "Ik ben nog niet volledig geïmplementeerd :-(";
+        /*
         String msg;
         
         if(in.toLowerCase().contains("geeft bucket"))
@@ -69,6 +71,6 @@ public class HoudVast extends AnswerBot
                 return msg;
             }
         }
-        return null;
+        return null;*/
     }
 }
