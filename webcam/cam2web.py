@@ -13,8 +13,7 @@ t_prev = time.clock()
 delay = 1.0
 
 while True:
-
-        #capture = cv.CreateCameraCapture(-1)
+#capture = cv.CreateCameraCapture(-1)   
         img = cv.QueryFrame(capture)
 
         if img is not None:
@@ -27,6 +26,6 @@ while True:
         t = time.clock()
         while t < (t_prev + delay):
                 t = time.clock()
-        t_prev = time.clock()
-
+  t_prev = time.clock()
+        
         #capture = None
