@@ -49,6 +49,15 @@ public class JabberClient implements Listener<SendChatEvent> {
 			connection.sendPacket(new Presence(Presence.Type.available));
 			// Accept only messages from HQ
 			new AndFilter(new PacketTypeFilter(Message.class));
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("Jabber: Failed to log in as " + connection.getUser());
+			disconnect();
+		}
+
+		// try to listen
+		try {
 			// Register the listener.
 			PacketListener myListener = new PacketListener() {
 				// A packetlistener processes packets
@@ -72,7 +81,7 @@ public class JabberClient implements Listener<SendChatEvent> {
 							Presence subscribed = new Presence(Presence.Type.subscribed);
 							subscribed.setTo(wantsToSubscribe.getFrom());
 							connection.sendPacket(subscribed);
-							
+
 							Presence subscribe = new Presence(Presence.Type.subscribe);
 							subscribe.setTo(wantsToSubscribe.getFrom());
 							connection.sendPacket(subscribe);
@@ -82,19 +91,18 @@ public class JabberClient implements Listener<SendChatEvent> {
 			};
 			connection.addPacketListener(myListener, null);
 		} catch (Exception ex) {
-			//ex.printStackTrace();
-			System.out.println("Failed to log in as " + connection.getUser());
-			EventBus.getInstance().removeListener(this);
-			try {
-				disconnect();
-				master = null;
-			} catch (Exception e) {}
+			System.out.println("Jabber: Failed to listen.");
+			disconnect();
 		}
 
 		chatmanager = connection.getChatManager();
 	}
 	public void disconnect() {
-		connection.disconnect();
+		try {
+			EventBus.getInstance().removeListener(this);
+			connection.disconnect();
+			master = null;
+		} catch (Exception e) {}
 	}
 
 	public void event(SendChatEvent e) {

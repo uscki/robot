@@ -25,6 +25,11 @@ public class SewerSender {
 		logMessage(message, Status.INFO);
 	}
 	
+	public static void println(String message)
+	{
+		logMessage(message, Status.ERROR);
+	}
+	
 	/**
 	 * Log messages to the sewer
 	 * 
