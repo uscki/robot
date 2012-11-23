@@ -2,7 +2,7 @@ package bots;
 
 public class Trollbot extends AnswerBot{
 	
-	String[] trollWoorden = {"hard", "nat", "stijf", "lang"};
+	String[] trollWoorden = {"hard", "nat", "stijf", "lang", "vol", "vochtig", "stijve", "anjer", "bestijgen", "climax", "genot", "eikel", "harig", "hoogtepunt", "kwakje", "paal", "palen", "pijpen", "trekken", "sjorren"};
 	
 	@Override
 	public String ask(String in, String who) {
