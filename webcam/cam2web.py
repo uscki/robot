@@ -22,6 +22,7 @@ while True:
                 os.system("curl -k -F \"uploadedfile=@/home/mennov1/webcam/webcam.jpg\" https://www.uscki.nl/~kruit/zebra/modules/Webcam/upload.php >> /dev/null")
         else:
                 print "Something went wrong.."
+                os.system("echo \"Webcam is dood!\" | curl -d @- https://robot.uscki.nl/log/log.php")
 
         t = time.clock()
         while t < (t_prev + delay):
