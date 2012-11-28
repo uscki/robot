@@ -1,6 +1,8 @@
 package mennov1;
 import java.util.EventObject;
 
+import lib.SewerSender;
+
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -13,7 +15,6 @@ import org.jivesoftware.smack.packet.Presence;
 
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
-
 
 
 public class JabberClient implements Listener<SendChatEvent> {
@@ -52,8 +53,10 @@ public class JabberClient implements Listener<SendChatEvent> {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			SewerSender.println(ex.toString());
 			System.out.println("Jabber: Failed to log in as " + connection.getUser());
 			disconnect();
+			return;
 		}
 
 		// try to listen
@@ -93,16 +96,17 @@ public class JabberClient implements Listener<SendChatEvent> {
 		} catch (Exception ex) {
 			System.out.println("Jabber: Failed to listen.");
 			disconnect();
+			return;
 		}
 
 		chatmanager = connection.getChatManager();
 	}
 	public void disconnect() {
+		EventBus.getInstance().removeListener(this);
+		master = null;
 		try {
-			EventBus.getInstance().removeListener(this);
 			connection.disconnect();
-			master = null;
-		} catch (Exception e) {}
+		} catch (Exception e) { System.out.println("Jabber: Failed to disconnect"); }
 	}
 
 	public void event(SendChatEvent e) {
