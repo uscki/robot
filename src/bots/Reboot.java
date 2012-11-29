@@ -21,7 +21,7 @@ public class Reboot implements IBot<ReceiveChatEvent> {
 		} else if (in.equals("biecht")) { // poop log to server
 			try {
 				say(e, "Ego te absolvo a peccatis tuis in nomine Patris et Filii et Spiritus Sancti. Amen.");
-				Runtime.getRuntime().exec("echo \"log=`sed 's/$/\\<BR\\>/' /home/mennov1/start-menno.log`\" | curl -d @- https://robot.uscki.nl/log/log.php");
+				Runtime.getRuntime().exec("echo \"log=`cat /home/mennov1/start-menno.log`\" | curl -d @- https://robot.uscki.nl/log/log.php");
 			} catch(IOException ex) {}
 		}
 	}
