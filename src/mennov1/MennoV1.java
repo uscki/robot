@@ -24,6 +24,8 @@ public class MennoV1 {
 		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
 		
+		new WebcamClient();
+		
 		// Send a sign of life to robot.uscki.nl
 		System.out.println(SewerSender.sentLifeSign()? "Sent life sign" : "Life sign failed");
 		
