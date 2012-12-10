@@ -26,7 +26,7 @@ public class HoudVast extends AnswerBot
     @Override
     public String ask(String in, String who)
     {   
-        return "Ik ben nog niet volledig geïmplementeerd :-(";
+        return "Ik ben nog niet volledig geimplementeerd :-(";
         /*
         String msg;
         
