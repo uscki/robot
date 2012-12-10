@@ -8,6 +8,7 @@ public class WebcamClient {
 	public WebcamClient() {
 		try {
 			// Use python opencv bindings for now
+			System.out.println("Trying to start python script from java");
 			SewerSender.logMessage("Trying to start python script from Java");
 			Runtime.getRuntime().exec("/home/mennov1/webcam/cam2web.py &");
 		} catch (IOException e) {

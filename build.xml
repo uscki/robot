@@ -9,6 +9,7 @@
 
   <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
+  		<!-- Op de RasPi staan er dingen voor opencv in /usr/lib/libopencv_* -->
   </path>
 
 <target name="clean">
