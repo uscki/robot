@@ -19,6 +19,7 @@ while True:
 		if img is not None:
 			cv.SaveImage("/home/mennov1/webcam/webcam.jpg",img)
 			os.system("curl -k -F \"uploadedfile=@/home/mennov1/webcam/webcam.jpg\" https://robot.uscki.nl/webcam.php")
+			print "\n"
 		else:
 			print "No image"
 	else:
