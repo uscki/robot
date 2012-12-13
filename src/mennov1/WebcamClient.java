@@ -12,7 +12,7 @@ public class WebcamClient extends AnswerBot {
 			// Use python opencv bindings for now
 			System.out.println("Trying to start python script from java");
 			SewerSender.logMessage("Trying to start python script from Java");
-			Runtime.getRuntime().exec("/home/mennov1/webcam/cam2web.py &");
+			Runtime.getRuntime().exec("/home/mennov1/USCKI-Incognito-Robot/webcam/cam2web.py > /home/mennov1/webcam/webcam.log &");
 		} catch (IOException ex) {
 			SewerSender.println(ex.toString());
 		}
@@ -23,7 +23,7 @@ public class WebcamClient extends AnswerBot {
 		if (in.toLowerCase().startsWith("killcam")) {
 			try {
 				Runtime.getRuntime().exec("killall cam2web.py");
-				Runtime.getRuntime().exec("/home/mennov1/webcam/cam2web.py &");
+				Runtime.getRuntime().exec("/home/mennov1/USCKI-Incognito-Robot/webcam/cam2web.py > /home/mennov1/webcam/webcam.log &");
 				return "doet de webcam het nu?";
 			} catch (IOException ex) {
 				SewerSender.println(ex.toString());
