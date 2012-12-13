@@ -19,9 +19,10 @@ while True:
 		if img is not None:
 			cv.SaveImage("/home/mennov1/webcam/webcam.jpg",img)
 			os.system("curl -k -F \"uploadedfile=@/home/mennov1/webcam/webcam.jpg\" https://robot.uscki.nl/webcam.php")
-			print "\n"
+			print ""
 		else:
-			print "No image"
+			print "No image, trying to re-init"
+			capture = cv.CreateCameraCapture(-1)
 	else:
 		print "No capture, trying to re-init"
 		capture = cv.CreateCameraCapture(-1)
