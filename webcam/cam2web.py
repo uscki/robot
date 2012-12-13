@@ -20,7 +20,7 @@ while True:
 	if img is not None:
 
 		cv.SaveImage("/home/mennov1/webcam/webcam.jpg",img)
-		os.system("curl -k -F \"uploadedfile=@/home/mennov1/webcam/webcam.jpg\" https://www.uscki.nl/~kruit/zebra/modules/Webcam/upload.php >> /dev/null")
+		os.system("curl -k -F \"uploadedfile=@/home/mennov1/webcam/webcam.jpg\" https://robot.uscki.nl/webcam.php >> /dev/null")
 	else:
 		print "Something went wrong.."
 
