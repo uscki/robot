@@ -19,7 +19,8 @@ public class MennoV1 {
 		
 		EventBus bus = EventBus.getInstance();
 		bus.addListener(BotHandler.getInstance());
-		bus.addListener(JabberClient.getInstance());
+        // JabberClient uitgecommentarieerd in hoop dat de webcam het dan doet
+		//bus.addListener(JabberClient.getInstance());
 		bus.addListener(IrcClient.getInstance());
 		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
@@ -34,6 +35,7 @@ public class MennoV1 {
 		} catch (IOException ex) {
 			//ex.printStackTrace();
 		}
-		JabberClient.getInstance().disconnect();
+        // JabberClient uitgecommentarieerd in hoop dat de webcam het dan doet
+		//JabberClient.getInstance().disconnect();
 	}
 }
