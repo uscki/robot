@@ -12,8 +12,8 @@ public class WebcamClient implements Runnable {
     IplImage image;
     @Override
     public void run() {
-        FrameGrabber grabber = new OpenCVFrameGrabber(0); 
         try {
+        	FrameGrabber grabber = new OpenCVFrameGrabber(0); 
             grabber.start();
             IplImage img;
             SewerSender.logMessage("Started webcam");
@@ -30,6 +30,8 @@ public class WebcamClient implements Runnable {
                 }
                 Thread.sleep(INTERVAL);
             }
-        } catch (Exception e) { SewerSender.println("webcam kapot huilen!"); }
+        } catch (Exception e) {
+        	SewerSender.println("webcam kapot huilen!\n"+e.toString());
+        }
     }
 }
