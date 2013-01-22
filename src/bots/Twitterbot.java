@@ -2,9 +2,9 @@ package bots;
 
 import java.util.EventObject;
 
-import events.ReceiveChatEvent;
 import lib.TwitterLib;
 import mennov1.Listener;
+import events.ReceiveChatEvent;
 
 public class Twitterbot implements Listener<ReceiveChatEvent> {
 	@Override

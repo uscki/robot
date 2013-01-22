@@ -1,10 +1,6 @@
 package commands;
 
-import java.util.HashMap;
-
-import mennov1.BotHandler;
 import mennov1.EventBus;
-import bots.IBot;
 
 /**
  * 

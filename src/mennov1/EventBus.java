@@ -1,7 +1,5 @@
 package mennov1;
-import java.util.Collections;
 import java.util.EventObject;
-import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import bots.IBot;

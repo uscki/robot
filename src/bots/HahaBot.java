@@ -4,10 +4,7 @@ import java.util.EventObject;
 
 import mennov1.EventBus;
 import mennov1.IrcClient;
-
-import events.Event;
 import events.JeVerliestEvent;
-import events.Response;
 import events.SendChatEvent;
 
 public class HahaBot implements IBot<JeVerliestEvent> {

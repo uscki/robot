@@ -2,7 +2,6 @@ package bots;
 
 import mennov1.EventBus;
 import events.JeVerliestEvent;
-import events.Response;
 
 public class JeVerliestBot extends AnswerBot {
 	

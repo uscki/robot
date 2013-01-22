@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import lib.MemoryLib;
 

@@ -1,7 +1,7 @@
 package mennov1;
 import java.util.EventObject;
 
-import org.jibble.pircbot.*;
+import org.jibble.pircbot.PircBot;
 
 import events.ReceiveChatEvent;
 import events.SendChatEvent;

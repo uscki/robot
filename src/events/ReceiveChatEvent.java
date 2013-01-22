@@ -1,6 +1,4 @@
 package events;
-import java.util.EventObject;
-
 import mennov1.Listener;
 
 public class ReceiveChatEvent extends Event {

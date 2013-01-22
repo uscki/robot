@@ -1,6 +1,7 @@
 package bots;
 
 import java.util.EventObject;
+
 import events.PictureEvent;
 
 public class FaceFollower implements IBot<PictureEvent> {

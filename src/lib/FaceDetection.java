@@ -2,10 +2,10 @@ package lib;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import jjil.algorithm.Gray8Rgb;
 import jjil.algorithm.RgbAvgGray;
 import jjil.core.Image;

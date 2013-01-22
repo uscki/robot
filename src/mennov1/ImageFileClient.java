@@ -2,7 +2,9 @@ package mennov1;
 
 import java.io.File;
 import java.util.EventObject;
+
 import javax.imageio.ImageIO;
+
 import events.PictureEvent;
 
 public class ImageFileClient implements Listener<PictureEvent> {

@@ -27,13 +27,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import jjil.algorithm.ErrorCodes;
 import jjil.algorithm.Gray8Rect;
 import jjil.algorithm.Gray8RectStretch;
 import jjil.algorithm.Gray8Shrink;
 import jjil.algorithm.HaarClassifierCascade;
 import jjil.algorithm.MaskedGray8SubImgGen;
-
 import jjil.core.Error;
 import jjil.core.Gray8Image;
 import jjil.core.Gray8MaskedImage;

@@ -1,17 +1,10 @@
 package bots;
 
 import java.io.IOException;
-import java.util.EventObject;
 
 import mennov1.EventBus;
 import mennov1.IrcClient;
-
-import events.Event;
-import events.Response;
 import events.SendChatEvent;
-
-
-import mennov1.EventBus;
 
 public class Reboot extends AnswerBot {
 

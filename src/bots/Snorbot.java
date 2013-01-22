@@ -1,6 +1,5 @@
 package bots;
 
-import java.awt.Rectangle;
 
 public class Snorbot extends AnswerBot {
 	
