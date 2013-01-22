@@ -4,45 +4,45 @@
   <property name="build.dir" value="build"/>
   <property name="classes.dir" value="${build.dir}/classes"/>
   <property name="jar.dir" value="${build.dir}/jar"/>
-  <property name="main-class"  value="mennov1.MennoV1"/>
+  <property name="main-class" value="mennov1.MennoV1"/>
   <property name="lib.dir" value="lib"/>
 
   <path id="classpath">
-        <fileset dir="${lib.dir}" includes="**/*.jar" />
-  		<!-- Op de RasPi staan er dingen voor opencv in /usr/lib/libopencv_* -->
+    <fileset dir="${lib.dir}" includes="**/*.jar" />
+  	<!-- Op de RasPi staan er dingen voor opencv in /usr/lib/libopencv_* -->
   </path>
 
-<target name="clean">
-  <delete dir="${classes.dir}"/>
-  <delete dir="${jar.dir}"/>
-  <delete dir="${build.dir}"/>
+  <target name="clean">
+    <delete dir="${classes.dir}"/>
+    <delete dir="${jar.dir}"/>
+    <delete dir="${build.dir}"/>
   </target>
   <target name="prepare" depends="clean">
-  <mkdir dir="${build.dir}"/>
-  <mkdir dir="${classes.dir}"/>
-  <mkdir dir="${jar.dir}"/>
-  <mkdir dir="${src.dir}"/>
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${jar.dir}"/>
+    <mkdir dir="${src.dir}"/>
   </target>
   <target name="compile" depends="prepare">
-  <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
   </target>
   <target name="jar" depends="compile">
- <jar destfile="${jar.dir}/${ant.project.name}.jar"
- basedir="${classes.dir}">
-  <manifest>
- <attribute name="Main-Class" value="${main-class}"/>
-  </manifest>
-  </jar>
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main-class}"/>
+      </manifest>
+    </jar>
   </target>
   <target name="run" depends="jar">
-  <java fork="true" classname="${main-class}">
-        <classpath>
-                <path refid="classpath" />
-                <path location="${jar.dir}/${ant.project.name}.jar" />
-        </classpath>
-  </java>
+    <java fork="true" classname="${main-class}">
+          <classpath>
+                  <path refid="classpath" />
+                  <path location="${jar.dir}/${ant.project.name}.jar" />
+          </classpath>
+    </java>
   </target>
   <target name="main" depends="run">
-  <echo message="main target completed.." />
+    <echo message="main target completed.." />
   </target>
+  
 </project>

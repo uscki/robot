@@ -19,12 +19,13 @@ public class MennoV1 {
 		
 		EventBus bus = EventBus.getInstance();
 		bus.addListener(BotHandler.getInstance());
-		bus.addListener(JabberClient.getInstance());
-		bus.addListener(IrcClient.getInstance());
-		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
+		//bus.addListener(JabberClient.getInstance());
+		//bus.addListener(IrcClient.getInstance());
+		//bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
 		
-		new WebcamClient();
+		Thread t = new Thread(new WebcamClient());
+		t.start();
 		
 		// Send a sign of life to robot.uscki.nl
 		System.out.println(SewerSender.sentLifeSign()? "Sent life sign" : "Life sign failed");

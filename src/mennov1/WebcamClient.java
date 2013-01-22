@@ -1,35 +1,34 @@
 package mennov1;
 
-import java.io.IOException;
+import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
 
-import bots.AnswerBot;
+import com.googlecode.javacv.FrameGrabber;
+import com.googlecode.javacv.OpenCVFrameGrabber;
+import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
-import lib.SewerSender;
-
-public class WebcamClient extends AnswerBot {
-	public WebcamClient() {
-		try {
-			// Use python opencv bindings for now
-			System.out.println("Trying to start python script from java");
-			SewerSender.logMessage("Trying to start python script from Java");
-			Runtime.getRuntime().exec("/home/mennov1/USCKI-Incognito-Robot/webcam/cam2web.py > /home/mennov1/webcam/webcam.log &");
-		} catch (IOException ex) {
-			SewerSender.println(ex.toString());
-		}
-	}
-
-	@Override
-	public String ask(String in, String who) {
-		if (in.toLowerCase().startsWith("killcam")) {
-			try {
-				Runtime.getRuntime().exec("killall cam2web.py");
-				Runtime.getRuntime().exec("/home/mennov1/USCKI-Incognito-Robot/webcam/cam2web.py > /home/mennov1/webcam/webcam.log &");
-				return "doet de webcam het nu?";
-			} catch (IOException ex) {
-				SewerSender.println(ex.toString());
-				return "alles is kapot huilen huilen";
-			}
-		}
-		return null;
-	}
+public class WebcamClient implements Runnable {
+    final int INTERVAL=1000;///you may use interval
+    IplImage image;
+    @Override
+    public void run() {
+        FrameGrabber grabber = new OpenCVFrameGrabber(0); 
+        try {
+            grabber.start();
+            IplImage img;
+            while (true) {
+                img = grabber.grab();
+                if (img != null) {
+                    cvSaveImage("webcam/capture.jpg", img);
+                    System.out.println("Grab");
+                    //Just for benno
+                    try {
+                    	Runtime.getRuntime().exec("webcam/upload");
+                    } catch (Exception e) { }
+                } else {
+                	System.out.println("Nongrab");
+                }
+                Thread.sleep(INTERVAL);
+            }
+        } catch (Exception e) { System.out.println("webcam kapot huilen!"); }
+    }
 }

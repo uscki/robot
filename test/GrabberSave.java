@@ -16,19 +16,18 @@ public class GrabberSave implements Runnable {
             while (true) {
                 img = grabber.grab();
                 if (img != null) {
-                    cvSaveImage("capture.jpg", img);
+                    cvSaveImage("webcam/capture.jpg", img);
                     System.out.println("Grab");
                 } else {
                 	System.out.println("Nongrab");
                 }
                 Thread.sleep(INTERVAL);
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
     }
 
     public static void main(String[] args) {
-    	System.out.println("testing");
+    	System.out.println("Testing");
         Thread g = new Thread(new GrabberSave());
         g.start();
     }
