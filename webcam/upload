@@ -1,8 +1,6 @@
 #!/bin/sh
 
-
 UPLOAD="webcam/capture.jpg"
 URL="https://robot.uscki.nl/webcam.php"
-LOG="webcam/log.txt"
 
-echo "\n`date`\n`curl -k -F "uploadedfile=@$UPLOAD" $URL`\n" >> $LOG
+echo "\n`date`\n`curl -k -F "uploadedfile=@$UPLOAD" $URL`\n"
