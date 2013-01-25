@@ -26,7 +26,8 @@ public class WebcamClient implements Runnable {
                     	if (0 != process.waitFor()) {
                     		SewerSender.println("Uploading exited weird!");
                     	}
-                    } catch (Exception e) { }
+                    	process.destroy();
+                    } catch (Exception ex) { System.out.println(ex); }
                 } else {
                 	System.out.println("Webcam frame is null");
                 }
