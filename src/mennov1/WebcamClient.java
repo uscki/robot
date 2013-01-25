@@ -21,9 +21,11 @@ public class WebcamClient implements Runnable {
                 img = grabber.grab();
                 if (img != null) {
                     cvSaveImage("webcam/capture.jpg", img);
-                    //Just for benno
                     try {
-                    	Runtime.getRuntime().exec("webcam/upload");
+                    	Process process = Runtime.getRuntime().exec("webcam/upload");
+                    	if (0 != process.waitFor()) {
+                    		SewerSender.println("Uploading exited weird!");
+                    	}
                     } catch (Exception e) { }
                 } else {
                 	System.out.println("Webcam frame is null");

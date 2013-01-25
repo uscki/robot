@@ -20,6 +20,7 @@ import javax.net.ssl.X509TrustManager;
  * @author vincent
  */
 public class SewerSender {
+
 	public enum Status {INFO, WARNING, ERROR}
 	
 	static TrustManager trm;

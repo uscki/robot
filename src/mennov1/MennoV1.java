@@ -1,6 +1,7 @@
 package mennov1;
 
 import java.io.IOException;
+
 import lib.SewerSender;
 
 /**
@@ -17,7 +18,7 @@ public class MennoV1 {
 		
 		EventBus bus = EventBus.getInstance();
 		bus.addListener(BotHandler.getInstance());
-		//bus.addListener(JabberClient.getInstance());
+		bus.addListener(JabberClient.getInstance());
 		bus.addListener(IrcClient.getInstance());
 		//bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		bus.addListener(TerminalClient.getInstance());
