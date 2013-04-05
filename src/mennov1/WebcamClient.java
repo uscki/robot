@@ -13,7 +13,10 @@ public class WebcamClient implements Runnable {
     @Override
     public void run() {
         try {
-        	FrameGrabber grabber = new OpenCVFrameGrabber(0); 
+        	FrameGrabber grabber = new OpenCVFrameGrabber(0);
+            grabber.setImageWidth(640);
+            grabber.setImageHeight(480);
+            SewerSender.logMessage("Webcam framegrabber bits per pixel: "+grabber.getBitsPerPixel());
             grabber.start();
             IplImage img;
             SewerSender.logMessage("Started webcam");
