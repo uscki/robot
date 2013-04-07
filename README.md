@@ -1,7 +1,7 @@
 [USCKI Incognito](http://www.uscki.nl/) bouwt een [robot](http://robot.uscki.nl/), om dezelfde reden dat mensen kinderen maken. Het zal met liefde uit de bits geboren worden, opgroeien temidden de zorg van een fantastische vereniging, en leren van diens toegewijde leden. Het zal met vallen en opstaan, spelenderwijs en streng doch rechtvaardig opgevoed worden. Zoals trotse ouders dat ook doen, hopen wij dat het ooit zal kunnen gaan studeren. En dan lid worden van onze mooie vereniging.
 
 # Voor het nageslacht!
-** De code minimaal werkend krijgen op je eigen computer **
+*De code minimaal werkend krijgen op je eigen computer*
 
 0. Zorg dat je een beetje Java kan en met een terminal overweg kan. Volg een cursus Cyberspace voor Senioren als dat nodig is.
 
@@ -32,16 +32,16 @@
 		Load Hogerlager
 
 # Wereldoverheersing
-** Meer chique dingen en bijdragen aan het robotproject **
+*Meer chique dingen en bijdragen aan het robotproject*
 
 1. Kijk of je de webcam in `src/mennov1/ThuisTester.java` kan oncommentariseren, en testen of de webcam via OpenCV het doet.
 	OpenCV (versie 2.4) moet je zelf ge•nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
 	
-	* Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
+	Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
 	
-	* Op de mac kan je het beste OpenCV downloaden via macports
+	Op de mac kan je het beste OpenCV downloaden via macports
 	
-	* Op windows handmatig downloaden, denk ik?
+	Op windows handmatig downloaden, denk ik?
 
 2. Schrijf een bot zoals `bots/Echobot.java` (zie ook: nog niet bestaande documentatie)
 
@@ -65,16 +65,16 @@
 
 # Toedoeeee
 
-- Gezichtsdetectie
+[ ] Gezichtsdetectie
 
-- Interface naar uscki.nl voor KENNISCH
+[ ] Interface naar uscki.nl voor KENNISCH
 
-- Makkelijker bots toevoegen
+[ ] Makkelijker bots toevoegen
 
-- Facebook chat
+[ ] Facebook chat
 
-- Motor-aansturing voor werkbrauwen, hoofd draaien, etc
+[ ] Motor-aansturing voor werkbrauwen, hoofd draaien, etc
 
-- Gezichtsherkenning
+[ ] Gezichtsherkenning
 
-- Prolog
+[ ] Prolog
