@@ -1,14 +1,15 @@
 [USCKI Incognito](http://www.uscki.nl/) bouwt een [robot](http://robot.uscki.nl/), om dezelfde reden dat mensen kinderen maken. Het zal met liefde uit de bits geboren worden, opgroeien temidden de zorg van een fantastische vereniging, en leren van diens toegewijde leden. Het zal met vallen en opstaan, spelenderwijs en streng doch rechtvaardig opgevoed worden. Zoals trotse ouders dat ook doen, hopen wij dat het ooit zal kunnen gaan studeren. En dan lid worden van onze mooie vereniging.
 
 # Voor het nageslacht!
+** De code minimaal werkend krijgen op je eigen computer **
 
 0. Zorg dat je een beetje Java kan en met een terminal overweg kan. Volg een cursus Cyberspace voor Senioren als dat nodig is.
 
-1. Zorg dat je een java-ontwikkelomgeving werkend heb op je computer (jdk). Dit betekent dat `java` en `javacv` het moeten doen in je terminal.
+1. Zorg dat je een java-ontwikkelomgeving werkend heb op je computer (`jdk`). Dit betekent dat `java` en `javacv` het moeten doen in je terminal.
 
-2. Download de code. Handmatig downloaden (niet aangeraden), of...
-	...als je meedoet en rechten hebt gekregen: Clone met [git](https://help.github.com/articles/set-up-git): `git clone <zo'n git url hierboven>`
-	...als je nog niet meedoet: fork het project en doe later een pull request
+2. Download de code. Handmatig downloaden (niet aangeraden), of...<br />
+	...als je meedoet en rechten hebt gekregen: Clone met [git](https://help.github.com/articles/set-up-git): `git clone <zo'n git url hierboven>`<br />
+	...als je nog niet meedoet: fork het project en doe later een pull request<br />
 	en navigeer je terminal naar de hoofdmap.
 	
 3. Doe het automagisch en installeer [apache ant](http://ant.apache.org)
@@ -31,15 +32,16 @@
 		Load Hogerlager
 
 # Wereldoverheersing
+** Meer chique dingen en bijdragen aan het robotproject **
 
 1. Kijk of je de webcam in `src/mennov1/ThuisTester.java` kan oncommentariseren, en testen of de webcam via OpenCV het doet.
 	OpenCV (versie 2.4) moet je zelf ge•nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
 	
-	- Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
+	* Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
 	
-	- Op de mac kan je het beste OpenCV downloaden via macports
+	* Op de mac kan je het beste OpenCV downloaden via macports
 	
-	- Op windows handmatig downloaden, denk ik?
+	* Op windows handmatig downloaden, denk ik?
 
 2. Schrijf een bot zoals `bots/Echobot.java` (zie ook: nog niet bestaande documentatie)
 
