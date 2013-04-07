@@ -5,11 +5,14 @@
   <property name="classes.dir" value="${build.dir}/classes"/>
   <property name="jar.dir" value="${build.dir}/jar"/>
   <property name="main-class" value="mennov1.MennoV1"/>
+  <property name="test-class" value="mennov1.ThuisTester"/>
   <property name="lib.dir" value="lib"/>
 
   <path id="classpath">
     <fileset dir="${lib.dir}" includes="**/*.jar" />
+  	<!-- Op een mac kunnen er bij gebruik van macports dingen in /opt/local/lib/libopencv_* staan -->
   	<!-- Op de RasPi staan er dingen voor opencv in /usr/lib/libopencv_* -->
+    <!-- Maar het is de bedoeling dat deze bestanden in een .jar verpakt zitten -->
   </path>
 
   <target name="clean">
@@ -23,6 +26,9 @@
     <mkdir dir="${jar.dir}"/>
     <mkdir dir="${src.dir}"/>
   </target>
+
+
+  <!-- Op de Robot hardware (Raspberry Pi) compileren we met "ant main" -->
   <target name="compile" depends="prepare">
     <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
   </target>
@@ -45,4 +51,23 @@
     <echo message="main target completed.." />
   </target>
   
+
+  <!-- Thuis compileren we met "ant test" -->
+  <target name="test" depends="prepare">
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+    <jar destfile="${jar.dir}/test-${ant.project.name}.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${test-class}"/>
+      </manifest>
+    </jar>
+    <java fork="true" classname="${test-class}">
+          <classpath>
+                  <path refid="classpath" />
+                  <path location="${jar.dir}/test-${ant.project.name}.jar" />
+          </classpath>
+    </java>
+    <echo message="test target completed.." />
+  </target>
+
+
 </project>
