@@ -1,11 +1,12 @@
 package mennov1;
 
-import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
 import lib.SewerSender;
 
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
+
+import events.PictureEvent;
 
 public class WebcamClient implements Runnable {
     final int INTERVAL=5000;///you may use interval
@@ -20,17 +21,13 @@ public class WebcamClient implements Runnable {
             grabber.start();
             IplImage img;
             SewerSender.logMessage("Started webcam");
+            System.out.println("Started webcam");
             while (true) {
                 img = grabber.grab();
                 if (img != null) {
-                    cvSaveImage("webcam/capture.jpg", img);
-                    try {
-                    	Process process = Runtime.getRuntime().exec("webcam/upload");
-                    	if (0 != process.waitFor()) {
-                    		SewerSender.println("Uploading exited weird!");
-                    	}
-                    	process.destroy();
-                    } catch (Exception ex) { System.out.println(ex); }
+                    // Lanceer een Picture Event, want er is beeld!
+                    // Nu moet het door ImageUploader naar uscki.nl worden gestuurd.
+                    EventBus.getInstance().event(new PictureEvent(this, img.getBufferedImage() ));                     
                 } else {
                 	System.out.println("Webcam frame is null");
                 }

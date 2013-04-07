@@ -1,6 +1,6 @@
 #!/bin/sh
 
-UPLOAD="webcam/capture.jpg"
-URL="https://robot.uscki.nl/webcam.php"
+UPLOAD=$1  #"webcam/capture.jpg"
+URL=$2     #"https://robot.uscki.nl/webcam.php"
 
 echo "\n`date`\n`curl -k -F "uploadedfile=@$UPLOAD" $URL`\n"

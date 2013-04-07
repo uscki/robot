@@ -43,6 +43,7 @@ public class SewerSender {
 	 */
 	public static void logMessage(String message, Status status)
 	{
+		System.out.println("Sewersending: " + message);
 		String json = "{\"log\" : [ {\"";
 		switch(status){
 		case INFO:
