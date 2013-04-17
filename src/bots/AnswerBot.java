@@ -6,6 +6,12 @@ import mennov1.EventBus;
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
 
+/**
+ * Een abstracte bot die een antwoord geeft op een chatbericht
+ * 
+ * @author Benno
+ */
+
 public abstract class AnswerBot implements IBot<ReceiveChatEvent> {
 	public void event(ReceiveChatEvent e) {
 		// Answer to the same chat session

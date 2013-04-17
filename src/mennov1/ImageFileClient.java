@@ -10,7 +10,7 @@ import events.PictureEvent;
 /**
  * 
  * Listens to the 'modified' meta-info of a file, and raises a picture event if it changes with the new file
- * TODO: It doesn't have to be a Listener
+ * @todo It doesn't have to be a Listener
  *
  */
 

@@ -6,8 +6,6 @@ import lib.SewerSender;
 
 /**
  * 
- * @category Framework
- * 
  * The main class for the robot. This initializes the communication channels (clients) to the bothandler.
  *
  */
