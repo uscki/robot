@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>Epische Documentatie van de Robot</title>
+</head>
+<body>
+Deze documentatie bevat alle informatie over hoe <a href="http://robot.uscki.nl/">de robot</a> van <a href="http://www.uscki.nl">USCKI Incognito</a> nu werkt. De robot is geschreven in Java omdat veel mensen dat gebruiken. De robot is een entiteit, geen gereedschap. De robot heeft hetzelfde doel als mensen. Liefde. Wereldoverheersing.
+
+<h2>Hoe werkt de Robot?</h2>
+De <b>Eventbus</b> coordineert alles wat er gebeurt, en houdt bij welk object waarop wacht. In het package <b>mennov1</b> zijn een aantal <i>clients</i> die luisteren naar de buitenwereld. Als daar iets gebeurt (zoals een webcamplaatje, of iets wat in een chatgesprek gezegd wordt), sturen ze een gebeurtenis-object (een <b>event</b>) naar de <b>EventBus</b>. Die stuurt ze door naar de <b>bots</b>. De bots bepalen of er iets tofs moet gebeuren, mogelijk gebruikmakend van een <b>lib</b>rary, die toffe functionaliteit heeft. Met commando's kan je buiten de normale interactie om de robot forceren dingen te doen. Hadden mensen maar zo'n interface!<br>
+<i>todo</i>: insert gaaf plaatje
+
+<h2>Waarom deze structuur?</h2>
+Soms moeten er dingen tegelijkertijd gebeuren, dan moeten verschillende processen met elkaar kunnen communiceren. Ook is het theoretisch mogelijk om bij te houden wie wat wanneer doet en een geschiedenis bij te houden.
+
+<h2>Wat kan er beter?</h2>
+Dit is een zeer naieve implementatie van een Event-Action model. Als er iemand weet hoe het eigenlijk zou moeten zou het mooi zijn om dat te implementeren.
+
+</body>
+</html>

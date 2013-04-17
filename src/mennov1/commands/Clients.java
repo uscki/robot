@@ -1,4 +1,4 @@
-package commands;
+package mennov1.commands;
 
 
 import mennov1.EventBus;

@@ -7,6 +7,7 @@
   <property name="main-class" value="mennov1.MennoV1"/>
   <property name="test-class" value="mennov1.ThuisTester"/>
   <property name="lib.dir" value="lib"/>
+  <property name="doc.dir" value="doc"/>
 
   <path id="classpath">
     <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -26,6 +27,19 @@
     <mkdir dir="${jar.dir}"/>
     <mkdir dir="${src.dir}"/>
   </target>
+
+  <!-- De documentatie maken we met "ant doc" -->
+  <target name="doc">
+    <javadoc sourcepath="${src.dir}"
+             destdir="${doc.dir}"
+             classpathref="classpath"
+             overview="src/overview.html"
+             windowtitle="Documentatie Robot">
+      <doctitle><![CDATA[<h1>Epische Documentatie van de Robot</h1>]]></doctitle>
+      <tag name="todo" scope="all" description="To do:"/>
+    </javadoc>
+  </target>
+
 
 
   <!-- Op de Robot hardware (Raspberry Pi) compileren we met "ant main" -->

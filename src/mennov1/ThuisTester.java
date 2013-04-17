@@ -4,8 +4,6 @@ import java.io.IOException;
 
 /**
  * 
- * @category Framework
- * 
  * The home testing class for the robot. This initializes a subset of the communication channels (clients) to the bothandler.
  *
  */
