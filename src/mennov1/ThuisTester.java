@@ -25,10 +25,12 @@ public class ThuisTester {
 		// Als het tweede argument null is, slaat hij het plaatje op zonder te uploaden
 //		bus.addListener(new ImageUploader("webcam/capture.jpg", null));
 //
-//		try {
-//			Thread t = new Thread(new WebcamClient());
-//			t.start();
-//		} catch (Exception e) {}
+		bus.addListener(new FaceDetector("webcam/faces.jpg"));
+
+		try {
+			Thread t = new Thread(new WebcamClient());
+			t.start();
+		} catch (Exception e) {}
 
 		// Send a sign of life to robot.uscki.nl
 		//System.out.println(SewerSender.sentLifeSign()? "Sent life sign" : "Life sign failed");

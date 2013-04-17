@@ -3,6 +3,7 @@ package events;
 import java.awt.image.BufferedImage;
 
 /**
+ * Plaatje zien
  * 
  * @author Sjoerd Dost
  *

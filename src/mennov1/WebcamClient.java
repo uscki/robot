@@ -6,7 +6,12 @@ import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
-import events.PictureEvent;
+import events.OpenCVPictureEvent;
+
+/**
+ * Neem webcam-foto's met OpenCV, en maak er PictureEvents van.
+ */
+
 
 public class WebcamClient implements Runnable {
     final int INTERVAL=5000;///you may use interval
@@ -27,7 +32,7 @@ public class WebcamClient implements Runnable {
                 if (img != null) {
                     // Lanceer een Picture Event, want er is beeld!
                     // Nu moet het door ImageUploader naar uscki.nl worden gestuurd.
-                    EventBus.getInstance().event(new PictureEvent(this, img.getBufferedImage() ));                     
+                    EventBus.getInstance().event(new OpenCVPictureEvent(this, img));                     
                 } else {
                 	System.out.println("Webcam frame is null");
                 }
