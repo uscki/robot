@@ -35,7 +35,7 @@
 *Meer chique dingen en bijdragen aan het robotproject*
 
 1. Kijk of je de webcam in `src/mennov1/ThuisTester.java` kan oncommentariseren, en testen of de webcam via OpenCV het doet.
-	OpenCV (versie 2.4) moet je zelf ge•nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
+	OpenCV (versie 2.4) moet je zelf geï¿½nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
 	
 	Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
 	
@@ -59,13 +59,13 @@
 
 - [Homepage met logs](http://robot.uscki.nl/)
 
-- [Documentatie](http://uscki.github.com/robot) (bestaat nog niet)
+- [Documentatie](http://uscki.github.com/robot)
 
 - [Facebook](https://www.facebook.com/menno.veen.3)
 
 # Toedoeeee
 
-[ ] Gezichtsdetectie
+[x] Gezichtsdetectie
 
 [ ] Interface naar uscki.nl voor KENNISCH
 
