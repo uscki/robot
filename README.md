@@ -12,7 +12,7 @@
 	...als je nog niet meedoet: fork het project en doe later een pull request<br />
 	en navigeer je terminal naar de hoofdmap.
 	
-3. Doe het automagisch en installeer [apache ant](http://ant.apache.org)
+3. Doe het automagisch en installeer [apache ant](http://ant.apache.org) of WinAnt voor Windows
 
 		ant test
 	
@@ -20,7 +20,7 @@
 	
 		mkdir build
 		javac -d build -cp src/:lib/ src/mennov1/ThuisTester.java
-		java -cp build mennov1.ThuisTester
+		java -cp build/classes mennov1.ThuisTester
 	
 	of doe het in Eclipse
 	
@@ -35,7 +35,7 @@
 *Meer chique dingen en bijdragen aan het robotproject*
 
 1. Kijk of je de webcam in `src/mennov1/ThuisTester.java` kan oncommentariseren, en testen of de webcam via OpenCV het doet.
-	OpenCV (versie 2.4) moet je zelf ge•nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
+	OpenCV (versie 2.4) moet je zelf geï¿½nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
 	
 	Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
 	
@@ -59,13 +59,13 @@
 
 - [Homepage met logs](http://robot.uscki.nl/)
 
-- [Documentatie](http://uscki.github.com/robot) (bestaat nog niet)
+- [Documentatie](http://uscki.github.com/robot)
 
 - [Facebook](https://www.facebook.com/menno.veen.3)
 
 # Toedoeeee
 
-[ ] Gezichtsdetectie
+[x] Gezichtsdetectie
 
 [ ] Interface naar uscki.nl voor KENNISCH
 
