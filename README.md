@@ -12,7 +12,7 @@
 	...als je nog niet meedoet: fork het project en doe later een pull request<br />
 	en navigeer je terminal naar de hoofdmap.
 	
-3. Doe het automagisch en installeer [apache ant](http://ant.apache.org)
+3. Doe het automagisch en installeer [apache ant](http://ant.apache.org) of WinAnt voor Windows
 
 		ant test
 	
@@ -20,7 +20,7 @@
 	
 		mkdir build
 		javac -d build -cp src/:lib/ src/mennov1/ThuisTester.java
-		java -cp build mennov1.ThuisTester
+		java -cp build/classes mennov1.ThuisTester
 	
 	of doe het in Eclipse
 	
