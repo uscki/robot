@@ -35,13 +35,13 @@
 *Meer chique dingen en bijdragen aan het robotproject*
 
 1. Kijk of je de webcam in `src/mennov1/ThuisTester.java` kan oncommentariseren, en testen of de webcam via OpenCV het doet.
-	OpenCV (versie 2.4) moet je zelf ge�nstalleerd hebben er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
+	OpenCV (versie 2.4) moet je zelf geinstalleerd hebben en er moet een werkende `.jar` in `lib/` staan voor je besturingssysteem.
 	
-	Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.
-	
-	Op de mac kan je het beste OpenCV downloaden via macports
-	
-	Op windows handmatig downloaden, denk ik?
+	• Op ubuntu/debian `sudo apt-get install opencv` (of `sudo apt-get install libcv-dev libcvaux-dev libhighgui-dev`) runnen, maar er staat alleen nog voor de Raspberry Pi (die een ARM-chip heeft) eer `.jar` in.<br/>
+	• Op de mac kan je het beste OpenCV downloaden via macports <br/>
+	• Op windows handmatig downloaden en dan in je PATH zetten <br/>
+		32 bit: `;C:\opencv\build\x86\vc10\bin;C:\opencv\build\common\tbb\ia32\vc10` <br/>
+		64 bit: `;C:\opencv\build\x64\vc10\bin;C:\opencv\build\common\tbb\intel64\vc10`
 
 2. Schrijf een bot zoals `bots/Echobot.java` (zie ook: nog niet bestaande documentatie)
 
