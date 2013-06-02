@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.EventObject;
 import javax.imageio.ImageIO;
 
-import lib.SewerSender;
+import library.SewerSender;
 import events.PictureEvent;
 
 public class ImageUploader implements Listener<PictureEvent> {

@@ -1,4 +1,4 @@
-package lib;
+package library;
 /*
  * Gray8DetectHaarMultiScale.java
  *

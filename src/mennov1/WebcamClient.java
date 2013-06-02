@@ -1,6 +1,6 @@
 package mennov1;
 
-import lib.SewerSender;
+import library.SewerSender;
 
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;

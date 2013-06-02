@@ -1,4 +1,4 @@
-package lib;
+package library;
 
 import com.sun.mail.smtp.SMTPTransport;
 

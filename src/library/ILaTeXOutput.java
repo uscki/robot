@@ -1,4 +1,4 @@
-package lib;
+package library;
 
 import java.io.IOException;
 

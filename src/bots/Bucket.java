@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
-import lib.MemoryLib;
+import library.MemoryLib;
 
 /**
  * Leer Menno dingen zeggen!

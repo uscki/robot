@@ -8,9 +8,9 @@ import org.seltar.Bytes2Web.ImageToWeb;
 
 import jjil.core.Rect;
 
-import lib.FaceDetection;
 
-import lib.ImageLib;
+import library.FaceDetection;
+import library.ImageLib;
 
 public class BufferedImageTest {
 	public static void main(String[] args){

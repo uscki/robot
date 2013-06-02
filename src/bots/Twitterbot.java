@@ -2,7 +2,7 @@ package bots;
 
 import java.util.EventObject;
 
-import lib.TwitterLib;
+import library.TwitterLib;
 import mennov1.Listener;
 import events.ReceiveChatEvent;
 

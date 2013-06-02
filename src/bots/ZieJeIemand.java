@@ -2,7 +2,7 @@ package bots;
 
 import java.util.EventObject;
 
-import lib.FaceDetection2;
+import library.FaceDetection2;
 import mennov1.EventBus;
 
 import com.googlecode.javacv.cpp.opencv_core.IplImage;

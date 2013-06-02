@@ -1,7 +1,7 @@
 package mennov1;
 import java.util.EventObject;
 
-import lib.SewerSender;
+import library.SewerSender;
 
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.PacketListener;

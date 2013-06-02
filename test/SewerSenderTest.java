@@ -1,4 +1,4 @@
-import lib.SewerSender;
+import library.SewerSender;
 
 public class SewerSenderTest {
 

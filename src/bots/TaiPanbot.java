@@ -3,7 +3,7 @@ package bots;
 import java.io.IOException;
 import java.util.Hashtable;
 
-import lib.LaTeXOutput;
+import library.LaTeXOutput;
 
 public class TaiPanbot  extends AnswerBot {
 	

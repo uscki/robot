@@ -3,6 +3,7 @@ package mennov1;
 import java.io.IOException;
 
 import bots.FaceSaver;
+import library.SendMailLib;
 
 /**
  * 
@@ -34,6 +35,10 @@ public class ThuisTester {
 		
 		// Sla een afbeelding op met rechthoeken om de gezichten
 		// bus.addListener(new FaceSaver("webcam/faces.jpg"));
+
+		try {
+			SendMailLib.Send("mennov1@vinnl.nl", "appelflap", "bennokr@gmail.com", "foo", "bar");
+		} catch (Exception ex) { System.out.println(ex.toString()); }
 		
 		
 		// Laat zien dat je leeft op robot.uscki.nl

@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 import java.util.EventObject;
 import java.util.List;
 
-import lib.FaceDetection2;
+import library.FaceDetection2;
 
 import com.googlecode.javacv.cpp.opencv_core.CvScalar;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;

@@ -10,7 +10,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import lib.SewerSender;
+import library.SewerSender;
 import mennov1.EventBus;
 import mennov1.IrcClient;
 import events.SendChatEvent;

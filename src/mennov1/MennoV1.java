@@ -2,7 +2,7 @@ package mennov1;
 
 import java.io.IOException;
 
-import lib.SewerSender;
+import library.SewerSender;
 
 /**
  * 

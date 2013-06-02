@@ -1,6 +1,6 @@
 package bots;
 
-import lib.ImageLib;
+import library.ImageLib;
 
 public class Gifbot extends AnswerBot {
 	

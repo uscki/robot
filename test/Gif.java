@@ -1,7 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 
-import lib.ImageLib;
+import library.ImageLib;
 
 
 public class Gif {
