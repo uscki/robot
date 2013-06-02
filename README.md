@@ -5,7 +5,7 @@
 
 0. Zorg dat je een beetje Java kan en met een terminal overweg kan. Volg een cursus Cyberspace voor Senioren als dat nodig is.
 
-1. Zorg dat je een java-ontwikkelomgeving werkend heb op je computer (`jdk`). Dit betekent dat `java` en `javacv` het moeten doen in je terminal.
+1. Zorg dat je een java-ontwikkelomgeving werkend heb op je computer (`jdk`). Dit betekent dat `java` en `javac` het moeten doen in je terminal.
 
 2. Download de code. Handmatig downloaden (niet aangeraden), of...<br />
 	...als je meedoet en rechten hebt gekregen: Clone met [git](https://help.github.com/articles/set-up-git): `git clone <zo'n git url hierboven>`<br />
