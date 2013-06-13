@@ -14,10 +14,10 @@ import org.w3c.dom.NodeList;
 
 /**
  * 
- * @author Vincent Tunru
+ * @author Benno Kruit
  * @category Bots
  *
- * A very simple example bot who is basically a parrot.
+ * Vraag iemands nummer of adres uit het smoelenboek op
  */
 public class SmoBot extends AnswerBot {
 	public String ask(String in, String who) {
