@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<xhtmlsite xmlns="http://www.uscki.nl/wicki/incogsite">
+  <content xmlns:default="http://www.uscki.nl/wicki/smobo">
+    <default:smobo xmlns="http://www.uscki.nl/wicki/smobo" admin_permission="true" subpagina="search" query="Benno">
+      <browse name="Zoeken naar lid">
+        <results>
+          <person>
+            <id>1071</id>
+            <firstname>Benno</firstname>
+            <middlename/>
+            <lastname>Kruit</lastname>
+            <phonenumber/>
+            <mobilenumber>06-15262403</mobilenumber>
+            <address1>Johannes Camphuysstraat 59BIS</address1>
+            <photomediaid>58318</photomediaid>
+            <fullname>Benno Kruit</fullname>
+          </person>
+        </results>
+      </browse>
+    </default:smobo>
+  </content>
+</xhtmlsite>

@@ -2,8 +2,7 @@ package mennov1;
 
 import java.io.IOException;
 
-import bots.FaceSaver;
-import library.SendMailLib;
+import library.Settings;
 
 /**
  * 
@@ -14,6 +13,8 @@ import library.SendMailLib;
 public class ThuisTester {
 
 	public static void main(String[] args) {
+		
+		Settings.getInstance();
 
 		EventBus bus = EventBus.getInstance();
 		bus.addListener(BotHandler.getInstance());
@@ -25,10 +26,10 @@ public class ThuisTester {
 		// Gebruik de ImageFileClient om een eigen webcam te simuleren
 //		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		// Of start een echte webcam-client die OpenCV gebruikt
-		try {
-			Thread t = new Thread(new WebcamClient());
-			t.start();
-		} catch (Exception e) {}
+//		try {
+//			Thread t = new Thread(new WebcamClient());
+//			t.start();
+//		} catch (Exception e) {}
 
 		// Als het tweede argument null is, slaat hij het plaatje op zonder te uploaden
 //		bus.addListener(new ImageUploader("webcam/capture.jpg", null));
@@ -36,9 +37,9 @@ public class ThuisTester {
 		// Sla een afbeelding op met rechthoeken om de gezichten
 		// bus.addListener(new FaceSaver("webcam/faces.jpg"));
 
-		try {
-			SendMailLib.Send("mennov1@vinnl.nl", "appelflap", "bennokr@gmail.com", "foo", "bar");
-		} catch (Exception ex) { System.out.println(ex.toString()); }
+//		try {
+//			SendMailLib.Send("mennov1@vinnl.nl", "appelflap", "bennokr@gmail.com", "foo", "bar");
+//		} catch (Exception ex) { System.out.println(ex.toString()); }
 		
 		
 		// Laat zien dat je leeft op robot.uscki.nl
