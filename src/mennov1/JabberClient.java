@@ -1,6 +1,7 @@
 package mennov1;
 import java.util.EventObject;
 
+import library.Settings;
 import library.SewerSender;
 
 import org.jivesoftware.smack.ChatManager;
@@ -33,6 +34,9 @@ public class JabberClient implements Listener<SendChatEvent> {
 	private JabberClient() {
 		// gtalk requires this or your messages bounce back as errors
 		connection = new XMPPConnection("gmail.com");
+		
+		String username = Settings.getInstance().get("jabber-login");
+		String pwd      = Settings.getInstance().get("jabber-password");
 
 		// try to connect to the gmail service.
 		try {
@@ -45,7 +49,7 @@ public class JabberClient implements Listener<SendChatEvent> {
 		// try to log in.
 		try {
 			System.out.println("Jabber: Logged in to gmail.com");
-			connection.login("mennov1@vinnl.nl", "appelflap");
+			connection.login(username, pwd);
 			// set our presence as available.
 			connection.sendPacket(new Presence(Presence.Type.available));
 			// Accept only messages from HQ

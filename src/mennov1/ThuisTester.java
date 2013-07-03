@@ -20,6 +20,7 @@ public class ThuisTester {
 		bus.addListener(BotHandler.getInstance());
 		bus.addListener(TerminalClient.getInstance());
 
+//		bus.addListener(FacebookClient.getInstance());
 //		bus.addListener(JabberClient.getInstance());
 //		bus.addListener(IrcClient.getInstance());
 
@@ -50,6 +51,7 @@ public class ThuisTester {
 		} catch (IOException ex) {
 			//ex.printStackTrace();
 		}
-		//JabberClient.getInstance().disconnect();
+//		JabberClient.getInstance().disconnect();
+//		FacebookClient.getInstance().disconnect();
 	}
 }
