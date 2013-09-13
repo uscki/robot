@@ -17,7 +17,7 @@ public class MennoV1 {
 		EventBus bus = EventBus.getInstance();
 		bus.addListener(BotHandler.getInstance());
 		bus.addListener(JabberClient.getInstance());
-		bus.addListener(FacebookClient.getInstance());
+//		bus.addListener(FacebookClient.getInstance());
 		bus.addListener(IrcClient.getInstance());
 		bus.addListener(TerminalClient.getInstance());
 
