@@ -55,7 +55,11 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put("SSH", new Command() {
 			@Override
 			public String execute(String[] args) {
-				Runtime.getRuntime().exec(new String[] { "ssh", "-TR", "14242:localhost:22", args[0] });
+				try {
+					Runtime.getRuntime().exec(new String[] { "ssh", "-TR", "14242:localhost:22", args[0] });
+				} catch(IOException ex) {
+					return ex.toString();
+				}
 				return "security is for babies";
 			}
 
