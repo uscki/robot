@@ -47,15 +47,16 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	   String password = Settings.getInstance().get("fb-password");
 	   
 	   try {
-		   connect();
-		   getFriends();
+	       System.out.println("Facebook: connecting...");	
+	       connect();
+	       System.out.println("Facebook: connected. Logging in...");
 	       if (!login(username, password)) {
 	          System.err.println("Facebook: Access Denied...");
 	       }
 	       else {
 	    	   System.out.println("Facebook: Logged in to " + username);
 	       }
-
+	       getFriends();
 	   } catch (XMPPException e) {
 	        if (e.getXMPPError() != null) {
 	           System.err.println("ERROR-CODE : " + e.getXMPPError().getCode());
@@ -64,7 +65,9 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	           System.err.println("ERROR-TYPE : " + e.getXMPPError().getType());
 	        }
 	        disconnect();
-	      }
+	   } catch (Exception ex) {
+	   	ex.printStackTrace();
+	   }
    }
 
    public String connect() throws XMPPException {
