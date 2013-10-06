@@ -58,6 +58,7 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	       }
 	       getFriends();
 	   } catch (XMPPException e) {
+	   	System.err.println("XMPPException");
 	        if (e.getXMPPError() != null) {
 	           System.err.println("ERROR-CODE : " + e.getXMPPError().getCode());
 	           System.err.println("ERROR-CONDITION : " + e.getXMPPError().getCondition());
@@ -66,6 +67,7 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	        }
 	        disconnect();
 	   } catch (Exception ex) {
+	   	System.err.println("Other exception");
 	   	ex.printStackTrace();
 	   }
    }
