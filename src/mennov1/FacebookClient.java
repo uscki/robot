@@ -19,6 +19,7 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.StreamError;
 
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
@@ -46,30 +47,42 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	   String username = Settings.getInstance().get("fb-login");
 	   String password = Settings.getInstance().get("fb-password");
 	   
-	   try {
-	       System.out.println("Facebook: connecting...");	
-	       connect();
-	       System.out.println("Facebook: connected. Logging in...");
-	       if (!login(username, password)) {
-	          System.err.println("Facebook: Access Denied...");
-	       }
-	       else {
-	    	   System.out.println("Facebook: Logged in to " + username);
-	       }
-	       getFriends();
-	   } catch (XMPPException e) {
-	   	System.err.println("XMPPException");
-	        if (e.getXMPPError() != null) {
-	           System.err.println("ERROR-CODE : " + e.getXMPPError().getCode());
-	           System.err.println("ERROR-CONDITION : " + e.getXMPPError().getCondition());
-	           System.err.println("ERROR-MESSAGE : " + e.getXMPPError().getMessage());
-	           System.err.println("ERROR-TYPE : " + e.getXMPPError().getType());
-	        }
-	        disconnect();
-	   } catch (Exception ex) {
-	   	System.err.println("Other exception");
-	   	ex.printStackTrace();
-	   }
+	   
+	   retry = true;
+	   while (retry) {
+		   retry = false;
+		   try {
+		       System.out.println("Facebook: connecting...");	
+		       connect();
+		       System.out.println("Facebook: connected. Logging in...");
+		       if (!login(username, password)) {
+		          System.err.println("Facebook: Access Denied...");
+		       }
+		       else {
+		    	   System.out.println("Facebook: Logged in to " + username);
+		       }
+		       getFriends();
+		   } catch (XMPPException e) {
+		   	System.err.println("XMPPException");
+		        if (e.getXMPPError() != null) {
+		           System.err.println("ERROR-CODE : " + e.getXMPPError().getCode());
+		           System.err.println("ERROR-CONDITION : " + e.getXMPPError().getCondition());
+		           System.err.println("ERROR-MESSAGE : " + e.getXMPPError().getMessage());
+		           System.err.println("ERROR-TYPE : " + e.getXMPPError().getType());
+		        }
+		        StreamError streamError = e.getStreamError();
+		        if (streamError != null) {
+		        	if (streamError.getCode().equals("not-authorized")) {
+		        		System.out.println("Facebook: Login failed. Retrying...");
+		        		retry = true;
+		        	}
+		        }
+		        disconnect();
+		   } catch (Exception ex) {
+		   	System.err.println("Other exception");
+		   	ex.printStackTrace();
+		   }
+   	   }
    }
 
    public String connect() throws XMPPException {
