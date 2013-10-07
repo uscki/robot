@@ -48,7 +48,7 @@ public class FacebookClient implements Listener<SendChatEvent> {
 	   String password = Settings.getInstance().get("fb-password");
 	   
 	   
-	   retry = true;
+	   Boolean retry = true;
 	   while (retry) {
 		   retry = false;
 		   try {
