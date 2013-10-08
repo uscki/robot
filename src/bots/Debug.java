@@ -25,8 +25,13 @@ public class Debug extends AnswerBot {
 		if (in.equals("samsara")) { // reboot
 			try {
 					Runtime.getRuntime().exec("shutdown -r 1");
-					EventBus.getInstance().event(new SendChatEvent(this, IrcClient.getInstance(), "#incognito", "From an inconstruable beginning comes transmigration. A beginning point is not evident, though beings hindered by ignorance and fettered by craving are transmigrating & wandering on. What do you think, monks: Which is greater, the tears you have shed while transmigrating & wandering this long, long time - crying & weeping from being joined with what is displeasing, being separated from what is pleasing - or the water in the four great oceans?"));
-					return "/quit" ;
+					EventBus.getInstance().event(new SendChatEvent(
+							this, 
+							IrcClient.getInstance(), 
+							"#incognito", 
+							"/quit"
+							));
+					return "From an inconstruable beginning comes transmigration. A beginning point is not evident, though beings hindered by ignorance and fettered by craving are transmigrating & wandering on. What do you think, monks: Which is greater, the tears you have shed while transmigrating & wandering this long, long time - crying & weeping from being joined with what is displeasing, being separated from what is pleasing - or the water in the four great oceans?" ;
 			} catch(IOException ex) {
 				return ex.toString();
 			}

@@ -87,6 +87,19 @@
     </java>
     <echo message="test target completed.." />
   </target>
+  
+  <!--
+    Als we al een test jar hebben (die misschien elders vandaan komt),
+    kunnen we hiermee classpath-gedoe omzeilen
+  -->
+  <target name="runtest">
+    <java fork="true" classname="${test-class}">
+          <classpath>
+                  <path refid="classpath" />
+                  <path location="${jar.dir}/test-${ant.project.name}.jar" />
+          </classpath>
+    </java>
+  </target>
 
 
 </project>
