@@ -7,10 +7,9 @@
 
 1. Zorg dat je een java-ontwikkelomgeving werkend heb op je computer (`jdk`). Dit betekent dat `java` en `javac` het moeten doen in je terminal.
 
-2. Download de code. Handmatig downloaden (niet aangeraden), of...<br />
-	...als je meedoet en rechten hebt gekregen: Clone met [git](https://help.github.com/articles/set-up-git): `git clone <zo'n git url hierboven>`<br />
-	...als je nog niet meedoet: fork het project en doe later een pull request<br />
-	en navigeer je terminal naar de hoofdmap.
+2. Download de code. Handmatig downloaden (niet aangeraden), of clone met [git](https://help.github.com/articles/set-up-git):
+
+		git clone https://github.com/uscki/robot.git
 	
 3. Doe het automagisch en installeer [apache ant](http://ant.apache.org) of WinAnt voor Windows
 
