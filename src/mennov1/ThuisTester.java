@@ -27,17 +27,19 @@ public class ThuisTester {
 		// Gebruik de ImageFileClient om een eigen webcam te simuleren
 //		bus.addListener(new ImageFileClient("/home/mennov1/webcam/webcam.jpg", 1000L));
 		// Of start een echte webcam-client die OpenCV gebruikt
-//		try {
-//			Thread t = new Thread(new WebcamClient());
-//			t.start();
-//		} catch (Exception e) {}
+		// try {
+		// 	Thread t = new Thread(new WebcamClient());
+		// 	t.start();
+		// } catch (Exception e) {}
 
-		// Als het tweede argument null is, slaat hij het plaatje op zonder te uploaden
-//		bus.addListener(new ImageUploader("webcam/capture.jpg", null));
+		// Sla het webcamplaatje up of upload het ergens
+		// bus.addListener(new ImageSaver("webcam.jpg"));
+		// bus.addListener(new ImageUploader("http://localhost/webcam.php"));
 		
 		// Sla een afbeelding op met rechthoeken om de gezichten
 		// bus.addListener(new FaceSaver("webcam/faces.jpg"));
 
+		// Stuur een mailtje (met gmail SMTP)
 //		try {
 //			SendMailLib.Send("mennov1@vinnl.nl", "appelflap", "bennokr@gmail.com", "foo", "bar");
 //		} catch (Exception ex) { System.out.println(ex.toString()); }

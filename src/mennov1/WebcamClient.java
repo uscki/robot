@@ -14,7 +14,7 @@ import events.OpenCVPictureEvent;
 
 
 public class WebcamClient implements Runnable {
-    final int INTERVAL=5000;///you may use interval
+    final int INTERVAL=1000;///you may use interval
     IplImage image;
     @Override
     public void run() {

@@ -141,7 +141,7 @@ public class SewerSender {
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			System.out.println("Kon geen bericht poepen");
 		}
 		return out;
 	}
