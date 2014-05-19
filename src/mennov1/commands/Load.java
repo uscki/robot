@@ -50,12 +50,12 @@ public class Load extends Command {
 
 			return ("Bot " + s+ " has been loaded");
 		} catch (ClassNotFoundException e) { // The bot didn't exist
-			return("Invalid bot.");
+			return("Invalid bot. The bot didn't exist.");
 		} catch(NoClassDefFoundError e) {	// Error while instantiatin' class.
-			return("Invalid bot.");
+			return("Invalid bot. Error while instantiatin' class.");
 		}
 		catch (InstantiationException e) { // Someone tried to load 'Bot'
-			return "Invalid bot.";
+			return "Invalid bot. You tried to load 'Bot'.";
 		} catch (IllegalAccessException e) { // Not sure yet.
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
