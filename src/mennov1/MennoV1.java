@@ -22,12 +22,12 @@ public class MennoV1 {
 		bus.addListener(TerminalClient.getInstance());
 		System.out.println(System.getProperty("java.library.path"));
 
-//		try {
-//			Thread t = new Thread(new WebcamClient());
-//			t.start();
-//		} catch (Exception e) {
-//			SewerSender.println("webcam kapot huilen!\n"+e.toString());
-//		}
+		try {
+			Thread t = new Thread(new WebcamClient());
+			t.start();
+		} catch (Exception e) {
+			SewerSender.println("webcam kapot huilen!\n"+e.toString());
+		}
 
 //		bus.addListener(new ImageUploader("https://robot.uscki.nl/webcam.php"));
 
