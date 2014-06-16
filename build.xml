@@ -12,7 +12,6 @@
 
   <path id="classpath">
     <fileset dir="${lib.dir}" includes="**/*.jar" />
-    <fileset dir="${lib.dir}" includes="**/*.*" />
   	<!-- Op een mac kunnen er bij gebruik van macports dingen in /opt/local/lib/libopencv_* staan -->
     <!-- Maar het is de bedoeling dat deze bestanden in een .jar verpakt zitten -->
   </path>
@@ -62,6 +61,7 @@
                   <path refid="classpath" />
                   <path location="${jar.dir}/${ant.project.name}.jar" />
           </classpath>
+          <sysproperty key="java.library.path" path="/usr/lib" />
     </java>
   </target>
   <target name="main" depends="run">
