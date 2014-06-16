@@ -1,16 +1,16 @@
 package library;
 
-import static org.bytedeco.javacv.cpp.opencv_core.IPL_DEPTH_8U;
-import static org.bytedeco.javacv.cpp.opencv_core.cvClearMemStorage;
-import static org.bytedeco.javacv.cpp.opencv_core.cvGetSeqElem;
-import static org.bytedeco.javacv.cpp.opencv_core.cvLoad;
-import static org.bytedeco.javacv.cpp.opencv_imgproc.CV_BGR2GRAY;
-import static org.bytedeco.javacv.cpp.opencv_imgproc.CV_INTER_LINEAR;
-import static org.bytedeco.javacv.cpp.opencv_imgproc.cvCvtColor;
-import static org.bytedeco.javacv.cpp.opencv_imgproc.cvEqualizeHist;
-import static org.bytedeco.javacv.cpp.opencv_imgproc.cvResize;
-import static org.bytedeco.javacv.cpp.opencv_objdetect.CV_HAAR_DO_CANNY_PRUNING;
-import static org.bytedeco.javacv.cpp.opencv_objdetect.cvHaarDetectObjects;
+import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
+import static org.bytedeco.javacpp.opencv_core.cvClearMemStorage;
+import static org.bytedeco.javacpp.opencv_core.cvGetSeqElem;
+import static org.bytedeco.javacpp.opencv_core.cvLoad;
+import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
+import static org.bytedeco.javacpp.opencv_imgproc.CV_INTER_LINEAR;
+import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
+import static org.bytedeco.javacpp.opencv_imgproc.cvEqualizeHist;
+import static org.bytedeco.javacpp.opencv_imgproc.cvResize;
+import static org.bytedeco.javacpp.opencv_objdetect.CV_HAAR_DO_CANNY_PRUNING;
+import static org.bytedeco.javacpp.opencv_objdetect.cvHaarDetectObjects;
 
 import java.awt.Rectangle;
 import java.io.File;
@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bytedeco.javacpp.Loader;
-import org.bytedeco.javacv.cpp.opencv_core.CvMemStorage;
-import org.bytedeco.javacv.cpp.opencv_core.CvRect;
-import org.bytedeco.javacv.cpp.opencv_core.CvSeq;
-import org.bytedeco.javacv.cpp.opencv_core.IplImage;
-import org.bytedeco.javacv.cpp.opencv_objdetect;
-import org.bytedeco.javacv.cpp.opencv_objdetect.CvHaarClassifierCascade;
+import org.bytedeco.javacpp.opencv_core.CvMemStorage;
+import org.bytedeco.javacpp.opencv_core.CvRect;
+import org.bytedeco.javacpp.opencv_core.CvSeq;
+import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_objdetect;
+import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 
 
 public class FaceDetection2 {

@@ -5,7 +5,7 @@ import java.util.EventObject;
 import library.FaceDetection2;
 import mennov1.EventBus;
 
-import org.bytedeco.javacv.cpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_core.IplImage;
 
 import events.Event;
 import events.OpenCVPictureEvent;
