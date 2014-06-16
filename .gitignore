@@ -3,5 +3,5 @@ bin
 .*
 !.gitignore
 /build
-settings.txt
+/settings.txt
 bucket.txt
