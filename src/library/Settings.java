@@ -21,7 +21,7 @@ public class Settings {
 	Settings() {
 		values = new HashMap<String, String>();
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("settings.txt"));
+			BufferedReader in = new BufferedReader(new FileReader("../settings.txt"));
 			try
 			{
 				String line;
