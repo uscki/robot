@@ -2,9 +2,9 @@ package mennov1;
 
 import library.SewerSender;
 
-import com.googlecode.javacv.FrameGrabber;
-import com.googlecode.javacv.OpenCVFrameGrabber;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.bytedeco.javacv.cpp.opencv_core.IplImage;
 
 import events.OpenCVPictureEvent;
 

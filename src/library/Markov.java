@@ -96,7 +96,7 @@ if __name__ == "__main__":
 public class Markov {
 
 	public static HashMap<String,ArrayList<String>> style_dict(String filename) throws IOException {
-		String f = MemoryLib.readMemory(filename);
+		String f = ""; //MemoryLib.readMemory(filename);
 		String[] rawtekst = f.split("\n");
 		ArrayList<String>tekst = new ArrayList<String>();
 		

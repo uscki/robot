@@ -1,7 +1,7 @@
 package events;
 
 import java.awt.image.BufferedImage;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import org.bytedeco.javacv.cpp.opencv_core.IplImage;
 
 /**
  * Plaatje zien met OpenCV, ander beeldformaat (snelheid)

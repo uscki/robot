@@ -1,2 +1,2 @@
-uscki-login=
-uscki-password=
+uscki-login=kruit
+uscki-password=bboysrule
