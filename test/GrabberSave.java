@@ -1,8 +1,8 @@
-import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
+import static org.bytedeco.javacv.cpp.opencv_highgui.cvSaveImage;
 
-import com.googlecode.javacv.FrameGrabber;
-import com.googlecode.javacv.OpenCVFrameGrabber;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.bytedeco.javacv.cpp.opencv_core.IplImage;
 
 public class GrabberSave implements Runnable {
     final int INTERVAL=1000;///you may use interval

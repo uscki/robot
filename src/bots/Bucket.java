@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import library.MemoryLib;
+import library.Geheugen;
 
 /**
  * Leer Menno dingen zeggen!
@@ -23,13 +23,8 @@ public class Bucket extends AnswerBot {
 		db = new Hashtable<String, String>();
 		// Lees antwoorden naar de hashtable
 		try {
-			for (String l : MemoryLib.readMemory("bucket.txt").split("\n")) {
-				String[] kv = l.split("/");
-				if (kv.length > 2) {
-					db.put(kv[1], kv[2]);
-				}
-			}
-		} catch (IOException e) { e.printStackTrace(); }
+			db = (Hashtable<String, String>) Geheugen.herinner("bucket");
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	// Werkt nu met reguliere expressies.
@@ -51,8 +46,11 @@ public class Bucket extends AnswerBot {
 				String key = in.substring(bounds[0]+1, bounds[1]);
 				String val = in.substring(bounds[2]+1, bounds[3]);
 				db.put(key, val);
-				// TODO: Bucket moet natuurlijk helemaal niet altijd alles opnieuw onthouden, das lelijk!
-				bucket_remember();
+				
+				try {
+					Geheugen.onthoud("bucket", db);
+				} catch (IOException e) { e.printStackTrace(); }
+
 				return "Als jij \"" + key + "\" zegt, zeg ik \"" + val + "\"!";
 			}
 			else return null;
@@ -93,22 +91,6 @@ public class Bucket extends AnswerBot {
 
 		return sb.toString();
 
-	}
-
-	public void bucket_remember(){
-		String mem = "BUCKETS LIST\n";
-		Iterator it = db.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pairs = (Map.Entry)it.next();
-	        mem += "/" + pairs.getKey() + "/" + pairs.getValue() + "/\n";
-	    }
-	    try {
-	    	MemoryLib.remember("bucket.txt", mem);
-	    	//return "I REMEMBER";
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    	//return "I FORGET";
-	    }
 	}
 
 }

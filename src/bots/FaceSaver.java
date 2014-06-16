@@ -1,9 +1,9 @@
 package bots;
 
-import static com.googlecode.javacv.cpp.opencv_core.CV_AA;
-import static com.googlecode.javacv.cpp.opencv_core.cvPoint;
-import static com.googlecode.javacv.cpp.opencv_core.cvRectangle;
-import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
+import static org.bytedeco.javacv.cpp.opencv_core.CV_AA;
+import static org.bytedeco.javacv.cpp.opencv_core.cvPoint;
+import static org.bytedeco.javacv.cpp.opencv_core.cvRectangle;
+import static org.bytedeco.javacv.cpp.opencv_highgui.cvSaveImage;
 
 import java.awt.Rectangle;
 import java.util.EventObject;
@@ -11,8 +11,8 @@ import java.util.List;
 
 import library.FaceDetection2;
 
-import com.googlecode.javacv.cpp.opencv_core.CvScalar;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import org.bytedeco.javacv.cpp.opencv_core.CvScalar;
+import org.bytedeco.javacv.cpp.opencv_core.IplImage;
 
 import events.OpenCVPictureEvent;
 
