@@ -1,9 +1,9 @@
 import javax.swing.JFrame;
-import com.googlecode.javacpp.Pointer;
-import com.googlecode.javacv.*;
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_imgproc.*;
-import static com.googlecode.javacv.cpp.opencv_highgui.*;
+import org.bytedeco.javacpp.Pointer;
+import org.bytedeco.javacv.*;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_highgui.*;
 
 /**
  * C to Java translation of the houghlines.c sample provided in the c sample directory of OpenCV 2.1,
@@ -78,7 +78,7 @@ public class HoughLines {
 
                 double a = Math.cos((double) theta), b = Math.sin((double) theta);
                 double x0 = a * rho, y0 = b * rho;
-                CvPoint pt1 = new CvPoint((int) Math.round(x0 + 1000 * (-b)), (int) Math.round(y0 + 1000 * (a))), pt2 = new CvPoint((int) Math.round(x0 - 1000 * (-b)), (int) Math.round(y0 - 1000 * (a)));
+                CvPoint pt1 = cvPoint((int) Math.round(x0 + 1000 * (-b)), (int) Math.round(y0 + 1000 * (a))), pt2 = cvPoint((int) Math.round(x0 - 1000 * (-b)), (int) Math.round(y0 - 1000 * (a)));
                 System.out.println("Line spoted: ");
                 System.out.println("\t rho= " + rho);
                 System.out.println("\t theta= " + theta);
@@ -99,7 +99,7 @@ public class HoughLines {
 
                 double a = Math.cos((double) theta), b = Math.sin((double) theta);
                 double x0 = a * rho, y0 = b * rho;
-                CvPoint pt1 = new CvPoint((int) Math.round(x0 + 1000 * (-b)), (int) Math.round(y0 + 1000 * (a))), pt2 = new CvPoint((int) Math.round(x0 - 1000 * (-b)), (int) Math.round(y0 - 1000 * (a)));
+                CvPoint pt1 = cvPoint((int) Math.round(x0 + 1000 * (-b)), (int) Math.round(y0 + 1000 * (a))), pt2 = cvPoint((int) Math.round(x0 - 1000 * (-b)), (int) Math.round(y0 - 1000 * (a)));
                 System.out.println("Line spotted: ");
                 System.out.println("\t rho= " + rho);
                 System.out.println("\t theta= " + theta);

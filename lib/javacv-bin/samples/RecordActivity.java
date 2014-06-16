@@ -5,7 +5,7 @@
  *
  * <?xml version="1.0" encoding="utf-8"?>
  * <manifest xmlns:android="http://schemas.android.com/apk/res/android"
- *     package="com.googlecode.javacv.recordactivity"
+ *     package="org.bytedeco.javacv.recordactivity"
  *     android:versionCode="1"
  *     android:versionName="1.0" >
  *     <uses-sdk android:minSdkVersion="4" />
@@ -58,7 +58,7 @@
  * </LinearLayout>
  */
 
-package com.googlecode.javacv.recordactivity;
+package org.bytedeco.javacv.recordactivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -86,9 +86,9 @@ import android.widget.RelativeLayout;
 import java.io.IOException;
 import java.nio.ShortBuffer;
 
-import com.googlecode.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.FFmpegFrameRecorder;
 
-import static com.googlecode.javacv.cpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_core.*;
 
 public class RecordActivity extends Activity implements OnClickListener {
 
@@ -180,8 +180,12 @@ public class RecordActivity extends Activity implements OnClickListener {
 
         if (cameraView != null) {
             cameraView.stopPreview();
-            cameraDevice.release();
-            cameraDevice = null;
+        }
+
+        if(cameraDevice != null) {
+           cameraDevice.stopPreview();
+           cameraDevice.release();
+           cameraDevice = null;
         }
 
         if (mWakeLock != null) {
@@ -256,6 +260,7 @@ public class RecordActivity extends Activity implements OnClickListener {
 
         audioRecordRunnable = new AudioRecordRunnable();
         audioThread = new Thread(audioRecordRunnable);
+        runAudioThread = true;
     }
 
     public void startRecording() {
@@ -274,6 +279,13 @@ public class RecordActivity extends Activity implements OnClickListener {
     public void stopRecording() {
 
         runAudioThread = false;
+        try {
+            audioThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        audioRecordRunnable = null;
+        audioThread = null;
 
         if (recorder != null && recording) {
             recording = false;

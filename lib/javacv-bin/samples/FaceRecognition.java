@@ -31,17 +31,17 @@
  * along with JavaCV.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import com.googlecode.javacpp.FloatPointer;
-import com.googlecode.javacpp.Pointer;
+import org.bytedeco.javacpp.FloatPointer;
+import org.bytedeco.javacpp.Pointer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_highgui.*;
-import static com.googlecode.javacv.cpp.opencv_legacy.*;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_highgui.*;
+import static org.bytedeco.javacpp.opencv_legacy.*;
 
 /** Recognizes faces.
  *
@@ -625,11 +625,9 @@ public class FaceRecognition {
     IplImage dstImg;
     if ((srcImg != null) && (srcImg.width() > 0 && srcImg.height() > 0)) {
       // Spread the 32bit floating point pixels to fit within 8bit pixel range.
-      CvPoint minloc = new CvPoint();
-      CvPoint maxloc = new CvPoint();
       double[] minVal = new double[1];
       double[] maxVal = new double[1];
-      cvMinMaxLoc(srcImg, minVal, maxVal, minloc, maxloc, null);
+      cvMinMaxLoc(srcImg, minVal, maxVal);
       // Deal with NaN and extreme values, since the DFT seems to give some NaN results.
       if (minVal[0] < -1e30) {
         minVal[0] = -1e30;
