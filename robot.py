@@ -51,12 +51,12 @@ class ImageEvent(): pass
 class Bot():
     def run(self):
         print 'started %s' % self.__class__.__name__
-        running = True
-        while running:
+        self.running = True
+        while self.running:
             try:
                 self.loop()
             except threading.ThreadError:
-                running = False
+                self.running = False
                 self.kill()
                 print 'killed %s' % self.__class__.__name__
 
@@ -85,6 +85,29 @@ class SSHBot(Bot):
         for p in self.procs:
             p.kill()
 
+class TurnBot(Bot):
+    def loop(self):
+        chatevent = EventBus.await(ChatEvent)
+        cmd = chatevent.message.split()
+        print cmd
+        if cmd[0] == 'turn' and re.match(r'\d+',cmd[1]):
+            # ugly global variable use
+            servo.set(float('.'+cmd[1]))
+
+class Servo():
+    def __init__(self):
+        self.blaster = open('/dev/servoblaster', 'w')
+
+    def set(self, amount):
+        if amount >= 0 and amount <= 1:
+            self.blaster.write('0=' + str(int(50 + amount*200)) + '\n')    #
+            self.blaster.flush()
+
+    def end(self):
+        self.blaster.close()
+
+
+
 class CameraClient(Bot):
     def __init__(self):
         self.webcam = cv2.VideoCapture(0)
@@ -93,10 +116,11 @@ class CameraClient(Bot):
 
     def loop(self):
         val, image = self.webcam.read()
-        ev = ImageEvent()
-        ev.image = image
-        EventBus.trigger(ev)
-        time.sleep(1)
+        if self.running:
+            ev = ImageEvent()
+            ev.image = image
+            EventBus.trigger(ev)
+            time.sleep(2)
 
 class ImageUploader(Bot):
     def loop(self):
@@ -105,31 +129,39 @@ class ImageUploader(Bot):
         ima = Image.fromarray(im)
         output = StringIO.StringIO()
         ima.save(output, 'jpeg')
-        url = 'http://192.168.1.42/~benno/webcam.php'
+        url = 'https://robot.uscki.nl/webcam.php'
         resp = requests.post(url, files={'uploadedfile': output.getvalue() }, allow_redirects=True, verify=False)
         output.close()
-        # print resp.text
+        print resp, resp.text
 
+settings = {l.split('=')[0].strip(): l.split('=')[1].strip() for l in list(open('../settings.txt', 'r'))}
 
 gtalk = ChatClient(
-    jid = '',
-    password = '',
+    jid = settings['jabber-login'] + '@gmail.com',
+    password = settings['jabber-password'],
     server = ('talk.google.com', 5222)
 )
 
-# fbchat = ChatClient(
-#     jid = 'x',
-#     password = '',
-#     server = ('chat.facebook.com', 5222),
-# )
+fbchat = ChatClient(
+    jid = settings['fb-login'] + '@chat.facebook.com',
+    password = settings['fb-password'],
+    server = ('chat.facebook.com', 5222),
+)
 
-# EventBus.add(CameraClient())
-# EventBus.add(ImageUploader())
+servo = Servo()
+
+
+EventBus.add(CameraClient())
+EventBus.add(ImageUploader())
 
 EventBus.add(SSHBot())
+EventBus.add(TurnBot())
 
 raw_input('Press enter to disconnect')
 EventBus.kill()
 
 gtalk.end()
-# fbchat.end()
+fbchat.end()
+servo.end()
+
+
