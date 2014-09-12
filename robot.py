@@ -126,9 +126,9 @@ class ImageUploader(Bot):
     def loop(self):
         imgevent = EventBus.await(ImageEvent)
         im = imgevent.image
-        b, g, r = im.split()
-        im = Image.merge("RGB", (r, g, b))
         ima = Image.fromarray(im)
+        b, g, r = ima.split()
+        ima = Image.merge("RGB", (r, g, b))
         output = StringIO.StringIO()
         ima.save(output, 'jpeg')
         url = 'https://robot.uscki.nl/webcam.php'
