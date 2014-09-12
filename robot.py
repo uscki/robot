@@ -126,6 +126,8 @@ class ImageUploader(Bot):
     def loop(self):
         imgevent = EventBus.await(ImageEvent)
         im = imgevent.image
+        b, g, r = im.split()
+        im = Image.merge("RGB", (r, g, b))
         ima = Image.fromarray(im)
         output = StringIO.StringIO()
         ima.save(output, 'jpeg')
@@ -134,19 +136,21 @@ class ImageUploader(Bot):
         output.close()
         print resp, resp.text
 
-settings = {l.split('=')[0].strip(): l.split('=')[1].strip() for l in list(open('../settings.txt', 'r'))}
+settings = {l.split('=')[0].strip(): l.split('=')[1].strip() for l in list(open('../settings.txt', 'r')) if l[0] != '#' }
 
-gtalk = ChatClient(
-    jid = settings['jabber-login'] + '@gmail.com',
-    password = settings['jabber-password'],
-    server = ('talk.google.com', 5222)
-)
+if 'jabber-login' in settings:
+    gtalk = ChatClient(
+        jid = settings['jabber-login'] + '@gmail.com',
+        password = settings['jabber-password'],
+        server = ('talk.google.com', 5222)
+    )
 
-fbchat = ChatClient(
-    jid = settings['fb-login'] + '@chat.facebook.com',
-    password = settings['fb-password'],
-    server = ('chat.facebook.com', 5222),
-)
+if 'fb-login' in settings:
+    fbchat = ChatClient(
+        jid = settings['fb-login'] + '@chat.facebook.com',
+        password = settings['fb-password'],
+        server = ('chat.facebook.com', 5222),
+    )
 
 servo = Servo()
 
