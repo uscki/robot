@@ -1,6 +1,7 @@
 import threading
 evt = threading.Event()
 threads = []
+clients = {}
 
 def add(bot):
     t = threading.Thread(target=bot.run)
@@ -8,11 +9,19 @@ def add(bot):
     threads.append(t)
     t.start()
 
+def addClient(name, c):
+    clients[name] = c
+def client(name):
+    return clients[name]
+
 def kill():
     trigger(None)
     for t in threads:
         t.bot.kill()
         t.join()
+
+    for c in clients:
+        c.end()
 
 def trigger(obj):
     evt.value = obj

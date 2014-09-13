@@ -92,12 +92,14 @@ class TurnBot(Bot):
         cmd = chatevent.message.split()
         print cmd
         if cmd[0] == 'turn' and re.match(r'\d+',cmd[1]):
-            # ugly global variable use
-            servo.set(float('.'+cmd[1]))
+            EventBus.client('servo').set(float('.'+cmd[1]))
 
 class Servo():
     def __init__(self):
-        self.blaster = open('/dev/servoblaster', 'w')
+        try:
+            self.blaster = open('/dev/servoblaster', 'w')
+        except:
+            print 'Could not open servo connection'
 
     def set(self, amount):
         if amount >= 0 and amount <= 1:
@@ -140,20 +142,20 @@ class ImageUploader(Bot):
 settings = {l.split('=')[0].strip(): l.split('=')[1].strip() for l in list(open('../settings.txt', 'r')) if l[0] != '#' }
 
 if 'jabber-login' in settings:
-    gtalk = ChatClient(
+    EventBus.addClient('gtalk', ChatClient(
         jid = settings['jabber-login'] + '@gmail.com',
         password = settings['jabber-password'],
         server = ('talk.google.com', 5222)
-    )
+    ))
 
 if 'fb-login' in settings:
-    fbchat = ChatClient(
+    EventBus.addClient('fbchat', ChatClient(
         jid = settings['fb-login'] + '@chat.facebook.com',
         password = settings['fb-password'],
         server = ('chat.facebook.com', 5222),
-    )
+    ))
 
-servo = Servo()
+EventBus.addClient('servo', Servo())
 
 
 EventBus.add(CameraClient())
@@ -164,9 +166,5 @@ EventBus.add(TurnBot())
 
 raw_input('Press enter to disconnect')
 EventBus.kill()
-
-gtalk.end()
-fbchat.end()
-servo.end()
 
 
