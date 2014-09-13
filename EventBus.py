@@ -4,12 +4,14 @@ threads = []
 
 def add(bot):
     t = threading.Thread(target=bot.run)
+    t.bot = bot
     threads.append(t)
     t.start()
 
 def kill():
     trigger(None)
     for t in threads:
+        t.bot.kill()
         t.join()
 
 def trigger(obj):

@@ -60,7 +60,8 @@ class Bot():
                 self.kill()
                 print 'killed %s' % self.__class__.__name__
 
-    def kill(self): pass
+    def kill(self):
+        self.running = False
 
 class EchoBot(Bot):
     def loop(self):
@@ -100,7 +101,7 @@ class Servo():
 
     def set(self, amount):
         if amount >= 0 and amount <= 1:
-            self.blaster.write('0=' + str(int(50 + amount*200)) + '\n')    #
+            self.blaster.write('0=' + str(int(50 + amount*200)) + '\n')
             self.blaster.flush()
 
     def end(self):
