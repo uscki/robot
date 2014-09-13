@@ -40,15 +40,13 @@ class Knowledge():
         for y in yes:
             if p in self.knowledge[y] and not self.knowledge[y][p]:
                 v,o = self.facts[y]
-                print 'Hee, maar ik dacht dat %s niet %s %s!' % (self.people[p].capitalize(), o, v)
-                return
+                return 'Hee, maar ik dacht dat %s niet %s %s!' % (self.people[p].capitalize(), o, v)
             else:
                 self.knowledge[y][p] = True
         for n in no:
             if p in self.knowledge[n] and self.knowledge[n][p]:
                 v,o = self.facts[n]
-                print 'Hee, maar ik dacht dat %s %s %s!' % (self.people[p].capitalize(), o, v)
-                return
+                return 'Hee, maar ik dacht dat %s %s %s!' % (self.people[p].capitalize(), o, v)
             else:
                 self.knowledge[n][p] = False
 
@@ -71,32 +69,32 @@ class WieIsHet(Game):
                 return None
 
         def ask((v,o)):
-            print v.capitalize() + ' ie ' + o + '?'
+            self.say(v.capitalize() + ' ie ' + o + '?')
             return (self.input().lower() == 'ja')
         def guess(p):
-            print 'Is het ' + p + '?'
+            self.say('Is het ' + p + '?')
             return (self.input().lower() == 'ja')
         def give_up():
-            print 'Ik geef het op. Wie had jij?'
-            k.update(k.getperson(self.input()), yes, no)
+            self.say('Ik geef het op. Wie had jij?')
+            self.say(k.update(k.getperson(self.input()), yes, no))
 
         stop = False
         while not stop:
-            print 'Neem maar iemand in gedachten.'        
+            self.say('Neem maar iemand in gedachten.'        )
             yes, no = [], []
             my_turn = True
             winner = None
             it = choice(k.people)
             while winner is None:
                 if my_turn:
-                    print 'Ik ben.'
+                    self.say('Ik ben.')
                     m = list(k.match(yes, no))
                     if len(m) is 1:
                         if guess(k.people[m[0]]):
-                            print 'Joepie!'
+                            self.say('Joepie!')
                             winner = 0
                         else:
-                            print 'Helaas.'
+                            self.say('Helaas.')
                             give_up()
                             winner = 1
                     elif not m:
@@ -109,28 +107,28 @@ class WieIsHet(Game):
                         else:
                             no.append(q)
                 else:
-                    print 'Jij bent.'
+                    self.say('Jij bent.')
                     v, s, o = question_input(self.input())
                     if v is 'is' and s is 'het':
                         if o.lower() is it.lower():
                             winner = 1
-                            print 'Ja! Jij wint!'
+                            self.say('Ja! Jij wint!')
                         else:
                             # misschien extra feiten toevoegen?
-                            print 'Nee, helaas, blijf raden.'
+                            self.say('Nee, helaas, blijf raden.')
                     else:
                         f, p = k.getfact(v,o), k.getperson(it)
                         if p in k.knowledge[f]:
-                            print 'Ja' if k.knowledge[f][p] else 'Nee'
+                            self.say('Ja' if k.knowledge[f][p] else 'Nee')
                         else:
-                            print 'Weet ik niet! Ik had %s.' % it.capitalize()
-                            print '%s %s %s?' % (v.capitalize(), it.capitalize(), o)
+                            self.say('Weet ik niet! Ik had %s.' % it.capitalize())
+                            self.say('%s %s %s?' % (v.capitalize(), it.capitalize(), o))
                             k.knowledge[f][p] = (self.input().lower() == 'ja')
-                            print 'En wie had jij?'
-                            k.update(k.getperson(self.input()), yes, no)
+                            self.say('En wie had jij?')
+                            self.say(k.update(k.getperson(self.input()), yes, no))
                             winner = 1
                 my_turn = not my_turn
-            print 'Nog een potje?'
+            self.say('Nog een potje?')
             stop = (self.input().lower() == 'nee')
 
 
