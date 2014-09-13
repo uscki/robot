@@ -10,6 +10,8 @@ import requests
 import StringIO
 from PIL import Image
 
+from bot import Bot
+
 # logging.basicConfig(level=logging.DEBUG)
 
 
@@ -39,29 +41,11 @@ class ChatClient(sleekxmpp.ClientXMPP):
         self.disconnect(wait=True)
 
 def sewersend(foo):
-    def shellquote(s):
-        return s.replace("'", "'\\''")
     logurl = 'https://robot.uscki.nl/log/log.php'
-    # replace this by requests.post
-    subprocess.call(["curl","-F",shellquote("foo=%s" % str(foo)),logurl])
+    requests.post(logurl, post={'foo': str(foo) }, allow_redirects=True, verify=False)
 
 class ChatEvent(): pass
 class ImageEvent(): pass
-
-class Bot():
-    def run(self):
-        print 'started %s' % self.__class__.__name__
-        self.running = True
-        while self.running:
-            try:
-                self.loop()
-            except threading.ThreadError:
-                self.running = False
-                self.kill()
-                print 'killed %s' % self.__class__.__name__
-
-    def kill(self):
-        self.running = False
 
 class EchoBot(Bot):
     def loop(self):
