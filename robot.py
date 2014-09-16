@@ -129,6 +129,10 @@ EventBus.add(ImageUploader())
 EventBus.add(SSHBot())
 EventBus.add(TurnBot())
 
+# Games
+EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
+EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
+
 raw_input('Press enter to disconnect')
 EventBus.kill()
 
