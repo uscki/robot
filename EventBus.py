@@ -5,6 +5,7 @@ clients = {}
 
 # Events are just names, dude
 class ChatEvent(): pass
+class ImageEvent(): pass
 
 def add(bot):
     t = threading.Thread(target=bot.run)

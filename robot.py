@@ -1,10 +1,10 @@
 import sleekxmpp
-import cv2
-import time
+from CameraClient import CameraClient
 import logging
 import subprocess
 import re
 import EventBus
+from EventBus import ChatEvent, ImageEvent
 import threading
 import requests
 import StringIO
@@ -43,9 +43,6 @@ class ChatClient(sleekxmpp.ClientXMPP):
 def sewersend(foo):
     logurl = 'https://robot.uscki.nl/log/log.php'
     requests.post(logurl, post={'foo': str(foo) }, allow_redirects=True, verify=False)
-
-class ChatEvent(): pass
-class ImageEvent(): pass
 
 class EchoBot(Bot):
     def loop(self):
@@ -92,22 +89,6 @@ class Servo():
 
     def end(self):
         self.blaster.close()
-
-
-
-class CameraClient(Bot):
-    def __init__(self):
-        self.webcam = cv2.VideoCapture(0)
-        self.webcam.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 320)
-        self.webcam.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 240)
-
-    def loop(self):
-        val, image = self.webcam.read()
-        if self.running:
-            ev = ImageEvent()
-            ev.image = image
-            EventBus.trigger(ev)
-            time.sleep(2)
 
 class ImageUploader(Bot):
     def loop(self):

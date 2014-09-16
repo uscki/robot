@@ -1,9 +1,9 @@
-from random import random
+import random
 from game import Game
 
 class HogerLager(Game):
     def play(self):
-        num = int(random()*100)
+        num = random.randint(1,100)
         self.say('Raad maar mijn getal')
         guessed = False
         while not guessed:
