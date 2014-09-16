@@ -1,4 +1,5 @@
 from game import Game
+import copy
 
 """ Prolog built-ins """
 
@@ -12,55 +13,47 @@ def compound(term):
     return '(' in term
 
 def atom(term):
-    return not compound(term)
+    return not compound(term) and not var(term)
 
 def univ(term):
     if atom(term):
         return [term]
     i = term.find('(')
-    functor, args = term[:i], term[i+1:-2]
+    functor, args = term[:i], term[i+1:-1]
     return [functor] + args.split(',')
 
+def unification_All(args1, args2):
+
+    # TODO
+    return unification(args1[0], args2[0], {})
 
 # TODO: check conflicts in aliases, do occurence checks!
 def unification(term1, term2, aliases):
 
-    if len(term2) == 1:
+    # Two identical atoms
 
-        term2 = term2[0]
+    if atom(term1) and atom(term2) and term1 == term2:  
+        return True, aliases
 
-    if len(term1) == 1:
-
-        term1 = term1[0]
-
-        # Two identical atoms
-
-        if atom(term1) and atom(term2) and term1 == term2:  
-            return True, aliases
-
-        # Uninstantiated Var can be unified with atom, term or other uninstantiated var
-        elif var(term1):
-            if not term1 in aliases:
-                if isinstance(term2, list) or atom(term2) or (var(term2) and not term2 in aliases):
-                    aliases[term1] = term2
-                    return True, aliases
-
-    elif len(term2) == 1:
-
-        if var(term2): 
-            if not term2 in aliases:
-                aliases[term2] = term1
+    # Uninstantiated Var can be unified with atom, term or other uninstantiated var
+    elif var(term1):
+        if not term1 in aliases:
+            if compound(term2) or atom(term2) or (var(term2) and not term2 in aliases):
+                aliases[term1] = term2
                 return True, aliases
+
+    elif var(term2): 
+        if not term2 in aliases:
+            aliases[term2] = term1
+            return True, aliases
 
     # Recursive: term with term if functor and arity are identical, and args can be unified
 
     else:
-        #decomp1 = univ(term1)
-        #functor1, args1 = decomp1[0], decomp1[1:]
-        #decomp2 = univ(term2)
-        #functor2, args2 = decomp2[0], decomp2[1:]
-        functor1, args1 = term1[0], term1[1:]
-        functor2, args2 = term2[0], term2[1:]
+        decomp1 = univ(term1)
+        functor1, args1 = decomp1[0], decomp1[1:]
+        decomp2 = univ(term2)
+        functor2, args2 = decomp2[0], decomp2[1:]
         if functor1 == functor2 and len(args1) == len(args2):
             for i in range(0, len(args)):
                 boolean, al = unification(args1[i], args2[i], aliases)
@@ -77,7 +70,7 @@ class Prolog(Game):
 
     def play(self):
 
-        self.memory = {('man',1) : [['sjoerd'], ['benno']]}
+        self.memory = {('p',1) : [(['a'],[]), (['X'],['q(X)','r(X)']), (['X'],['u(X)'])], ('u',1):[(['d'],[])]}
         #self.builtin = [('var', 1), ('nonvar', 1), ('compound', 1), ('atom', 1), ('univ', 1)]
 
         done = False
@@ -99,51 +92,88 @@ class Prolog(Game):
 
             # TODO: Check validity!
             if inp.startswith("assert("):
-                decomp = univ(inp[7:-1])
-                functor, args = decomp[0], decomp[1:]
-                if (functor, len(args)) in self.memory:
-                    self.memory[(functor, len(args))] = self.memory[(functor, len(args))] + [args]
+                inp = inp[7:-2]
+                if ":-" in inp:
+                    [head, body] = inp.split(":-")
+                    decomp1 = univ(head)
+                    functor, args = decomp1[0], decomp1[1:]
+                    rules = body.split(',')
+                    if (functor, len(args)) in self.memory:
+                        self.memory[(functor, len(args))] = self.memory[(functor, len(args))] + [(args,rules)]
+                    else:
+                        self.memory[(functor, len(args))] = [(args, rules)]
                 else:
-                    self.memory[(functor, len(args))] = [args]
+                    decomp = univ(inp)
+                    functor, args = decomp[0], decomp[1:]
+                    if (functor, len(args)) in self.memory:
+                        self.memory[(functor, len(args))] = self.memory[(functor, len(args))] + [(args,[])]
+                    else:
+                        self.memory[(functor, len(args))] = [(args,[])]
+                continue
+
+            if inp.startswith("listing("):
+                inp = inp[8:-2]
+                functor, arity = inp.split('/')
+                if (functor, int(arity)) in self.memory:
+                    for head, rule in self.memory[(functor, int(arity))]:
+                        print functor, '(', head[0],
+                        for c in head[1:]:
+                            print ',', c,
+                        if rule:
+                            print ') :- ',
+                            for r in rule:
+                                print r,
+                            print ''
+                        else:
+                            print ').'
+                continue
 
             # Handle input : functor ( comma-separated args )
             # TODO: arity/0
 
-            stack = [[inp]]
+            stack = [([inp[:-1]], {})]
 
             while stack:
 
-                aliases = {}
+                #print stack
+                terms, aliases = stack.pop()
+                #print terms, aliases
+                term = terms.pop()
 
-                current = stack.pop()
+                if compound(term):
 
-                for term in current:
+                    decomp = univ(term)
+                    functor, args = decomp[0], decomp[1:]
 
-                    if compound(term):
-
-                        decomp = univ(term)
-                        functor, args = decomp[0], decomp[1:]
-
-                        if not (functor, len(args)) in self.memory:
-                            break
-                        
-                        for memargs in self.memory[(functor, len(args))]:
-                            unifies, al = unification(args, memargs, {})
+                    if not (functor, len(args)) in self.memory:
+                        continue
+                    
+                    for memargs in self.memory[(functor, len(args))]:
+                        newterms = terms[:]
+                        newaliases = copy.deepcopy(aliases)
+                        # fact
+                        if not memargs[1]:
+                            unifies, al = unification_All(args, memargs[0])
                             if unifies:
-                                for k,v in al.items:
-                                    if k in aliases:
-                                        # clash
+                                for k,v in al.items():
+                                    if k in newaliases:
+                                        # TODO: clash
                                         break
                                     else:
-                                        aliases[k] = v
+                                        newaliases[k] = v
+                        # rule
+                        else:
+                            for rule in memargs[1]:
+                                newterms.append(rule)
+                            stack.append((newterms, newaliases))
 
-                    else:
-                        self.say('TODO')
+                        if not newterms:
+                            for k,v in newaliases.items():
+                                self.say(k + ' = ' + v)
+                            self.say('True.')
+                            # TODO: wait for ;
+                else:
+                    self.say('TODO')
 
-            if not stack:
-                for k,v in aliases.items():
-                    self.say(k + ' = ' + v)
-                self.say('True.')
-            else:
-                self.say('False.')
+            self.say('False.')
                         

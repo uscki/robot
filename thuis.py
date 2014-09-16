@@ -15,7 +15,7 @@ EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
 EventBus.add(GameStarter(Prolog, lambda m: (m == 'swipl') ))
 
-""" Camera Test """
+""" Camera Test """ """
 
 from bot import Bot
 
@@ -29,7 +29,7 @@ class ImageSaver(Bot):
 
 EventBus.add(ImageSaver())
 
-""" End Camera Test """
+""" """ End Camera Test """
 
 inp = ''
 while inp is not 'q':
