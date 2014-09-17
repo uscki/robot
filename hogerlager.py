@@ -7,11 +7,14 @@ class HogerLager(Game):
         self.say('Raad maar mijn getal')
         guessed = False
         while not guessed:
-            guess = int(self.input().split()[-1].split('?')[0])
-            if guess == num:
-                guessed = True
-            elif guess < num:
-                self.say('Hoger!')
-            elif guess > num:
-                self.say('Lager!')
+            try: 
+                guess = int(self.input().split()[-1].split('?')[0])
+                if guess == num:
+                    guessed = True
+                elif guess < num:
+                    self.say('Hoger!')
+                elif guess > num:
+                    self.say('Lager!')
+            except ValueError:
+                self.say('Ongeldige input!')
         self.say('Goed zo!')

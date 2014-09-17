@@ -3,6 +3,7 @@ from EventBus import ImageEvent
 from game import GameStarter
 from hogerlager import HogerLager
 from wieishet import WieIsHet
+from Prolog import Prolog
 from EventBus import ChatEvent
 from CameraClient import CameraClient
 from face import FaceDetector
@@ -15,6 +16,7 @@ def reply(b):
 
 EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
+EventBus.add(GameStarter(Prolog, lambda m: (m == 'swipl') ))
 
 EventBus.add(SmoBot())
 
