@@ -2,3 +2,4 @@ cv2
 pil
 sleekxmpp
 requests
+lxml

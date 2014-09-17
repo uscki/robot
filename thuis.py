@@ -5,6 +5,9 @@ from hogerlager import HogerLager
 from wieishet import WieIsHet
 from EventBus import ChatEvent
 from CameraClient import CameraClient
+from face import FaceDetector
+from SmoBot import SmoBot
+
 import cv2
 
 def reply(b):
@@ -12,6 +15,9 @@ def reply(b):
 
 EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
+
+EventBus.add(SmoBot())
+
 
 """ Camera Test """
 
@@ -26,6 +32,7 @@ class ImageSaver(Bot):
         cv2.imwrite("plaatje.jpeg", im)
 
 EventBus.add(ImageSaver())
+EventBus.add(FaceDetector())
 
 """ End Camera Test """
 
