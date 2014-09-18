@@ -24,8 +24,18 @@ def univ(term):
 
 def unification_All(args1, args2, aliases):
 
-    # TODO
-    return unification(args1[0], args2[0], aliases)
+    newaliases = copy.deepcopy(aliases)
+
+    for arg1, arg2 in zip(args1, args2):
+        unifies, al = unification(arg1, arg2, aliases)
+        if not unifies:
+            return False, aliases
+        for k,v in al.items():
+            if k in newaliases and not newaliases[k] == v:
+                return False, aliases
+            newaliases[k] = v
+
+    return True, newaliases
 
 # TODO: check conflicts in aliases, do occurence checks!
 def unification(term1, term2, aliases):
