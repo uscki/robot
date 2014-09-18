@@ -22,10 +22,10 @@ def univ(term):
     functor, args = term[:i], term[i+1:-1]
     return [functor] + args.split(',')
 
-def unification_All(args1, args2):
+def unification_All(args1, args2, aliases):
 
     # TODO
-    return unification(args1[0], args2[0], {})
+    return unification(args1[0], args2[0], aliases)
 
 # TODO: check conflicts in aliases, do occurence checks!
 def unification(term1, term2, aliases):
@@ -41,11 +41,16 @@ def unification(term1, term2, aliases):
             if compound(term2) or atom(term2) or (var(term2) and not term2 in aliases):
                 aliases[term1] = term2
                 return True, aliases
+        elif aliases[term1] == term2:
+            return True, aliases
 
     elif var(term2): 
         if not term2 in aliases:
             aliases[term2] = term1
             return True, aliases
+        elif aliases[term2] == term1:
+            return True, aliases
+
 
     # Recursive: term with term if functor and arity are identical, and args can be unified
 
@@ -70,7 +75,12 @@ class Prolog(Game):
 
     def play(self):
 
-        self.memory = {('p',1) : [(['a'],[]), (['X'],['q(X)','r(X)']), (['X'],['u(X)'])], ('u',1):[(['d'],[])]}
+        # https://www.csupomona.edu/~jrfisher/www/prolog_tutorial/3_1.html
+        self.memory = { ('p',1) : [(['a'],[]), (['X'],['q(X)','r(X)']), (['X'],['u(X)'])], 
+                        ('q',1) : [(['X'],['s(X)'])],
+                        ('r',1) : [(['a'],[]), (['b'],[])],
+                        ('s',1) : [(['a'],[]), (['b'],[]), (['c'],[])],
+                        ('u',1):[(['d'],[])]}
         #self.builtin = [('var', 1), ('nonvar', 1), ('compound', 1), ('atom', 1), ('univ', 1)]
 
         done = False
@@ -96,6 +106,7 @@ class Prolog(Game):
                 if ":-" in inp:
                     [head, body] = inp.split(":-")
                     decomp1 = univ(head)
+                    print decomp1
                     functor, args = decomp1[0], decomp1[1:]
                     rules = body.split(',')
                     if (functor, len(args)) in self.memory:
@@ -136,9 +147,18 @@ class Prolog(Game):
             while stack:
 
                 #print stack
-                terms, aliases = stack.pop()
+                terms, aliases = stack.pop(0)
                 #print terms, aliases
-                term = terms.pop()
+                if not terms:
+                    for k,v in aliases.items():
+                        self.say(k + ' = ' + v)
+                    self.say('True.')
+                    # TODO: wait for ;
+                    continue
+                term = terms.pop(0)
+                #print term
+
+                newstack = []
 
                 if compound(term):
 
@@ -153,25 +173,22 @@ class Prolog(Game):
                         newaliases = copy.deepcopy(aliases)
                         # fact
                         if not memargs[1]:
-                            unifies, al = unification_All(args, memargs[0])
+                            unifies, al = unification_All(args, memargs[0], newaliases)
+                            #print unifies, memargs[0], newaliases
                             if unifies:
                                 for k,v in al.items():
                                     if k in newaliases:
                                         # TODO: clash
-                                        break
+                                        continue
                                     else:
                                         newaliases[k] = v
+                            else:
+                                continue
                         # rule
                         else:
-                            for rule in memargs[1]:
-                                newterms.append(rule)
-                            stack.append((newterms, newaliases))
-
-                        if not newterms:
-                            for k,v in newaliases.items():
-                                self.say(k + ' = ' + v)
-                            self.say('True.')
-                            # TODO: wait for ;
+                            newterms = memargs[1] + newterms
+                        newstack.append((newterms, newaliases))
+                    stack = newstack + stack
                 else:
                     self.say('TODO')
 
