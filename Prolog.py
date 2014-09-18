@@ -28,11 +28,12 @@ def unification_All(args1, args2, aliases):
 
     for arg1, arg2 in zip(args1, args2):
         unifies, al = unification(arg1, arg2, aliases)
+        #print arg1, arg2, unifies, al
         if not unifies:
-            return False, aliases
+            return False, {}
         for k,v in al.items():
             if k in newaliases and not newaliases[k] == v:
-                return False, aliases
+                return False, {}
             newaliases[k] = v
 
     return True, newaliases
@@ -70,12 +71,17 @@ def unification(term1, term2, aliases):
         decomp2 = univ(term2)
         functor2, args2 = decomp2[0], decomp2[1:]
         if functor1 == functor2 and len(args1) == len(args2):
-            for i in range(0, len(args)):
+            for i in range(0, len(args1)):
                 boolean, al = unification(args1[i], args2[i], aliases)
+                #print 'recursive', args1[i], args2[i], boolean, al
                 if boolean:
-                    aliases = al
+                    for k,v in al.items():
+                        if k in aliases and not aliases[k] == v:
+                            return False, {}
+                        aliases[k] = v
                 else:
                     return False, {}
+            return True, aliases
 
     return False, {}
 
@@ -116,7 +122,6 @@ class Prolog(Game):
                 if ":-" in inp:
                     [head, body] = inp.split(":-")
                     decomp1 = univ(head)
-                    print decomp1
                     functor, args = decomp1[0], decomp1[1:]
                     rules = body.split(',')
                     if (functor, len(args)) in self.memory:
@@ -203,4 +208,7 @@ class Prolog(Game):
                     self.say('TODO')
 
             self.say('False.')
+
+            # Should print: X = _G182, Y = b, Z = _G182
+            print unification_All(['X','f(Y)','a'], ['Z', 'f(b)', 'a'], {})
                         
