@@ -71,17 +71,7 @@ def unification(term1, term2, aliases):
         decomp2 = univ(term2)
         functor2, args2 = decomp2[0], decomp2[1:]
         if functor1 == functor2 and len(args1) == len(args2):
-            for i in range(0, len(args1)):
-                boolean, al = unification(args1[i], args2[i], aliases)
-                #print 'recursive', args1[i], args2[i], boolean, al
-                if boolean:
-                    for k,v in al.items():
-                        if k in aliases and not aliases[k] == v:
-                            return False, {}
-                        aliases[k] = v
-                else:
-                    return False, {}
-            return True, aliases
+            return unification_All(args1, args2, aliases)
 
     return False, {}
 
@@ -175,6 +165,21 @@ class Prolog(Game):
 
                 newstack = []
 
+                if '=' in term:
+                    [termleft, termright] = term.split('=')
+                    #print termleft, termright
+                    unifies, al = unification_All([termleft], [termright], aliases)
+                    if unifies:
+                        newaliases = copy.deepcopy(aliases)
+                        for k,v in al.items():
+                            if k in newaliases:
+                                # TODO: clash
+                                continue
+                            else:
+                                newaliases[k] = v
+                        stack.insert(0, (terms, newaliases))
+                    continue
+
                 if compound(term):
 
                     decomp = univ(term)
@@ -186,22 +191,18 @@ class Prolog(Game):
                     for memargs in self.memory[(functor, len(args))]:
                         newterms = terms[:]
                         newaliases = copy.deepcopy(aliases)
-                        # fact
-                        if not memargs[1]:
-                            unifies, al = unification_All(args, memargs[0], newaliases)
-                            #print unifies, memargs[0], newaliases
-                            if unifies:
-                                for k,v in al.items():
-                                    if k in newaliases:
-                                        # TODO: clash
-                                        continue
-                                    else:
-                                        newaliases[k] = v
-                            else:
-                                continue
-                        # rule
+                        unifies, al = unification_All(args, memargs[0], newaliases)
+                        #print unifies, memargs[0], newaliases
+                        if unifies:
+                            for k,v in al.items():
+                                if k in newaliases:
+                                    # TODO: clash
+                                    continue
+                                else:
+                                    newaliases[k] = v
                         else:
-                            newterms = memargs[1] + newterms
+                            continue
+                        newterms = memargs[1] + newterms
                         newstack.append((newterms, newaliases))
                     stack = newstack + stack
                 else:
@@ -210,5 +211,5 @@ class Prolog(Game):
             self.say('False.')
 
             # Should print: X = _G182, Y = b, Z = _G182
-            print unification_All(['X','f(Y)','a'], ['Z', 'f(b)', 'a'], {})
+            #print unification_All(['X','f(Y)','a'], ['Z', 'f(b)', 'a'], {})
                         
