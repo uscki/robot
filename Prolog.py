@@ -43,7 +43,7 @@ def unification(term1, term2, aliases):
 
     # Two identical atoms
 
-    if atom(term1) and atom(term2) and term1 == term2:  
+    if term1 == term2:  
         return True, aliases
 
     # Uninstantiated Var can be unified with atom, term or other uninstantiated var
@@ -76,6 +76,8 @@ def unification(term1, term2, aliases):
     return False, {}
 
 """ End built-ins """
+
+# TODO: regels zijn stuk :(
 
 class Prolog(Game):
 
