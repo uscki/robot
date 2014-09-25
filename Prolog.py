@@ -15,6 +15,27 @@ def compound(term):
 def atom(term):
     return not compound(term) and not var(term)
 
+def parse_expression(expression, aliases):
+    # TODO: more operators, */, +- equality etc
+    # TODO: handle brackets given
+    for operator in ['*','/','+','-']:
+        if operator in expression:
+            left, op, right = expression.partition(operator)
+            leftparse = parse_expression(left, aliases)
+            rightparse = parse_expression(right, aliases)
+            if type(leftparse) == str and type(rightparse) == str:
+                if leftparse.isdigit() and rightparse.isdigit():
+                    return str(eval(leftparse + op + rightparse))
+            return leftparse, op, rightparse, 
+    if var(expression) and expression in aliases:
+        if aliases[expression].isdigit():
+            return aliases[expression]
+        else:
+            # can't do arithmetics with nondigits! 
+            # TODO: define proper error, handle floats (with .)
+            raise Exception
+    return expression
+
 def univ(term):
     if atom(term):
         return [term]
@@ -76,8 +97,6 @@ def unification(term1, term2, aliases):
     return False, {}
 
 """ End built-ins """
-
-# TODO: regels zijn stuk :(
 
 class Prolog(Game):
 
@@ -153,9 +172,9 @@ class Prolog(Game):
 
             while stack:
 
-                #print stack
+                print stack
                 terms, aliases = stack.pop(0)
-                #print terms, aliases
+                print terms, aliases
                 if not terms:
                     for k,v in aliases.items():
                         self.say(k + ' = ' + v)
@@ -163,7 +182,7 @@ class Prolog(Game):
                     # TODO: wait for ;
                     continue
                 term = terms.pop(0)
-                #print term
+                print term
 
                 newstack = []
 
@@ -180,9 +199,30 @@ class Prolog(Game):
                             else:
                                 newaliases[k] = v
                         stack.insert(0, (terms, newaliases))
-                    continue
 
-                if compound(term):
+                elif ' is ' in term:
+
+                    # TODOs:
+                    # 2 is 3 -> True ><
+                    
+
+                    # Assume: var is expression
+                    [var, expression] = term.split(' is ')
+                    expression = parse_expression(expression, aliases)
+                    #print expression
+                    if var in aliases:
+                        if aliases[var] == expression:
+                            stack = [(terms, aliases)] + stack
+                        else:
+                            # TODO: unification of arithmetic expressions
+                            unifies, al = unification(var, expression, aliases)
+                            if unifies:
+                                print "TODO"
+                    else:
+                        aliases[var] = expression
+                        stack = [(terms, aliases)] + stack
+
+                elif compound(term):
 
                     decomp = univ(term)
                     functor, args = decomp[0], decomp[1:]
