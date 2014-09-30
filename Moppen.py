@@ -13,7 +13,11 @@ class Moppen(Game):
             else:
                 self.say("Nee, vertel jij mij nu maar eens een mop!")
                 mop = self.input()
-                moppen.append(mop)               
+                if "nee" == mop:
+                    self.say("Oke, hier is je mop dan, zeurpiet\r\n"+random.choice(moppen))
+                else:
+                    self.say("Bedankt, hier is je mop!\r\n"+random.choice(moppen))
+                    moppen.append(mop)      
         else:
             moppen = []
             recall["moppen"] = moppen
