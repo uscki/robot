@@ -4,6 +4,7 @@ from game import GameStarter
 from hogerlager import HogerLager
 from wieishet import WieIsHet
 from Prolog import Prolog
+from Moppen import Moppen
 from EventBus import ChatEvent
 from CameraClient import CameraClient
 from face import FaceDetector
@@ -17,7 +18,7 @@ def reply(b):
 EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
 EventBus.add(GameStarter(Prolog, lambda m: (m == 'swipl') ))
-
+EventBus.add(GameStarter(Moppen, lambda m: ('mop' in m and 'vertel' in m) ))
 EventBus.add(SmoBot())
 
 
@@ -25,16 +26,16 @@ EventBus.add(SmoBot())
 
 from bot import Bot
 
-EventBus.add(CameraClient())
+#EventBus.add(CameraClient())
 
-class ImageSaver(Bot):
-    def loop(self):
-        imgevent = EventBus.await(ImageEvent)
-        im = imgevent.image
-        cv2.imwrite("plaatje.jpeg", im)
+#class ImageSaver(Bot):
+#    def loop(self):
+#        imgevent = EventBus.await(ImageEvent)
+#        im = imgevent.image
+#        cv2.imwrite("plaatje.jpeg", im)
 
-EventBus.add(ImageSaver())
-EventBus.add(FaceDetector())
+#EventBus.add(ImageSaver())
+#EventBus.add(FaceDetector())
 
 """ End Camera Test """
 
