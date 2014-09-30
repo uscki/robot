@@ -17,7 +17,7 @@ def reply(b):
 EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
 EventBus.add(GameStarter(Prolog, lambda m: (m == 'swipl') ))
-EventBus.add(GameStarter(Moppen, lambda m: ('mop' in m and 'vertel' in m))
+EventBus.add(GameStarter(Moppen, lambda m: ('mop' in m and 'vertel' in m) ))
 EventBus.add(SmoBot())
 
 
