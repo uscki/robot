@@ -1,4 +1,5 @@
 import pickle
+import atexit
 
 fname = "memory.p"
 
@@ -10,3 +11,6 @@ except:
 
 def remember():
     pickle.dump( recall, open( fname, "wb" ) )
+
+
+atexit.register(remember)
