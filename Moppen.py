@@ -1,13 +1,12 @@
 from game import Game
-from Memory import Memory
+from Memory import recall
 import random
 
-# laad shit if __name__ == '__main__':
 class Moppen(Game):
     def play(self):
-    	if Memory.hasMemory("moppen"):
+    	if "moppen" in recall:
     		# load moppen memory
-    		moppen = Memory.recall()
+    		moppen = recall["moppen"]
 
     		if random.random() > 0.8:
     			self.say(random.choice(moppen))
