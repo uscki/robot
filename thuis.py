@@ -4,6 +4,7 @@ from game import GameStarter
 from hogerlager import HogerLager
 from wieishet import WieIsHet
 from Prolog import Prolog
+from Moppen import Moppen
 from EventBus import ChatEvent
 from CameraClient import CameraClient
 from face import FaceDetector
