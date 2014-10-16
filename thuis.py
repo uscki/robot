@@ -8,6 +8,7 @@ from Prolog import Prolog
 from EventBus import ChatEvent
 from CameraClient import CameraClient
 from face import FaceDetector
+from Moppen import Moppen
 #from SmoBot import SmoBot
 
 import cv2
@@ -18,6 +19,7 @@ def reply(b):
 EventBus.add(GameStarter(HogerLager, lambda m: (m == 'hogerlager') ))
 EventBus.add(GameStarter(WieIsHet, lambda m: (m == 'wie is het') ))
 EventBus.add(GameStarter(Prolog, lambda m: (m == 'swipl') ))
+EventBus.add(GameStarter(Moppen, lambda m: ('mop' in m and 'vertel' in m) ))
 EventBus.add(GameStarter(SnorBot, lambda m: (m == 'snor') ))
 
 #EventBus.add(SmoBot())
