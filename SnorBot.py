@@ -2,6 +2,7 @@ import EventBus
 import cv2
 from game import Game
 from face import FaceEvent
+import os.path
 
 class SnorBot(Game):
 
@@ -10,7 +11,7 @@ class SnorBot(Game):
         fe = EventBus.await(FaceEvent)
         img1, faces = fe.image, fe.faces
 
-        img2 = cv2.imread("snor.png", -1)
+        img2 = cv2.imread(os.path.join("resources","snor.png"), -1)
 
         for (x, y, w, h) in faces:
             x_offset = x + 0.25 * w
