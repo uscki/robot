@@ -4,7 +4,7 @@ from bot import Bot
 import cv2
 
 frontalface = cv2.CascadeClassifier("resources/haarcascade_frontalface_alt2.xml")     # frontal face pattern detection
-flags = (cv2.cv.CV_HAAR_DO_CANNY_PRUNING + cv2.cv.CV_HAAR_FIND_BIGGEST_OBJECT + cv2.cv.CV_HAAR_DO_ROUGH_SEARCH)
+flags = (cv2.cv.CV_HAAR_DO_CANNY_PRUNING + cv2.cv.CV_HAAR_DO_ROUGH_SEARCH)
 
 class FaceEvent(): pass
 
